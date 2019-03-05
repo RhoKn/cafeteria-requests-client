@@ -5,6 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  title = 'ITP-Proy-client';
+  public cafeName: String;
+  title = 'client';
+
+  constructor() {
+    this.cafeName = 'LA BIG CAFE';
+  }
 }

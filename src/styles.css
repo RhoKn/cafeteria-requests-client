@@ -1,1 +1,122 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Playfair+Display');
+
+body{
+    background-color: #D5DAE6 !important;
+}
+.card{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 1px 1px 2px 2px;
+}
+
+.card-header{
+    background: #364760 !important;
+    text-align: center !important;
+    color: #FFFFFF !important;
+}
+.blue-btn{
+    background: #15A4FA !important;
+    color: #FFFFFF !important;
+    font-family: 'Playfair Display',serif !important;
+    font-size: 14px !important;
+}
+.blue-font{
+    color: #15A4FA;
+}
+
+.fnt-disp-rg{
+    font-family: 'Playfair Display',serif;
+}
+.fnt-disp-16-rg{
+    font-family: 'Playfair Display',serif;
+    font-size: 16px;
+}
+.fnt-disp-48-rg{
+    font-family: 'Playfair Display',serif;
+    font-size: 48px;
+}
+.fnt-disp-14-rg{
+    font-family: 'Playfair Display',serif;
+    font-size: 14px;
+}
+.fnt-disp-12-rg{
+    font-family: 'Playfair Display',serif;
+    font-size: 12px;
+}
+
+.fnt-disp-bld{
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+}
+.fnt-disp-16-bld{
+    font-family: 'Playfair Display',serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+.fnt-disp-20-bld{
+    font-family: 'Playfair Display',serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+.fnt-disp-48-bld{
+    font-family: 'Playfair Display',serif;
+    font-size: 48px;
+    font-weight: bold;
+}
+.fnt-disp-14-bld{
+    font-family: 'Playfair Display',serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+.fnt-disp-12-bld{
+    font-family: 'Playfair Display',serif;
+    font-size: 12px;
+    font-weight: bold;
+}    
+
+.fnt-monts-rg{
+    font-family: 'Montserrat',serif;
+}
+
+.fnt-monts-20-rg{
+    font-family: 'Montserrat',serif;
+    font-size: 20px;
+}
+.fnt-monts-48-rg{
+    font-family: 'Montserrat',serif;
+    font-size: 48px;
+}
+.fnt-monts-14-rg{
+    font-family: 'Montserrat',serif;
+    font-size: 14px;
+}
+.fnt-monts-12-rg{
+    font-family: 'Montserrat',serif;
+    font-size: 12px;
+}
+
+.fnt-monts-bld{
+    font-family: 'Montserrat', serif;
+    font-weight: bold;
+}
+
+.fnt-monts-20-bld{
+    font-family: 'Montserrat', serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+.fnt-monts-48-bld{
+    font-family: 'Montserrat', serif;
+    font-size: 48px;
+    font-weight: bold;
+}
+.fnt-monts-14-bld{
+    font-family: 'Montserrat', serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+.fnt-monts-12-bld{
+    font-family: 'Montserrat', serif;
+    font-size: 12px;
+    font-weight: bold;
+}   

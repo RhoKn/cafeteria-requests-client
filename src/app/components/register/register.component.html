@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2 fnt-disp-20-bld">Registro de usuario</h4>
+                </header>
+                <article class="card-body">
+                    <form #registerForm="ngForm" (ngSubmit)="addProduct()"> 
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="fnt-monts-14-bld">Username</label>
+                                <input type="text" name="nickName" #nickName="ngModel" [(ngModel)]="user.nick_name" class="form-control" placeholder="ejemplo44">
+                            </div> 
+                            <div class="form-group col-md-6">
+                                <label>Tipo de usuario</label>
+                                <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="user.user_type">
+                                    <option> Elegir...</option>
+                                    <option>Admin</option>
+                                    <option>Finanza</option>
+                                    <option selected="">Chef</option>
+                                    <option>Compras</option>
+                                </select>
+                            </div> 
+                        </div>
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label class="fnt-monts-14-bld">Nombre(s) </label>
+                                <input type="text" name="firstName" class="form-control" #firstName="ngModel" [(ngModel)]="user.first_name" placeholder="Lyria Fernanda">
+                            </div> 
+                            <div class="col form-group">
+                                <label class="fnt-monts-14-bld">Apellido(s)</label>
+                                <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="user.last_name" placeholder="González ">
+                            </div> 
+                        </div> 
+                        <div class="form-group">
+                            <label class="fnt-monts-14-bld">Correo Electrónico</label>
+                            <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" placeholder="lyriagonzalez@example.com">
+                            <small class="form-text text-muted">Nunca compartiremos tu información con nadie.</small>
+                        </div> 
+                        
+                        <div class="form-group">
+                            <label class="fnt-monts-14-bld">Crea una contraseña</label>
+                            <input class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" type="password">
+                        </div> 
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Resgistrame </button>
+                        </div> 
+                        <small class="text-muted">Al hacer clic en el botón 'Registrame' aceptas nuestra política de privacidad <br>
+                             y términos de uso.</small>
+                    </form>
+                </article> 
+               
+            </div>
+        </div>
+
+    </div> 
+
+
+</div>
+
