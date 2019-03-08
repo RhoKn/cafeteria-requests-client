@@ -12,6 +12,9 @@ import { UnitComponent} from './components/unit/unit.component';
 import { UnitEditComponent } from './components/unit/edit-unit/editUnit.component';
 import { DRoomsComponent } from './components/dRooms/dRooms.component';
 import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
+import { RequestComponent } from './components/request/request.component';
+import { RequestEditComponent } from './components/request/edit/editRequest.component';
+
 
 //Token
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -32,6 +35,8 @@ const appRoutes: Routes = [
     {path:'units/update/:id',component:UnitEditComponent,canActivate:[AuthGuard]},
     {path:'dinningRooms',component:DRoomsComponent,canActivate:[AuthGuard]},
     {path:'dinningRooms/update/:id',component:DRoomEditComponent,canActivate:[AuthGuard]},
+    {path:'requests',component:RequestComponent,canActivate:[AuthGuard]},
+    {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}
 ];

@@ -220,4 +220,88 @@ deleteDRoom (id): Observable<any> {
   );
 }
 
+//Requests
+createRequest (request): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.post<any>(global.url + 'requests/create', JSON.stringify(request), {headers: headers}).pipe(
+    tap((newReq) => console.log(`added product w/ id=${newReq.id}`)),
+    catchError(this.handleError<any>('Error'))
+  );
+}
+
+getRequests(): Observable<any> {
+  return this.http.get<any>(global.url + 'requests/all').pipe(
+    map(this.extractData));
+}
+
+getRequest(id): Observable<any> {
+  return this.http.get(global.url + 'requests/view/' + id).pipe(
+    map(this.extractData));
+}
+
+updateRequest (id, request): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.put(global.url + 'requests/update/' + id, JSON.stringify(request), {headers: headers}).pipe(
+    tap(_ => console.log(`updated request id=${id}`)),
+    catchError(this.handleError<any>('updateRequest'))
+  );
+}
+
+deleteRequest (id): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.delete<any>(global.url + 'requests/delete/' + id, {headers: headers}).pipe(
+    tap(_ => console.log(`deleted request id=${id}`)),
+    catchError(this.handleError<any>('deleteRequest'))
+  );
+}
+
+
+//Products
+createProducts (products): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.post<any>(global.url + 'products/create', JSON.stringify(products), {headers: headers}).pipe(
+    tap((newProduct) => console.log(`added product w/ id=${newProduct.id}`)),
+    catchError(this.handleError<any>('Error'))
+  );
+}
+
+getProducts(): Observable<any> {
+  return this.http.get<any>(global.url + 'products/all').pipe(
+    map(this.extractData));
+}
+
+getProduct(id): Observable<any> {
+  return this.http.get(global.url + 'products/view/' + id).pipe(
+    map(this.extractData));
+}
+
+updateProduct (id, product): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.put(global.url + 'products/update/' + id, JSON.stringify(product), {headers: headers}).pipe(
+    tap(_ => console.log(`updated product id=${id}`)),
+    catchError(this.handleError<any>('updateProduct'))
+  );
+}
+
+deleteProduct (id): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.delete<any>(global.url + 'products/delete/' + id, {headers: headers}).pipe(
+    tap(_ => console.log(`deleted product id=${id}`)),
+    catchError(this.handleError<any>('deleteProduct'))
+  );
+}
+
+
 }
