@@ -10,7 +10,10 @@ import { UserEditComponent } from './components/users/edit/editUser.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ProvidersComponent} from './components/providers/providers.component';
 import { routing, appRoutingProviders } from './app.routing';
+import { EditProviderComponent } from './components/providers/edit-provider/edit-provider.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import { routing, appRoutingProviders } from './app.routing';
     LoginComponent,
     RegisterComponent,
     NotFoundComponent,
-    UserEditComponent
+    UserEditComponent,
+    ProvidersComponent,
+    EditProviderComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,6 @@ import { User } from '../../models/user';
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.css']
 })
-
 export class UserComponent implements OnInit {
     public title: String;
     public users: any = [];
