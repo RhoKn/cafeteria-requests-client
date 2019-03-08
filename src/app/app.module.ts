@@ -18,6 +18,8 @@ import { UnitComponent } from './components/unit/unit.component';
 import { UnitEditComponent } from './components/unit/edit-unit/editUnit.component';
 import { DRoomsComponent } from './components/dRooms/dRooms.component';
 import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
+import { RequestComponent } from './components/request/request.component';
+import { RequestEditComponent } from './components/request/edit/editRequest.component';
 
 
 //Token
@@ -39,7 +41,9 @@ import {RestService} from './rest.service';
     UnitComponent,
     UnitEditComponent,
     DRoomsComponent,
-    DRoomEditComponent
+    DRoomEditComponent,
+    RequestComponent,
+    RequestEditComponent
   ],
   imports: [
     BrowserModule,
