@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { global } from './services/global';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { global } from './services/global';
 export class RestService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router:Router
   ) {
   }
 
@@ -96,6 +98,31 @@ export class RestService {
       catchError(this.handleError<any>('deleteProduct'))
     );
   }
+
+//Login
+  loginUser(user){
+    console.log(user);
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.post<any>(global.url + 'users/login',JSON.stringify(user) ,{headers: headers}).pipe(
+      tap(_ => console.log(`login`)),
+      catchError(this.handleError<any>('deleteProduct'))
+    );
+  }
+
+  loggedIn(){
+    return localStorage.getItem('token');
+  }
+  getToken(){
+    return localStorage.getItem('token');
+  }
+
+  logoutUser(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
 
   private extractData(res: Response) {
     const body = res;

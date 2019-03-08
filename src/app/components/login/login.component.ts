@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import {Router,ActivatedRoute} from '@angular/router';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import { RestService } from '../../rest.service';
+
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -8,12 +14,33 @@ import { Component, OnInit } from '@angular/core';
 
 export class LoginComponent implements OnInit {
     public tittle: String;
-
-    constructor() {
+      loginUserData={}
+    constructor(private rest:RestService,private router:Router) {
         this.tittle = 'Inicio de sesión';
     }
 
     ngOnInit() {
         console.log('Componente de inicio de sesión');
+        if(this.rest.loggedIn()){
+          this.router.navigate(['/users']);
+          return true;
+        }else{
+          this.router.navigate(['/login']);
+          return false;
+        }
     }
+
+    loginUser(){
+      console.log(this.loginUserData);
+      this.rest.loginUser(this.loginUserData)
+      .subscribe(
+        res=>{
+          localStorage.setItem('token',res.token);
+          this.router.navigate([`/users`]);
+        },
+        err=>console.log(err)
+      );
+    }
+
+
 }
