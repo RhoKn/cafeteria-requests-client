@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { global } from './services/global';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,12 @@ import { global } from './services/global';
 export class RestService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router:Router
   ) {
   }
+
+  //Users
   createUser (user): Observable<any> {
     console.log(user);
     const headers = new HttpHeaders({
@@ -23,7 +27,6 @@ export class RestService {
       catchError(this.handleError<any>('addProduct'))
     );
   }
-
   getUsers(): Observable<any> {
     return this.http.get<any>(global.url + 'users/all').pipe(
       map(this.extractData));
@@ -53,6 +56,73 @@ export class RestService {
       catchError(this.handleError<any>('deleteProduct'))
     );
   }
+
+  //Providers
+  createProvider (user): Observable<any> {
+    console.log(user);
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.post<any>(global.url + 'providers/create', JSON.stringify(user), {headers: headers}).pipe(
+      tap((newUser) => console.log(`added product w/ id=${newUser.id}`)),
+      catchError(this.handleError<any>('Error'))
+    );
+  }
+
+  getProviders(): Observable<any> {
+    return this.http.get<any>(global.url + 'providers/all').pipe(
+      map(this.extractData));
+  }
+
+  getProvider(id): Observable<any> {
+    return this.http.get(global.url + 'providers/view/' + id).pipe(
+      map(this.extractData));
+  }
+
+  updateProvider (id, provider): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.put(global.url + 'providers/update/' + id, JSON.stringify(provider), {headers: headers}).pipe(
+      tap(_ => console.log(`updated provider id=${id}`)),
+      catchError(this.handleError<any>('updateProduct'))
+    );
+  }
+
+  deleteProvider (id): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.delete<any>(global.url + 'providers/delete/' + id, {headers: headers}).pipe(
+      tap(_ => console.log(`deleted product id=${id}`)),
+      catchError(this.handleError<any>('deleteProduct'))
+    );
+  }
+
+//Login
+  loginUser(user){
+    console.log(user);
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.post<any>(global.url + 'users/login',JSON.stringify(user) ,{headers: headers}).pipe(
+      tap(_ => console.log(`login`)),
+      catchError(this.handleError<any>('deleteProduct'))
+    );
+  }
+
+  loggedIn(){
+    return localStorage.getItem('token');
+  }
+  getToken(){
+    return localStorage.getItem('token');
+  }
+
+  logoutUser(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
 
   private extractData(res: Response) {
     const body = res;

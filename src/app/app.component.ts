@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {RestService} from './rest.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ export class AppComponent {
   public cafeName: String;
   title = 'client';
 
-  constructor() {
+  constructor(private rest:RestService) {
     this.cafeName = 'LA BIG CAFE';
   }
 }
