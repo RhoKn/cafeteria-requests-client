@@ -9,6 +9,7 @@ import { UserEditComponent } from './components/users/edit/editUser.component';
 import {ProvidersComponent} from './components/providers/providers.component';
 import {EditProviderComponent} from './components/providers/edit-provider/edit-provider.component';
 import { UnitComponent} from './components/unit/unit.component';
+ import { EditUnitComponent} from './components/unit/edit-unit/edit-unit.component';
 
 //Token
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     {path:'providers',component:ProvidersComponent,canActivate:[AuthGuard]},
     {path:'providers/update/:id',component:EditProviderComponent,canActivate:[AuthGuard]},
     {path:'units',component:UnitComponent,canActivate:[AuthGuard]},
+    {path:'units/update/:id',component:EditUnitComponent,canActivate:[AuthGuard]},
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}
 ];

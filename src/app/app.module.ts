@@ -15,13 +15,14 @@ import { ProvidersComponent} from './components/providers/providers.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { EditProviderComponent } from './components/providers/edit-provider/edit-provider.component';
 import { UnitComponent } from './components/unit/unit.component';
-
+import { EditUnitComponent } from './components/unit/edit-unit/edit-unit.component';
 
 //Token
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService} from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
 import {RestService} from './rest.service';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {RestService} from './rest.service';
     UserEditComponent,
     ProvidersComponent,
     EditProviderComponent,
-    UnitComponent
+    UnitComponent,
+    EditUnitComponent
   ],
   imports: [
     BrowserModule,
