@@ -18,7 +18,6 @@ export class RestService {
 
   //Users
   createUser (user): Observable<any> {
-    console.log(user);
     const headers = new HttpHeaders({
       'Content-Type':  'application/json'
     });
@@ -137,5 +136,47 @@ export class RestService {
     };
   }
 
+
+//Unit
+createUnit (unit): Observable<any> {
+  console.log(unit);
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.post<any>(global.url + 'units/create', JSON.stringify(unit), {headers: headers}).pipe(
+    tap((newUnit) => console.log(`added product w/ id=${newUnit.id}`)),
+    catchError(this.handleError<any>('Error'))
+  );
+}
+
+getUnits(): Observable<any> {
+  return this.http.get<any>(global.url + 'units/all').pipe(
+    map(this.extractData));
+}
+
+getUnit(id): Observable<any> {
+  return this.http.get(global.url + 'units/view/' + id).pipe(
+    map(this.extractData));
+}
+
+updateUnit (id, unit): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.put(global.url + 'units/update/' + id, JSON.stringify(unit), {headers: headers}).pipe(
+    tap(_ => console.log(`updated unit id=${id}`)),
+    catchError(this.handleError<any>('updateUnit'))
+  );
+}
+
+deleteUnit (id): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.delete<any>(global.url + 'units/delete/' + id, {headers: headers}).pipe(
+    tap(_ => console.log(`deleted unit id=${id}`)),
+    catchError(this.handleError<any>('deleteUnit'))
+  );
+}
 
 }
