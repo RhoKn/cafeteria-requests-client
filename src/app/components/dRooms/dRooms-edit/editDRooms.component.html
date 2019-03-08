@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                  <div class=" col-md-12 mb-3">
+                      <p>Actualizar comedor</p>
+                      <form class="needs-validation" novalidate>
+                          <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                              <label for="validationCustom01">Comedor</label>
+                              <input type="text" class="form-control" name="dinning" class="form-control" #dinning="ngModel" [(ngModel)]="dRoom.dRoom" id="validationCustom01" placeholder="Reja"  required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <label for="validationCustom01">Descripcion</label>
+                              <input type="text" class="form-control" name="descr" class="form-control" #descr="ngModel" [(ngModel)]="dRoom.description" id="validationCustom01" placeholder="Reja"  required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                              <label for="validationCustom05">Encargado</label>
+                              <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="dRoom.user" required>
+                                  <option selected> {{dRoom.user}}</option>
+                                  <option *ngFor="let u of users">{{u._id}}</option>
+                              </select>
+                            </div>
+                            
+                          </div>
+                          <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateDRoom()">Actualizar</button>
+                        </form>
+                  </div>
+            
+        </div>   
+    </div>
+</div>
+</div>
+</div>
