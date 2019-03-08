@@ -179,4 +179,45 @@ deleteUnit (id): Observable<any> {
   );
 }
 
+//DRooms
+createDRoom (dRoom): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.post<any>(global.url + 'dinningRooms/create', JSON.stringify(dRoom), {headers: headers}).pipe(
+    tap((newDRoom) => console.log(`added product w/ id=${newDRoom.id}`)),
+    catchError(this.handleError<any>('Error'))
+  );
+}
+
+getDRooms(): Observable<any> {
+  return this.http.get<any>(global.url + 'dinningRooms/all').pipe(
+    map(this.extractData));
+}
+
+getDRoom(id): Observable<any> {
+  return this.http.get(global.url + 'dinningRooms/view/' + id).pipe(
+    map(this.extractData));
+}
+
+updateDRoom (id, dRoom): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.put(global.url + 'dinningRooms/update/' + id, JSON.stringify(dRoom), {headers: headers}).pipe(
+    tap(_ => console.log(`updated dinning room id=${id}`)),
+    catchError(this.handleError<any>('updateDRoom'))
+  );
+}
+
+deleteDRoom (id): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.delete<any>(global.url + 'dinningRooms/delete/' + id, {headers: headers}).pipe(
+    tap(_ => console.log(`deleted dinning room id=${id}`)),
+    catchError(this.handleError<any>('deleteDRoom'))
+  );
+}
+
 }

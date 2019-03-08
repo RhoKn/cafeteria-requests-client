@@ -16,6 +16,8 @@ import { routing, appRoutingProviders } from './app.routing';
 import { EditProviderComponent } from './components/providers/edit-provider/edit-provider.component';
 import { UnitComponent } from './components/unit/unit.component';
 import { UnitEditComponent } from './components/unit/edit-unit/editUnit.component';
+import { DRoomsComponent } from './components/dRooms/dRooms.component';
+import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
 
 
 //Token
@@ -35,7 +37,9 @@ import {RestService} from './rest.service';
     ProvidersComponent,
     EditProviderComponent,
     UnitComponent,
-    UnitEditComponent
+    UnitEditComponent,
+    DRoomsComponent,
+    DRoomEditComponent
   ],
   imports: [
     BrowserModule,

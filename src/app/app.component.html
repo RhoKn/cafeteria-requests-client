@@ -8,6 +8,9 @@
           <a class="nav-link " *ngIf="rest.loggedIn()" [routerLinkActive]="['active']" [routerLink]="['/providers']">Proveedores<i class="fa fa-users"></i></a>
       </li>
       <li class="nav-item ">
+        <a class="nav-link " *ngIf="rest.loggedIn()" [routerLinkActive]="['active']" [routerLink]="['/dinningRooms']">Comedores<i class="fa fa-users"></i></a>
+    </li>
+      <li class="nav-item ">
           <a class="nav-link " *ngIf="rest.loggedIn()" [routerLinkActive]="['active']" [routerLink]="['/units']">Unidades<i class="fa fa-users"></i></a>
       </li>
       <li class="nav-item ">
