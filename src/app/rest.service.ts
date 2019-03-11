@@ -238,6 +238,9 @@ deleteDRoom (id): Observable<any> {
 
 //Requests
 createRequest (request): Observable<any> {
+  console.log('******');
+  console.log(request);
+  console.log('******');
   const headers = new HttpHeaders({
     'Content-Type':  'application/json'
   });

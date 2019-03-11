@@ -12,10 +12,11 @@ export class UnitComponent implements OnInit {
   public title: String;
   public units: any = [];
   public unit: Unit;
+  public value: Number;
 
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
       this.title = 'Usuarios';
-      this.unit = new Unit( '');
+      this.unit = new Unit( '', this.value);
   }
 
   ngOnInit() {
@@ -40,7 +41,6 @@ export class UnitComponent implements OnInit {
       this.rest.getUnits().subscribe((data: {}) => {
           this.units = data;
           this.units = this.units.units;
-          console.log(this.units)
       });
     }
   deleteUnits(id) {

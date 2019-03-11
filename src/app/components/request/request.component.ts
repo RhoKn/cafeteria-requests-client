@@ -31,7 +31,7 @@ export class RequestComponent implements OnInit {
         this.rest.getRequests().subscribe((data: {}) => {
             this.requests = data;
             this.requests = this.requests.requests;
-            console.log(this.requests);
+            
         });
       }
 
@@ -54,6 +54,11 @@ export class RequestComponent implements OnInit {
         });
     }
 
+    addProduct(name,unit){
+
+        this.selected.push({name:name,unit:unit});
+    }
+
     deleteRequest(id) {
         this.rest.deleteRequest(id)
           .subscribe(res => {
@@ -65,7 +70,9 @@ export class RequestComponent implements OnInit {
     }
 
     createRequest() {
-        this.rest.createUser(this.request).subscribe((result) => {
+        this.request.products = this.selected;
+        console.log(this.request);
+        this.rest.createRequest(this.request).subscribe((result) => {
             this.getRequests();
           }, (err) => {
             console.log(err);

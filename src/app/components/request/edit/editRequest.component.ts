@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../../models/user';
-
 
 @Component({
   selector: 'app-user-edit',
@@ -11,23 +9,60 @@ import { User } from '../../../models/user';
 })
 export class RequestEditComponent implements OnInit {
 
-  @Input() user: any = { };
+  @Input() req: any = Request;
+  public products: any = [];
+    public dRooms: any = [];
+    public selected: any = [{}];
+
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.rest.getUser(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.user = data;
-      this.user = this.user.user;
-      console.log(this.user);
+    this.rest.getRequest(this.route.snapshot.params['id']).subscribe((data: {}) => {
+      this.req = data;
+      this.req = this.req.request;
+      this.selected = this.req.products;
+      console.log('********')
+      console.log(this.req)
     });
+    this.getProducts();
+    this.getDRooms();
+
   }
 
-  updateUser() {
-    this.rest.updateUser(this.route.snapshot.params['id'], this.user).subscribe((result) => {
-      this.router.navigate(['/users']);
+  getProducts() {
+    this.products = [];
+    this.rest.getProducts().subscribe((data: {}) => {
+        this.products = data;
+        this.products = this.products.products;
+        console.log(this.products)
+    });
+  }
+  addProduct(name,unit){
+
+    this.selected.push({name:name,unit:unit});
+}
+getDRooms() {
+  this.dRooms = [];
+  this.rest.getDRooms().subscribe((data: {}) => {
+      this.dRooms = data;
+      this.dRooms = this.dRooms.dRooms;
+      
+      
+  });
+}
+deleteItem(item){
+  this.selected.splice(item,1);
+}
+
+  updateRequest() {
+    this.req.products = this.selected;
+    this.rest.updateRequest(this.route.snapshot.params['id'], this.req).subscribe((result) => {
+      this.router.navigate(['/requests']);
     }, (err) => {
       console.log(err);
     });
   }
 
+
 }
+

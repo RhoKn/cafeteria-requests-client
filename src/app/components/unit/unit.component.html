@@ -14,6 +14,10 @@
                                 <label for="validationCustom01">Unidad de Medida</label>
                                 <input type="text" class="form-control" name="name" class="form-control" #name="ngModel" [(ngModel)]="unit.name" id="validationCustom01" placeholder="Caja"  required>
                               </div>
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom01">Peso en Kilogramos</label>
+                                <input type="text" class="form-control" name="val" class="form-control" #val="ngModel" [(ngModel)]="unit.weigh" id="validationCustom01" placeholder="32"  required>
+                              </div>
                             </div>
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="createUnits()">Agregar</button>
                           </form>
@@ -34,6 +38,8 @@
                             <thead>
                                 <tr >
                                 <th><span>Unidades de medida</span></th>
+                                <th><span>Peso</span></th>
+                                <th><span>Opciones</span></th>
                                 </tr >
                             </thead>
                             <tbody>
@@ -42,7 +48,14 @@
                                         <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
                                         <a href="#" class="user-link">{{u.name}}</a>
                                     </td>
+                                    <td>
+                                        <p>{{u.weigh}} Kgs.</p>
+                                    </td>
+
                                     <td style="width: 20%;"  *ngIf="rest.loggedIn() && rest.getRole()=='Admin' || rest.getRole()=='Gerente'">
+
+
+
                                         <a routerLink="/units/update//{{u._id}}" class="table-link">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
