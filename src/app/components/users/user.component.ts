@@ -18,15 +18,27 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
+      if(this.getRole()){
         this.getUsers();
+      }else{
+        this.router.navigate(['/requests']);
+      }
     }
+
+    getRole(){
+      if(this.rest.getRole()=='Admin'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
 
     getUsers() {
         this.users = [];
         this.rest.getUsers().subscribe((data: {}) => {
             this.users = data;
             this.users = this.users.users;
-            console.log(this.users);
         });
       }
     deleteUser(id) {
@@ -40,10 +52,14 @@ export class UserComponent implements OnInit {
     }
 
     createUser() {
-        this.rest.createUser(this.user).subscribe((result) => {
+        this.rest.createObject(this.user,'users/register').subscribe((result) => {
+          console.log("as");
             this.getUsers();
           }, (err) => {
             console.log(err);
           });
     }
+
+
+
 }

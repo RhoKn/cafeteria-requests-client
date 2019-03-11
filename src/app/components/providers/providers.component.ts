@@ -17,7 +17,19 @@ export class ProvidersComponent implements OnInit {
       this.provider = new Provider('','','',0,'','',0,'',0,'','');
   }
   ngOnInit() {
-    this.getProviders();
+    if(this.getRole()){
+      this.getProviders();
+    }else{
+      this.router.navigate(['/requests']);
+    }
+  }
+
+  getRole(){
+    if(this.rest.getRole()=='Admin'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   getProviders() {
@@ -30,7 +42,7 @@ export class ProvidersComponent implements OnInit {
 
   createProvider() {
     this.provider.name=`${this.provider.contact_first_name} ${this.provider.contact_last_name}`;
-      this.rest.createProvider(this.provider).subscribe((result) => {
+      this.rest.createObject(this.provider,'providers/create').subscribe((result) => {
           this.getProviders();
         }, (err) => {
           console.log(err);
