@@ -12,7 +12,10 @@
                                 <label for="validationCustom01">Unidad de medida</label>
                                 <input type="text" class="form-control" name="name" class="form-control" #name="ngModel" [(ngModel)]="unit.name" id="validationCustom01" placeholder="Reja"  required>
                               </div>
-                              
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom01">Peso en Kilogramos</label>
+                                <input type="text" class="form-control" name="val" class="form-control" #val="ngModel" [(ngModel)]="unit.weigh" id="validationCustom01" placeholder="32"  required>
+                              </div>
                             </div>
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateUnit()">Actualizar</button>
                           </form>
