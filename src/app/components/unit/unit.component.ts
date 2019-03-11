@@ -20,8 +20,21 @@ export class UnitComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getTheUnits();
+    if(this.getRole()){
+        this.getTheUnits();
+    }else{
+      this.router.navigate(['/requests']);
+    }
   }
+
+  getRole(){
+    if(this.rest.getRole()!='Compras'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   getTheUnits() {
 
@@ -41,15 +54,11 @@ export class UnitComponent implements OnInit {
   }
 
   createUnits() {
-      this.rest.createUnit(this.unit).subscribe((result) => {
+    console.log(this.unit);
+      this.rest.createObject(this.unit,'units/create').subscribe((result) => {
           this.getTheUnits();
         }, (err) => {
           console.log(err);
         });
   }
 }
-
-
-
-
-

@@ -15,12 +15,25 @@ export class UnitEditComponent implements OnInit {
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.rest.getUnit(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.unit = data;
-      this.unit = this.unit.unit;
-      console.log(this.unit);
-    });
+    if(this.getRole()){
+      this.rest.getUnit(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.unit = data;
+        this.unit = this.unit.unit;
+        console.log(this.unit);
+      });
+    }else{
+      this.router.navigate(['/requests']);
+    }
   }
+
+  getRole(){
+    if(this.rest.getRole()=='Admin' || this.rest.getRole()=='Gerente'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   updateUnit() {
     this.rest.updateUnit(this.route.snapshot.params['id'], this.unit).subscribe((result) => {

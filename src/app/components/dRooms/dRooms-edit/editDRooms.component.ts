@@ -12,16 +12,29 @@ import { DRoom } from '../../../models/dRoom';
 export class DRoomEditComponent implements OnInit {
   public users: any = [];
   dRoom: any = { };
-  
+
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.getUsers();
-    this.rest.getDRoom(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.dRoom = data;
-      this.dRoom = this.dRoom.droom;
-      console.log(this.dRoom);
-    });
+
+    if(this.getRole()){
+      this.getUsers();
+      this.rest.getDRoom(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.dRoom = data;
+        this.dRoom = this.dRoom.droom;
+        console.log(this.dRoom);
+      });
+    }else{
+      this.router.navigate(['/requests']);
+    }
+  }
+
+  getRole(){
+    if(this.rest.getRole()=='Admin'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   getUsers() {
@@ -33,7 +46,7 @@ export class DRoomEditComponent implements OnInit {
 }
 
   updateDRoom() {
-    console.log(this.dRoom) 
+    console.log(this.dRoom)
     this.rest.updateDRoom(this.route.snapshot.params['id'], this.dRoom).subscribe((result) => {
       this.router.navigate(['/dinningRooms']);
     }, (err) => {

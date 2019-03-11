@@ -15,12 +15,25 @@ export class UserEditComponent implements OnInit {
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.rest.getUser(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.user = data;
-      this.user = this.user.user;
-      console.log(this.user);
-    });
+
+    if(this.getRole()){
+      this.rest.getUser(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.user = data;
+        this.user = this.user.user;
+      });
+    }else{
+      this.router.navigate(['/requests']);
+    }
   }
+
+  getRole(){
+    if(this.rest.getRole()=='Admin'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   updateUser() {
     this.rest.updateUser(this.route.snapshot.params['id'], this.user).subscribe((result) => {

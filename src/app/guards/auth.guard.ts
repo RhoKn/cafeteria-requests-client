@@ -16,8 +16,16 @@ export class AuthGuard implements CanActivate{
       this.router.navigate(['/login']);
       return false;
     }
-
-
-
   }
+
+  Role():boolean{
+    if(this.rest.getRole()=='Admin'){
+      console.log("asdas");
+      return true;
+    }else{
+      this.router.navigate(['/requests'])
+      return false;
+    }
+  }
+
 }
