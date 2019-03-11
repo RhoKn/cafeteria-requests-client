@@ -31,16 +31,14 @@ export class LoginComponent implements OnInit {
     }
 
     loginUser(){
-      console.log(this.loginUserData);
       this.rest.loginUser(this.loginUserData)
       .subscribe(
         res=>{
           localStorage.setItem('token',res.token);
+          localStorage.setItem('role',res.role);
           this.router.navigate([`/users`]);
         },
         err=>console.log(err)
       );
     }
-
-
 }

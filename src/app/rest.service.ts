@@ -26,6 +26,19 @@ export class RestService {
       catchError(this.handleError<any>('addProduct'))
     );
   }
+
+  createObject(object,route):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.post<any>(global.url + route, JSON.stringify(object), {headers: headers}).pipe(
+      tap((newObject) => console.log(`added product w/ id=${newObject.id}`)),
+      catchError(this.handleError<any>('addProduct'))
+    );
+  }
+
+
+
   getUsers(): Observable<any> {
     return this.http.get<any>(global.url + 'users/all').pipe(
       map(this.extractData));
@@ -57,8 +70,7 @@ export class RestService {
   }
 
   //Providers
-  createProvider (user): Observable<any> {
-    console.log(user);
+createProvider (user): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type':  'application/json'
     });
@@ -100,13 +112,12 @@ export class RestService {
 
 //Login
   loginUser(user){
-    console.log(user);
     const headers = new HttpHeaders({
       'Content-Type':  'application/json'
     });
     return this.http.post<any>(global.url + 'users/login',JSON.stringify(user) ,{headers: headers}).pipe(
-      tap(_ => console.log(`login`)),
-      catchError(this.handleError<any>('deleteProduct'))
+      tap(_ => console.log(`Login exitoso`)),
+      catchError(this.handleError<any>('Error'))
     );
   }
 
@@ -117,8 +128,13 @@ export class RestService {
     return localStorage.getItem('token');
   }
 
+  getRole(){
+    return localStorage.getItem('role');
+  }
+
   logoutUser(){
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.router.navigate(['/login']);
   }
 

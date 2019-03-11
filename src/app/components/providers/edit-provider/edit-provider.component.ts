@@ -14,11 +14,26 @@ export class EditProviderComponent implements OnInit {
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.rest.getProvider(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.provider = data;
-      this.provider = this.provider.provider;
-      console.log(this.provider);
-    });
+
+    if(this.getRole()){
+      this.rest.getProvider(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.provider = data;
+        this.provider = this.provider.provider;
+        console.log(this.provider);
+      });
+    }else{
+      this.router.navigate(['/requests']);
+    }
+
+  }
+
+
+  getRole(){
+    if(this.rest.getRole()=='Admin'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   updateProvider() {
