@@ -22,6 +22,10 @@
                     class="fa fa-users"></i></a>
         </li>
         <li class="nav-item ">
+            <a class="nav-link " *ngIf="rest.loggedIn()" [routerLinkActive]="['active']" [routerLink]="['/productTypes']">Categorias de productos<i
+                    class="fa fa-users"></i></a>
+        </li>
+        <li class="nav-item ">
             <a class="nav-link" *ngIf="!rest.loggedIn()" [routerLinkActive]="['active']" [routerLink]="['/register']">Registro<i
                     class="fa fa-sign-out"></i></a>
         </li>

@@ -14,6 +14,8 @@ import { DRoomsComponent } from './components/dRooms/dRooms.component';
 import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
 import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
+import { PTypeComponent } from './components/productType/productType.component';
+import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 
 
 //Token
@@ -37,6 +39,8 @@ const appRoutes: Routes = [
     {path:'dinningRooms/update/:id',component:DRoomEditComponent,canActivate:[AuthGuard]},
     {path:'requests',component:RequestComponent,canActivate:[AuthGuard]},
     {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
+    {path:'productTypes',component:PTypeComponent,canActivate:[AuthGuard]},
+    {path:'productTypes/update/:id',component:PTypeEditComponent,canActivate:[AuthGuard]},
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}
 ];

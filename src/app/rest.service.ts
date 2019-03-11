@@ -306,5 +306,45 @@ deleteProduct (id): Observable<any> {
   );
 }
 
+//Product Types
+createProductTypes (pTypes): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.post<any>(global.url + 'productTypes/create', JSON.stringify(pTypes), {headers: headers}).pipe(
+    tap((pType) => console.log(`added product Type w/ id=${pType.id}`)),
+    catchError(this.handleError<any>('Error'))
+  );
+}
+
+getProductTypes(): Observable<any> {
+  return this.http.get<any>(global.url + 'productTypes/all').pipe(
+    map(this.extractData));
+}
+
+getProductType(id): Observable<any> {
+  return this.http.get(global.url + 'productTypes/view/' + id).pipe(
+    map(this.extractData));
+}
+
+updateProductType (id, pType): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.put(global.url + 'productTypes/update/' + id, JSON.stringify(pType), {headers: headers}).pipe(
+    tap(_ => console.log(`updated product id=${id}`)),
+    catchError(this.handleError<any>('updateProductType'))
+  );
+}
+
+deleteProductType (id): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.delete<any>(global.url + 'productTypes/delete/' + id, {headers: headers}).pipe(
+    tap(_ => console.log(`deleted product id=${id}`)),
+    catchError(this.handleError<any>('deleteProductType'))
+  );
+}
 
 }
