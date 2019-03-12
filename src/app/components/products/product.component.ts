@@ -13,6 +13,7 @@ export class ProductComponent implements OnInit {
     public products: any = [];
     public ptypes: any = [];
     public product: Product;
+    public providers: any = [];
     public x;
     public units: any = [];
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
@@ -24,6 +25,7 @@ export class ProductComponent implements OnInit {
         this.getProducts();
         this.getProductTypes();
         this.getTheUnits();
+        this.getProviders();
     }
 
     getTheUnits() {
@@ -66,4 +68,12 @@ export class ProductComponent implements OnInit {
             console.log(err);
           });
     }
+
+    getProviders() {
+        this.providers = [];
+        this.rest.getProviders().subscribe((data: {}) => {
+            this.providers = data;
+            this.providers = this.providers.providers;
+        });
+      }
 }
