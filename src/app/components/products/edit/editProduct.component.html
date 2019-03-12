@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 <div class="container bootstrap snippet">
@@ -6,50 +5,71 @@
         <div class="col-lg-12">
             <div class="main-box no-header clearfix">
                 <div class="main-box-body clearfix">
-                  <div class=" col-md-12 mb-3">
-                      <p>Titulo chido</p>
-                      <form class="needs-validation" novalidate>
-                          <div class="form-row">
-                              <div class="col-md-4 mb-3">
-                                  <label for="validationCustom01">Nombre(s)</label>
-                                  <input type="text" class="form-control" name="pName" class="form-control" #pName="ngModel" [(ngModel)]="product.name" id="validationCustom01" placeholder="Naranja"  required>
-                              </div>
-                              <div class="col-md-3 mb-3">
-                                  <label for="validationCustom05">Tipo de unidad</label>
-                                  <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
-                                      <option> Elegir...</option>
-                                      <option *ngFor="let u of units ">{{u._id}}</option>
-                                  </select>
+                    <div class=" col-md-12 mb-3">
+                        <p>Productos</p>
+                        <form class="needs-validation" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Nombre(s)</label>
+                                    <input type="text" class="form-control" name="pName" class="form-control" #pName="ngModel" [(ngModel)]="product.name" id="validationCustom01"
+                                        placeholder="Naranja" required>
                                 </div>
-                                <div class="col-md-3 mb-3">
-                                  <label for="validationCustom05">Categoria</label>
-                                  <select id="inputType" class="form-control" name="pCat" #pCat="ngModel" [(ngModel)]="product.category" required>
-                                      <option> Elegir...</option>
-                                      <option *ngFor="let ct of ptypes ">{{ct._id}}</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="form-row">
-                                <div class="col-md-5 mb-3">
-                                  <label for="validationCustom03">Descripción</label>
-                                  <input type="text" class="form-control" name="pDesc" #pDesc="ngModel" [(ngModel)]="product.description" id="validationCustom03" placeholder="Naranja traida de las granjas de XXXXX" required>
+
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom05">Categoria</label>
+                                    <select id="inputType" class="form-control" name="pCat" #pCat="ngModel" [(ngModel)]="product.category" required>
+                                        <!-- <option selected> {{product.category}}</option> -->
+                                        <option *ngFor="let ct of ptypes ">{{ct._id}}</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                  <label for="validationCustomUsername">Precio</label>
-                                  <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="inputGroupPrepend">$</span>
+                                    <label for="validationCustomUsername">Precio</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend">$</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="validationCustomUsername" name="pPrice" #pPrice="ngModel" [(ngModel)]="product.price"
+                                            placeholder="13.00" aria-describedby="inputGroupPrepend" required>
                                     </div>
-                                    <input type="text" class="form-control" id="validationCustomUsername" name="pPrice" #pPrice="ngModel" [(ngModel)]="product.price" placeholder="13.00" aria-describedby="inputGroupPrepend" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="validationCustom03">Descripción</label>
+                                    <input type="text" class="form-control" name="pDesc" #pDesc="ngModel" [(ngModel)]="product.description" id="validationCustom03"
+                                        placeholder="Naranja traida de las granjas de XXXXX" required>
+                                </div>
+                                
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Tipo de unidad</label>
+                                    <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
+                                        <option selected> {{product.unit}}</option>
+                                        <option *ngFor="let u of units ">{{u._id}}</option>
+                                    </select> -->
+                                    <div *ngFor="let u of units">
+                                      <input type="checkbox" name="" value="{{u.name}}" (click)="addUnit(u._id)" >{{u.name}}
+                                    </div>
                                   </div>
-                                </div>    
-                          </div>
-                          <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateProduct()">Editar</button>
-                        </form>
-                  </div>
 
+                                  <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Proveedores</label>
+                                    <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
+                                        <option selected> {{product.unit}}</option>
+                                        <option *ngFor="let u of units ">{{u._id}}</option>
+                                    </select> -->
+                                    <div *ngFor="let p of providers">
+                                      <input type="checkbox" name="" value="{{p._id}}" (click)="addProvider(p._id)">{{p._id}}
+                                    </div>
+                                  </div>
+                            </div>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateProduct()">Agregar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </div>

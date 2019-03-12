@@ -12,6 +12,10 @@ export class EditProductComponent implements OnInit {
   @Input() product: any = { };
   public units: any = [];
   public ptypes: any = [];
+
+  public providers: any = [];
+  public unitsToAdd: any = [];
+  public providersToAdd: any = [];
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -22,9 +26,15 @@ export class EditProductComponent implements OnInit {
     });
     this.getTheUnits();
     this.getProductTypes();
+    this.getProviders();
+    this.product.unit = this.unitsToAdd;
+    this.product.provider = this.providersToAdd;
   }
 
   updateProduct() {
+    
+    this.product.unit = this.unitsToAdd;
+    this.product.provider = this.providersToAdd;
     this.rest.updateProduct(this.route.snapshot.params['id'], this.product).subscribe((result) => {
       this.router.navigate(['/products']);
     }, (err) => {
@@ -45,6 +55,24 @@ export class EditProductComponent implements OnInit {
         this.ptypes = this.ptypes.types;
     });
   }
+
+  addProvider(provId){
+    this.providersToAdd.push(provId)
+    console.log(this.providersToAdd)
+    //this.product.providers.push(provId);
+}
+addUnit(unitId){
+    this.unitsToAdd.push(unitId)
+    console.log(this.unitsToAdd)
+    // 
+}
+getProviders() {
+  this.providers = [];
+  this.rest.getProviders().subscribe((data: {}) => {
+      this.providers = data;
+      this.providers = this.providers.providers;
+  });
+}
 
 
 }

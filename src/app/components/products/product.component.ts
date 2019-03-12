@@ -14,11 +14,13 @@ export class ProductComponent implements OnInit {
     public ptypes: any = [];
     public product: Product;
     public providers: any = [];
+    public unitsToAdd: any = [];
+    public providersToAdd: any = [];
     public x;
     public units: any = [];
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Usuarios';
-        this.product = new Product( '', '', '', 0, '');
+        this.product = new Product( '', [''], '', 0, '',['']);
     }
 
     ngOnInit() {
@@ -36,10 +38,14 @@ export class ProductComponent implements OnInit {
         });
     }
     addProvider(provId){
+        this.providersToAdd.push(provId)
+        console.log(this.providersToAdd)
         //this.product.providers.push(provId);
     }
     addUnit(unitId){
-        // this.product.unit.push(unitID)
+        this.unitsToAdd.push(unitId)
+        console.log(this.unitsToAdd)
+        // 
     }
 
     getProducts() {
@@ -68,6 +74,9 @@ export class ProductComponent implements OnInit {
       }
 
     createProducts() {
+        this.product.unit = this.unitsToAdd;
+        this.product.provider = this.providersToAdd;
+        console.log(this.product);
         this.rest.createProduct(this.product).subscribe((result) => {
             this.getProducts();
           }, (err) => {
