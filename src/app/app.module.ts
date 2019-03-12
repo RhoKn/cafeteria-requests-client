@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {RouterModule,Routes} from '@angular/router'
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-
+import {ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/users/user.component';
@@ -55,6 +55,7 @@ import {RestService} from './rest.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     routing,
     HttpClientModule
   ],

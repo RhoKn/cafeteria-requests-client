@@ -10,26 +10,52 @@
                           <div class="form-row">
                             <div class="col-md-4 mb-3">
                               <label for="validationCustom01">Comedor</label>
-                              <input type="text" class="form-control" name="dinning" class="form-control" #dinning="ngModel" [(ngModel)]="dRoom.dRoom" id="validationCustom01" placeholder="Reja"  required>
+                              <input type="text" class="form-control" name="dinning" class="form-control" #dinning="ngModel" [(ngModel)]="dRoom.dRoom" id="validationCustom01" placeholder="Comedor Inc."  required>
                             </div>
                             <div class="col-md-4 mb-3">
-                              <label for="validationCustom01">Descripcion</label>
-                              <input type="text" class="form-control" name="descr" class="form-control" #descr="ngModel" [(ngModel)]="dRoom.description" id="validationCustom01" placeholder="Reja"  required>
+                              <label for="validationCustom01">Observaciones</label>
+                              <input type="text" class="form-control" name="observations" class="form-control" #observations="ngModel" [(ngModel)]="dRoom.observations" id="validationCustom02" placeholder="Se requiere..."  required>
                             </div>
                             <div class="col-md-3 mb-3">
                               <label for="validationCustom05">Encargado</label>
                               <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="dRoom.user" required>
                                   <option selected> {{dRoom.user}}</option>
-                                  <option *ngFor="let u of users">{{u._id}}</option>
+                                  <option *ngFor="let u of users">
+                                    <span *ngIf="dRoom.user!=u._id">{{u._id}}</span>
+                                  </option>
                               </select>
                             </div>
-                            
                           </div>
+                          <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                              <label for="validationCustom01">Nombre de la Calle</label>
+                              <input type="text" class="form-control" name="street" class="form-control" #street="ngModel" [(ngModel)]="dRoom.street" id="validationCustom03" placeholder="Av. Tecnologico"  required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <label for="validationCustom01">Numero Exterior</label>
+                              <input type="number" class="form-control" name="street_number" class="form-control" #street_number="ngModel" [(ngModel)]="dRoom.street_number" id="validationCustom04" placeholder="305"  required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                              <label for="validationCustom01">Numero Interior</label>
+                              <input type="number" class="form-control" name="suite_number" class="form-control" #suite_number="ngModel" [(ngModel)]="dRoom.suite_number" id="validationCustom05" placeholder="10"  required>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                              <label for="validationCustom01">Colonia</label>
+                              <input type="text" class="form-control" name="colony" class="form-control" #colony="ngModel" [(ngModel)]="dRoom.colony" id="validationCustom06" placeholder="Diego Lucero"  required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                              <label for="validationCustom01">Codigo Postal</label>
+                              <input type="number" class="form-control" name="postal_code" class="form-control" #postal_code="ngModel" [(ngModel)]="dRoom.postal_code" id="validationCustom07" placeholder="31100"  required>
+                            </div>
+                          </div>
+
                           <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateDRoom()">Actualizar</button>
                         </form>
                   </div>
-            
-        </div>   
+
+        </div>
     </div>
 </div>
 </div>

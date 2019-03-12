@@ -7,25 +7,53 @@
               <div class="main-box no-header clearfix">
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Titulo chido</p>
+                        <p>Comedores</p>
                         <form class="needs-validation" novalidate>
                             <div class="form-row">
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Nombre del comedor</label>
-                                <input type="text" class="form-control" name="dinning" class="form-control" #dinning="ngModel" [(ngModel)]="dRoom.dRoom" id="validationCustom01" placeholder="Lyria Fernanda"  required>
+                                <input type="text" class="form-control" name="dRoom" class="form-control" #dRoom="ngModel" [(ngModel)]="dinning.dRoom" id="validationCustom01" placeholder="Lyria Fernanda"  required>
                               </div>
                               <div class="col-md-4 mb-3">
-                                <label for="validationCustom02">Descripcion</label>
-                                <input type="text" class="form-control" name="desc" #desc="ngModel" [(ngModel)]="dRoom.description" id="validationCustom02" placeholder="Gonzalez" required>
+                                <label for="validationCustom02">Observaciones</label>
+                                <input type="text" class="form-control" name="observations" #observations="ngModel" [(ngModel)]="dinning.observations" id="validationCustom02" placeholder="Gonzalez" required>
                               </div>
                               <div class="col-md-3 mb-3">
-                                <label for="validationCustom05">Encargado</label>
-                                <select id="inputType" class="form-control" name="user" #user="ngModel" [(ngModel)]="dRoom.user" required>
-                                    <option selected> Elegir...</option>
+                                <label for="validationCustom03">Encargado</label>
+                                <select id="inputType" class="form-control" name="user" #user="ngModel" [(ngModel)]="dinning.user" id="validationCustom03" required>
+                                   <option selected> Elegir...</option>
                                     <option *ngFor="let u of users">{{u._id}}</option>
                                 </select>
                               </div>
                             </div>
+
+                            <div class="form-row">
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom04">Nombre de la calle</label>
+                                <input type="text" class="form-control" name="street" class="form-control" #street="ngModel" [(ngModel)]="dinning.street" id="validationCustom04" placeholder="Calle Egipto"  required>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom05">Numero exterior</label>
+                                <input type="number" class="form-control" name="street_number" #street_number="ngModel" [(ngModel)]="dinning.street_number" id="validationCustom05" placeholder="305" required>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                <label for="validationCustom06">Numero interior</label>
+                                <input type="number" class="form-control" name="suite_number" #suite_number="ngModel" [(ngModel)]="dinning.suite_number" id="validationCustom06" placeholder="10">
+                              </div>
+                            </div>
+
+                            <div class="form-row">
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom07">Colonia</label>
+                                <input type="text" class="form-control" name="colony" class="form-control" #colony="ngModel" [(ngModel)]="dinning.colony" id="validationCustom07" placeholder="Diego Lucero"  required>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom08">Codigo Postal</label>
+                                <input type="number" class="form-control" name="postal_code" #postal_code="ngModel" [(ngModel)]="dinning.postal_code" id="validationCustom08" placeholder="31100" required>
+                              </div>
+                            </div>
+
+
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="createDRoom()">Agregar</button>
                           </form>
                     </div>
@@ -48,6 +76,11 @@
                                 <th><span>Comedor</span></th>
                                 <th><span>Descripción</span></th>
                                 <th><span>Encargado</span></th>
+                                <th><span>Nombre de la Calle</span></th>
+                                <th><span>Numero Exterior</span></th>
+                                <th><span>Numero Interior</span></th>
+                                <th><span>Colonia</span></th>
+                                <th><span>Codigo Postal</span></th>
                                 </tr >
                             </thead>
                             <tbody>
@@ -56,10 +89,15 @@
                                         <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
                                         <a href="#" class="user-link">{{dr.dRoom}}</a>
                                     </td>
-                                    <td>{{dr.description}}</td>
+                                    <td>{{dr.observations}}</td>
                                     <td>
                                         <a href="#">{{dr.user.nick_name}}</a>
                                     </td>
+                                    <td>{{dr.street}}</td>
+                                    <td>{{dr.street_number}}</td>
+                                    <td>{{dr.suite_number}}</td>
+                                    <td>{{dr.colony}}</td>
+                                    <td>{{dr.postal_code}}</td>
                                     <td style="width: 20%;">
                                         <a routerLink="/dinningRooms/update/{{dr._id}}" class="table-link">
                                             <span class="fa-stack">

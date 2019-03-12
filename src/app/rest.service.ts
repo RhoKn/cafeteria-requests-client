@@ -28,6 +28,7 @@ export class RestService {
   }
 
   createObject(object,route):Observable<any>{
+    console.log("Objecto"+object);
     const headers = new HttpHeaders({
       'Content-Type':  'application/json'
     });

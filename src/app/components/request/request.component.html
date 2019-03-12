@@ -6,7 +6,7 @@
             <div class="main-box no-header clearfix">
                 <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Titulo chido</p>
+                        <p>Pedidos</p>
                         <form class="needs-validation" novalidate>
 
                             <div class="form-row">
@@ -20,7 +20,7 @@
                                 </div>
 
                                 <br>
-                                    
+
                                         <div class="container">
                                                 <p>Productos seleccionados</p>
                                                 <table class="table user-list">
@@ -42,11 +42,11 @@
                                                         </tbody>
                                                     </table>
                                         </div>
-                                
+
 
                                 <div class="row">
 
-                                    
+
                                 </div>
                             </div>
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="createRequest()">Agregar</button>
@@ -65,9 +65,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{p.name}}</h5>
-                                <p class="card-text">{{p.category}}
+                                <p class="card-text">{{p.category.type}}
                                 </p>
-                                <p class="card-text font-weight-bold">{{p.unit}}
+                                <p class="card-text font-weight-bold">{{p.unit.name}}
                                     </p>
                                 <a class="btn btn-primary" (click)="addProduct(p.name,p.category)">Add</a>
                             </div>

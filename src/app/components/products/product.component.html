@@ -7,7 +7,7 @@
               <div class="main-box no-header clearfix">
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Titulo chido</p>
+                        <p>Productos</p>
                         <form class="needs-validation" novalidate>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -16,15 +16,18 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="validationCustom05">Tipo de unidad</label>
-                                    <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
+                                    <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
                                         <option selected> {{product.unit}}</option>
                                         <option *ngFor="let u of units ">{{u._id}}</option>
-                                    </select>
+                                    </select> -->
+                                    <div *ngFor="let u of units">
+                                      <input type="checkbox" name="" value="{{u.name}}">{{u.name}}
+                                    </div>
                                   </div>
                                   <div class="col-md-3 mb-3">
                                     <label for="validationCustom05">Categoria</label>
                                     <select id="inputType" class="form-control" name="pCat" #pCat="ngModel" [(ngModel)]="product.category" required>
-                                        <option selected> {{product.category}}</option>
+                                        <!-- <option selected> {{product.category}}</option> -->
                                         <option *ngFor="let ct of ptypes ">{{ct._id}}</option>
                                     </select>
                                   </div>
@@ -42,7 +45,7 @@
                                       </div>
                                       <input type="text" class="form-control" id="validationCustomUsername" name="pPrice" #pPrice="ngModel" [(ngModel)]="product.price" placeholder="13.00" aria-describedby="inputGroupPrepend" required>
                                     </div>
-                                  </div>    
+                                  </div>
                             </div>
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProducts()">Agregar</button>
                           </form>
@@ -77,7 +80,7 @@
                                         <a href="#" class="user-link">{{p.name}} </a>
                                         <span class="user-subhead">{{p.description}}</span>
                                     </td>
-                                    
+
                                     <td class="text-center">
                                         <span class="badge badge-primary">{{p.unit.name}}</span>
                                     </td>
