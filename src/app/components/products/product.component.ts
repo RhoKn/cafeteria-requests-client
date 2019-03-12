@@ -35,6 +35,12 @@ export class ProductComponent implements OnInit {
             this.units = this.units.units;
         });
     }
+    addProvider(provId){
+        //this.product.providers.push(provId);
+    }
+    addUnit(unitId){
+        // this.product.unit.push(unitID)
+    }
 
     getProducts() {
         this.products = [];

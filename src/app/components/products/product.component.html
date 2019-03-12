@@ -49,7 +49,7 @@
                                         <option *ngFor="let u of units ">{{u._id}}</option>
                                     </select> -->
                                     <div *ngFor="let u of units">
-                                      <input type="checkbox" name="" value="{{u.name}}">{{u.name}}
+                                      <input type="checkbox" name="" value="{{u.name}}" (click)="addUnit(u._id)" >{{u.name}}
                                     </div>
                                   </div>
 
@@ -60,7 +60,7 @@
                                         <option *ngFor="let u of units ">{{u._id}}</option>
                                     </select> -->
                                     <div *ngFor="let p of providers">
-                                      <input type="checkbox" name="" value="{{p._id}}">{{p._id}}
+                                      <input type="checkbox" name="" value="{{p._id}}" (click)="addProvider(p._id)">{{p._id}}
                                     </div>
                                   </div>
                             </div>
