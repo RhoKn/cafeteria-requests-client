@@ -16,6 +16,8 @@ import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
 import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
+import { ProductComponent } from './components/products/product.component';
+import { EditProductComponent } from './components/products/edit/editProduct.component';
 
 
 //Token
@@ -41,6 +43,8 @@ const appRoutes: Routes = [
     {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
     {path:'productTypes',component:PTypeComponent,canActivate:[AuthGuard]},
     {path:'productTypes/update/:id',component:PTypeEditComponent,canActivate:[AuthGuard]},
+    {path:'products',component:ProductComponent,canActivate:[AuthGuard]},
+    {path:'products/update/:id',component:EditProductComponent,canActivate:[AuthGuard]},
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}
 ];

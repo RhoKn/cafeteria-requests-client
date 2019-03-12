@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../models/user';
+import { Product } from '../../models/product';
 
 @Component({
     selector: 'app-user',
@@ -10,38 +10,58 @@ import { User } from '../../models/user';
 })
 export class ProductComponent implements OnInit {
     public title: String;
-    public users: any = [];
-    public user: User;
+    public products: any = [];
+    public ptypes: any = [];
+    public product: Product;
+    public x;
+    public units: any = [];
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Usuarios';
-        this.user = new User( '', '', '', '', '', '');
+        this.product = new Product( '', '', '', 0, '');
     }
 
     ngOnInit() {
-        this.getUsers();
+        this.getProducts();
+        this.getProductTypes();
+        this.getTheUnits();
     }
 
-    getUsers() {
-        this.users = [];
-        this.rest.getUsers().subscribe((data: {}) => {
-            this.users = data;
-            this.users = this.users.users;
-            console.log(this.users);
+    getTheUnits() {
+
+        this.rest.getUnits().subscribe((data: {}) => {
+            this.units = data;
+            this.units = this.units.units;
         });
+    }
+
+    getProducts() {
+        this.products = [];
+        this.rest.getProducts().subscribe((data: {}) => {
+            this.products = data;
+            this.products = this.products.products;
+            console.log(this.products)
+        }); 
       }
-    deleteUser(id) {
-        this.rest.deleteUser(id)
+    deleteProducts(id) {
+        this.rest.deleteProduct(id)
           .subscribe(res => {
-              this.getUsers();
+              this.getProducts();
             }, (err) => {
               console.log(err);
             }
           );
     }
+    getProductTypes() {
 
-    createUser() {
-        this.rest.createUser(this.user).subscribe((result) => {
-            this.getUsers();
+        this.rest.getProductTypes().subscribe((data: {}) => {
+            this.ptypes = data;
+            this.ptypes = this.ptypes.types;
+        });
+      }
+
+    createProducts() {
+        this.rest.createProduct(this.product).subscribe((result) => {
+            this.getProducts();
           }, (err) => {
             console.log(err);
           });

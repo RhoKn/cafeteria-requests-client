@@ -22,7 +22,8 @@ import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
 import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
-
+import { ProductComponent } from './components/products/product.component';
+import { EditProductComponent } from './components/products/edit/editProduct.component';
 
 //Token
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -47,7 +48,9 @@ import {RestService} from './rest.service';
     RequestComponent,
     RequestEditComponent,
     PTypeComponent,
-    PTypeEditComponent
+    PTypeEditComponent,
+    ProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,

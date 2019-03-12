@@ -282,7 +282,7 @@ deleteRequest (id): Observable<any> {
 
 
 //Products
-createProducts (products): Observable<any> {
+createProduct (products): Observable<any> {
   const headers = new HttpHeaders({
     'Content-Type':  'application/json'
   });

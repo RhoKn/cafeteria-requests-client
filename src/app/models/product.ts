@@ -1,4 +1,4 @@
-export class Provider {
+export class Product {
   constructor(
         public  name:String,
         public  unit:String,

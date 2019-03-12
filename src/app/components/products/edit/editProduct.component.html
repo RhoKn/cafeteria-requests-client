@@ -1,57 +1,55 @@
+
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-  <div class="container bootstrap snippet">
-      <div class="row">
-          <div class="col-lg-12">
-              <div class="main-box no-header clearfix">
-                  <div class="main-box-body clearfix">
-                    <div class=" col-md-12 mb-3">
-                        <p>Actualizar usuario</p>
-                        <form class="needs-validation" novalidate>
-                            <div class="form-row">
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                  <div class=" col-md-12 mb-3">
+                      <p>Titulo chido</p>
+                      <form class="needs-validation" novalidate>
+                          <div class="form-row">
                               <div class="col-md-4 mb-3">
-                                <label for="validationCustom01">Nombre(s)</label>
-                                <input type="text" class="form-control" name="firstName" class="form-control" #firstName="ngModel" [(ngModel)]="user.first_name" id="validationCustom01" placeholder="Lyria Fernanda"  required>
-                              </div>
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustom02">Apellido(s)</label>
-                                <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="user.last_name" id="validationCustom02" placeholder="Gonzalez" required>
-                              </div>
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustomUsername">Usuario</label>
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                  </div>
-                                  <input type="text" class="form-control" id="validationCustomUsername" name="nickName" #nickName="ngModel" [(ngModel)]="user.nick_name" placeholder="lyriaGlez" aria-describedby="inputGroupPrepend" required>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="col-md-5 mb-3">
-                                <label for="validationCustom03">Correo electrónico</label>
-                                <input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" id="validationCustom03" placeholder="lyriaglez@gmail.com" required>
-                              </div>
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustom04">Contraseña</label>
-                                <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" id="validationCustom04" placeholder="*******" required>
+                                  <label for="validationCustom01">Nombre(s)</label>
+                                  <input type="text" class="form-control" name="pName" class="form-control" #pName="ngModel" [(ngModel)]="product.name" id="validationCustom01" placeholder="Naranja"  required>
                               </div>
                               <div class="col-md-3 mb-3">
-                                <label for="validationCustom05">Tipo de usuario</label>
-                                <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="user.user_type" required>
-                                    <option> Elegir...</option>
-                                    <option>Admin</option>
-                                    <option>Finanza</option>
-                                    <option selected="">Chef</option>
-                                    <option>Compras</option>
-                                </select>
+                                  <label for="validationCustom05">Tipo de unidad</label>
+                                  <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
+                                      <option> Elegir...</option>
+                                      <option *ngFor="let u of units ">{{u._id}}</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                  <label for="validationCustom05">Categoria</label>
+                                  <select id="inputType" class="form-control" name="pCat" #pCat="ngModel" [(ngModel)]="product.category" required>
+                                      <option> Elegir...</option>
+                                      <option *ngFor="let ct of ptypes ">{{ct._id}}</option>
+                                  </select>
+                                </div>
                               </div>
-                            </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateUser()">Actualizar</button>
-                          </form>
-                    </div>
-              
-          </div>   
-      </div>
-  </div>
+                              <div class="form-row">
+                                <div class="col-md-5 mb-3">
+                                  <label for="validationCustom03">Descripción</label>
+                                  <input type="text" class="form-control" name="pDesc" #pDesc="ngModel" [(ngModel)]="product.description" id="validationCustom03" placeholder="Naranja traida de las granjas de XXXXX" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                  <label for="validationCustomUsername">Precio</label>
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="inputGroupPrepend">$</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="validationCustomUsername" name="pPrice" #pPrice="ngModel" [(ngModel)]="product.price" placeholder="13.00" aria-describedby="inputGroupPrepend" required>
+                                  </div>
+                                </div>    
+                          </div>
+                          <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateProduct()">Editar</button>
+                        </form>
+                  </div>
+
+        </div>
+    </div>
+</div>
 </div>
 </div>
