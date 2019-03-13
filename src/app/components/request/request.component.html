@@ -6,7 +6,7 @@
             <div class="main-box no-header clearfix">
                 <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Pedidos</p>
+                        <h2>Nuevo pedido</h2>
                         <form class="needs-validation" novalidate>
 
                             <div class="form-row">
@@ -88,6 +88,54 @@
     </div>
 </div>
 <br>
+
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <div class="container">
+                            <h2>Productos disponibles</h2>
+                                <br>
+                                <ng-container *ngFor="let pt of ptypes">
+                                        <table class="table user-list" >
+                                                <thead>
+                                                        {{pt.type}}
+                                                </thead>
+                                                <tbody>
+                                                    <ng-container *ngFor="let p of products">
+                                                            <tr *ngIf="p.category._id == pt._id" >
+                                                                    <td style="width: 15%">
+                                                                        <a href="#" class="">{{p.name}}</a>
+                                                                    </td>
+                                                                    <td style="width: 55%">
+                                                                        <p >{{p.description}}</p>
+                                                                    </td>
+                                                                    <td style="width: 15%">
+                                                                        <p>${{p.price}}</p>
+                                                                    </td>  
+                                                                    <td style="width: 15%">
+                                                                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" (click)="addProduct(p)">Añadir a listado</button>
+                                                                    </td>
+                                                            </tr>
+                                                    </ng-container>
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                </ng-container>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
 <div class="container">
     <div class="row">
         <div *ngFor="let p of products" class="col-sm-3">
@@ -104,6 +152,7 @@
         </div>
     </div>
 </div>
+-->
 <br>
 <br>
 <br>
@@ -114,6 +163,7 @@
             <div class="table-responsive">
                 <div class="main-box no-header clearfix">
                     <div class="main-box-body clearfix">
+                            <h2>Pedidos existentes</h2>
                         <table class="table user-list">
                             <thead>
                                 <tr>
@@ -151,20 +201,20 @@
                                                 <i class="fa fa-check fa-stack-1x fa-inverse"></i>
                                             </span>
                                         </a>
-                                        <a routerLink="/requests/update/{{rq._id}}" class="table-link" *ngIf="canStatusDownGrade(rq.status) === true">
+                                        <a  class="table-link" *ngIf="canStatusDownGrade(rq.status) === true" data-toggle="modal" data-target="#rejection" (click)="copyReq(rq)">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-times fa-stack-1x fa-inverse"></i>
                                             </span>
                                         </a>
                                             
-                                        <a routerLink="/requests/update/{{rq._id}}" class="table-link">
+                                        <a routerLink="/requests/update/{{rq._id}}" class="table-link" *ngIf="canEdit(rq.status) === true">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                             </span>
                                         </a>
-                                        <a class="table-link danger" (click)="deleteRequest(rq._id)">
+                                        <a class="table-link danger" (click)="deleteRequest(rq._id)" *ngIf="canDelete(rq.status) === true">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
@@ -251,7 +301,37 @@
     
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="authRequest()">{{action}}</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="authRequest(true)">{{action}}</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="rejection">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Rechazar pedido {{pStatusEdit._id}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+                        <div class="container mb-3">
+                                <label for="tArequest">Observaciones</label>
+                                <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="statusEdit.AuthObservations">
+                                
+                             </textarea>
+                            </div>
+    
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="authRequest()">Rechazar</button>
                 </div>
     
             </div>
