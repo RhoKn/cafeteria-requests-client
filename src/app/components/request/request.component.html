@@ -6,7 +6,7 @@
             <div class="main-box no-header clearfix">
                 <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Titulo chido</p>
+                        <h2>Nuevo pedido</h2>
                         <form class="needs-validation" novalidate>
 
                             <div class="form-row">
@@ -20,33 +20,62 @@
                                 </div>
 
                                 <br>
+                                <br>
+
+                                <div class="container mb-3">
+                                    <label for="tArequest">Observaciones</label>
+                                    <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="request.observations">
                                     
-                                        <div class="container">
-                                                <p>Productos seleccionados</p>
-                                                <table class="table user-list">
-                                                        <thead>
-                                                            <tr>
-                                                                <th><span>Producto</span></th>
-                                                                <th><span>Category</span></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let sl of selected">
-                                                                <td>
-                                                                    <a href="#" class="user-link">{{sl.name}}</a>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="user-link">{{sl.unit}}</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                        </div>
-                                
+                                 </textarea>
+                                </div>
+
+                                <br>
+                                <br>
+                                <br>
+
+                                <div class="container">
+                                    <p>Productos seleccionados</p>
+                                    <table class="table user-list">
+                                        <thead>
+                                            <tr>
+                                                <th><span>Producto</span></th>
+                                                <th><span>Unidades</span></th>
+                                                <th><span>Cantidad</span></th>
+                                                <th><span>Proveedor</span></th>
+                                                <th><span>Opciones</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sl of selected, let i = index">
+                                                <td>
+                                                    <a href="#">{{sl.name}}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">{{sl.unit}}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">{{sl.quantity}}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">{{sl.provider}}</a>
+                                                </td>
+                                                <td style="width: 20%;">
+                                                    <a class="table-link danger" (click)="deleteElement(i)">
+                                                        <span class="fa-stack">
+                                                            <i class="fa fa-square fa-stack-2x"></i>
+                                                            <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
 
                                 <div class="row">
 
-                                    
+
                                 </div>
                             </div>
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="createRequest()">Agregar</button>
@@ -59,22 +88,71 @@
     </div>
 </div>
 <br>
-<div class="container">
-        <div class="row">
-                <div *ngFor="let p of products" class="col-sm-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{p.name}}</h5>
-                                <p class="card-text">{{p.category}}
-                                </p>
-                                <p class="card-text font-weight-bold">{{p.unit}}
-                                    </p>
-                                <a class="btn btn-primary" (click)="addProduct(p.name,p.category)">Add</a>
-                            </div>
+
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <div class="container">
+                            <h2>Productos disponibles</h2>
+                                <br>
+                                <ng-container *ngFor="let pt of ptypes">
+                                        <table class="table user-list" >
+                                                <thead>
+                                                        {{pt.type}}
+                                                </thead>
+                                                <tbody>
+                                                    <ng-container *ngFor="let p of products">
+                                                            <tr *ngIf="p.category._id == pt._id" >
+                                                                    <td style="width: 15%">
+                                                                        <a href="#" class="">{{p.name}}</a>
+                                                                    </td>
+                                                                    <td style="width: 55%">
+                                                                        <p >{{p.description}}</p>
+                                                                    </td>
+                                                                    <td style="width: 15%">
+                                                                        <p>${{p.price}}</p>
+                                                                    </td>  
+                                                                    <td style="width: 15%">
+                                                                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" (click)="addProduct(p)">Añadir a listado</button>
+                                                                    </td>
+                                                            </tr>
+                                                    </ng-container>
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                </ng-container>
                         </div>
-                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 </div>
+
+
+<!--
+<div class="container">
+    <div class="row">
+        <div *ngFor="let p of products" class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{p.name}}</h5>
+                    <p class="card-text">{{p.category.type}}
+                    </p>
+                    <p class="card-text font-weight-bold">{{p.unit.name}}
+                    </p>
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="addProduct(p)">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
 <br>
 <br>
 <br>
@@ -85,39 +163,65 @@
             <div class="table-responsive">
                 <div class="main-box no-header clearfix">
                     <div class="main-box-body clearfix">
+                            <h2>Pedidos existentes</h2>
                         <table class="table user-list">
                             <thead>
                                 <tr>
                                     <th><span>Comedor</span></th>
-                                    <th><span>Cantidades</span></th>
+                                    <th><span>Solicitante</span></th>
+                                    <th><span>Productos</span></th>
+                                    <th><span>Estado del pedido</span></th>
+                                    <th><span>Opciones</span></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let rq of requests">
                                     <td>
-                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
-                                        <a href="#" class="user-link">{{rq.dRoom}}</a>
+                                        <a href="#" class="">{{rq.dRoom}}</a>
                                     </td>
                                     <td>
-                                        <a *ngFor="let e of rq.products" href="#" class="user-link">{{e.name}} : {{e.unit}}</a>
+                                        <a href="#" class="">{{rq.created.user}}</a>
+                                    </td>
+                                    <td>
+                                        <ol class="list-unstyled">
+                                            <li *ngFor="let e of rq.products" href="#" class="">
+                                                <span class="badge badge-primary badge-pill">{{e.quantity}}</span> {{e.unit}}
+                                                de {{e.name}}
+
+                                            </li>
+                                        </ol>
                                     </td>
                                     <td class="text-center">
                                         <span class="badge badge-primary">{{rq.status}}</span>
                                     </td>
                                     <td style="width: 20%;">
-                                        <a routerLink="/requests/update/{{rq._id}}" class="table-link">
+                                        <a  class="table-link" *ngIf="canStatusUpgrade(rq.status) === true" data-toggle="modal" data-target="#authorization" (click)="copyReq(rq)">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <a  class="table-link" *ngIf="canStatusDownGrade(rq.status) === true" data-toggle="modal" data-target="#rejection" (click)="copyReq(rq)">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                            
+                                        <a routerLink="/requests/update/{{rq._id}}" class="table-link" *ngIf="canEdit(rq.status) === true">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                             </span>
                                         </a>
-                                        <a class="table-link danger" (click)="deleteRequest(rq._id)">
+                                        <a class="table-link danger" (click)="deleteRequest(rq._id)" *ngIf="canDelete(rq.status) === true">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
                                             </span>
                                         </a>
                                     </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -127,3 +231,109 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Producto a agregar: {{pSelected.name}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Unidad deseada</label>
+                        <select id="inputType" class="form-control" name="uType " #uType="ngModel" [(ngModel)]="pToAdd.unit" required>
+                            <option selected>Elegir..</option>
+                            <option *ngFor="let u of pSelected">{{u.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Proveedor deseado</label>
+                        <select id="inputType" class="form-control" name="pProv " #pProv="ngModel" [(ngModel)]="pToAdd.provider" required>
+                            <option selected>Elegir..</option>
+                            <option *ngFor="let p of pSelected2">{{p}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom01">Cantidad requerida</label>
+                        <input type="text" class="form-control" name="qtty" #qtty="ngModel" [(ngModel)]="pToAdd.quantity" placeholder="2" required>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="addToList()">Agregar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="authorization">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Autorizar pedido {{pStatusEdit._id}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+                        <div class="container mb-3">
+                                <label for="tArequest">Observaciones</label>
+                                <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="statusEdit.AuthObservations">
+                                
+                             </textarea>
+                            </div>
+    
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="authRequest(true)">{{action}}</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="rejection">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Rechazar pedido {{pStatusEdit._id}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+                        <div class="container mb-3">
+                                <label for="tArequest">Observaciones</label>
+                                <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="statusEdit.AuthObservations">
+                                
+                             </textarea>
+                            </div>
+    
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="authRequest()">Rechazar</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>

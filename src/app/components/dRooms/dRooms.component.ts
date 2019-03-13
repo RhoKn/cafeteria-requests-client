@@ -13,14 +13,13 @@ export class DRoomsComponent implements OnInit {
     public title: String;
     public users: any = [];
     public dRooms: any = [];
-    public dRoom: DRoom;
+    public dinning: DRoom;
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Usuarios';
-        this.dRoom = new DRoom( '', '', '');
+        this.dinning = new DRoom( '', '', '','',0,'','',0);
     }
 
     ngOnInit() {
-
       if(this.getRole()){
           this.getUsers();
           this.getDRooms();
@@ -50,8 +49,6 @@ export class DRoomsComponent implements OnInit {
         this.rest.getDRooms().subscribe((data: {}) => {
             this.dRooms = data;
             this.dRooms = this.dRooms.dRooms;
-
-
         });
     }
     deleteDRoom(id) {
@@ -65,11 +62,13 @@ export class DRoomsComponent implements OnInit {
     }
 
     createDRoom() {
-        console.log(this.dRoom)
-        this.rest.createObject(this.dRoom,'dinningRooms/create').subscribe((result) => {
+        console.log(this.dinning);
+        this.rest.createDRoom(this.dinning).subscribe((result) => {
             this.getDRooms();
           }, (err) => {
             console.log(err);
           });
     }
+
+
 }

@@ -7,16 +7,16 @@
               <div class="main-box no-header clearfix">
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Titulo chido</p>
-                        <form class="needs-validation" novalidate>
+                        <p>Usuario</p>
+                        <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createUser()">
                             <div class="form-row">
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Nombre(s)</label>
-                                <input type="text" class="form-control" name="firstName" class="form-control" #firstName="ngModel" [(ngModel)]="user.first_name" id="validationCustom01" placeholder="Lyria Fernanda"  required>
+                                <input type="text" class="form-control" class="form-control" placeholder="Lyria" formControlName="first_name" #first_name>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom02">Apellido(s)</label>
-                                <input type="text" class="form-control" name="lastName" #lastName="ngModel" [(ngModel)]="user.last_name" id="validationCustom02" placeholder="Gonzalez" required>
+                                <input type="text" class="form-control" formControlName="last_name" #lastName placeholder="Gonzalez" required>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustomUsername">Usuario</label>
@@ -24,22 +24,22 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupPrepend">@</span>
                                   </div>
-                                  <input type="text" class="form-control" id="validationCustomUsername" name="nickName" #nickName="ngModel" [(ngModel)]="user.nick_name" placeholder="lyriaGlez" aria-describedby="inputGroupPrepend" required>
+                                  <input type="text" class="form-control" formControlName="nick_name" id="validationCustomUsername" name="nickName" #nickName placeholder="lyriaGlez" aria-describedby="inputGroupPrepend" required>
                                 </div>
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="col-md-5 mb-3">
                                 <label for="validationCustom03">Correo electrónico</label>
-                                <input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" id="validationCustom03" placeholder="lyriaglez@gmail.com" required>
+                                <input type="text" class="form-control" formControlName="email" name="email" #email id="validationCustom03" placeholder="lyriaglez@gmail.com" required>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom04">Contraseña</label>
-                                <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" id="validationCustom04" placeholder="*******" required>
+                                <input type="password" class="form-control" name="password" formControlName="password" #password id="validationCustom04" placeholder="*******" required>
                               </div>
                               <div class="col-md-3 mb-3">
                                 <label for="validationCustom05">Tipo de usuario</label>
-                                <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="user.user_type" required>
+                                <select id="inputType" class="form-control" formControlName="user_type" name="userType" #userType required>
                                     <option>Admin</option>
                                     <option>Chef</option>
                                     <option>Gerente</option>
@@ -47,7 +47,8 @@
                                 </select>
                               </div>
                             </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createUser()">Agregar</button>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createUser() "
+                            [disabled]="!reactiveForm.valid">Agregar</button>
                           </form>
                     </div>
           </div>

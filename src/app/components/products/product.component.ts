@@ -13,17 +13,21 @@ export class ProductComponent implements OnInit {
     public products: any = [];
     public ptypes: any = [];
     public product: Product;
+    public providers: any = [];
+    public unitsToAdd: any = [];
+    public providersToAdd: any = [];
     public x;
     public units: any = [];
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Usuarios';
-        this.product = new Product( '', '', '', 0, '');
+        this.product = new Product( '', [''], '', 0, '',['']);
     }
 
     ngOnInit() {
         this.getProducts();
         this.getProductTypes();
         this.getTheUnits();
+        this.getProviders();
     }
 
     getTheUnits() {
@@ -32,6 +36,16 @@ export class ProductComponent implements OnInit {
             this.units = data;
             this.units = this.units.units;
         });
+    }
+    addProvider(provId){
+        this.providersToAdd.push(provId)
+        console.log(this.providersToAdd)
+        //this.product.providers.push(provId);
+    }
+    addUnit(unitId){
+        this.unitsToAdd.push(unitId)
+        console.log(this.unitsToAdd)
+        // 
     }
 
     getProducts() {
@@ -60,10 +74,21 @@ export class ProductComponent implements OnInit {
       }
 
     createProducts() {
+        this.product.unit = this.unitsToAdd;
+        this.product.provider = this.providersToAdd;
+        console.log(this.product);
         this.rest.createProduct(this.product).subscribe((result) => {
             this.getProducts();
           }, (err) => {
             console.log(err);
           });
     }
+
+    getProviders() {
+        this.providers = [];
+        this.rest.getProviders().subscribe((data: {}) => {
+            this.providers = data;
+            this.providers = this.providers.providers;
+        });
+      }
 }

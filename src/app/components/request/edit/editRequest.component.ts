@@ -14,6 +14,11 @@ export class RequestEditComponent implements OnInit {
     public dRooms: any = [];
     public selected: any = [{}];
 
+    public pSelected: any ={};
+    public pSelected2: any={};
+    public pToAdd: any ={};
+    public ptypes: any = [];
+
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -21,11 +26,10 @@ export class RequestEditComponent implements OnInit {
       this.req = data;
       this.req = this.req.request;
       this.selected = this.req.products;
-      console.log('********')
-      console.log(this.req)
     });
     this.getProducts();
     this.getDRooms();
+    this.getProductTypes();
 
   }
 
@@ -37,10 +41,23 @@ export class RequestEditComponent implements OnInit {
         console.log(this.products)
     });
   }
-  addProduct(name,unit){
-
-    this.selected.push({name:name,unit:unit});
+  
+  addProduct(prod){
+    this.pSelected = prod.unit;
+    this.pSelected2 = prod.provider;
+    this.pToAdd.name = prod.name;
+    console.log(this.pSelected);
+    //this.selected.push({name:name,unit:unit});
 }
+addToList(){
+    this.selected.push(this.pToAdd);
+    this.pToAdd = {};
+}
+
+deleteElement(i){
+  this.selected.splice(i,1);
+}
+
 getDRooms() {
   this.dRooms = [];
   this.rest.getDRooms().subscribe((data: {}) => {
@@ -50,9 +67,7 @@ getDRooms() {
       
   });
 }
-deleteItem(item){
-  this.selected.splice(item,1);
-}
+
 
   updateRequest() {
     this.req.products = this.selected;
@@ -62,7 +77,14 @@ deleteItem(item){
       console.log(err);
     });
   }
+  getProductTypes() {
 
+    this.rest.getProductTypes().subscribe((data: {}) => {
+        this.ptypes = data;
+        this.ptypes = this.ptypes.types;
+        console.log(this.ptypes)
+    });
+  }
 
 }
 

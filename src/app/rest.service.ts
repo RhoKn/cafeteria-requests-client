@@ -28,6 +28,7 @@ export class RestService {
   }
 
   createObject(object,route):Observable<any>{
+    console.log("Objecto"+object);
     const headers = new HttpHeaders({
       'Content-Type':  'application/json'
     });
@@ -235,8 +236,19 @@ deleteDRoom (id): Observable<any> {
     catchError(this.handleError<any>('deleteDRoom'))
   );
 }
-
+///id
 //Requests
+
+updateStatus (id, statObj): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type':  'application/json'
+  });
+  return this.http.put(global.url + 'requests/updateStatus/' + id, JSON.stringify(statObj), {headers: headers}).pipe(
+    tap(_ => console.log(`updated request id=${id}`)),
+    catchError(this.handleError<any>('updateRequest'))
+  );
+}
+
 createRequest (request): Observable<any> {
   console.log('******');
   console.log(request);
