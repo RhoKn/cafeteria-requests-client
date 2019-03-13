@@ -13,25 +13,37 @@ export class RequestComponent implements OnInit {
     public requests: any = [];
     public products: any = [];
     public dRooms: any = [];
-    public selected: any = [{}];
+    public selected: any = [];
+    public pSelected: any ={};
+    public pSelected2: any={};
+    public pToAdd: any ={};
     public request: Request;
+    public pStatusEdit: any ={};
+    public statusEdit: any={};
+    
+    public action: String;
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Usuarios';
-        this.request = new Request( '', [{}]);
+        this.request = new Request( '', [{}],'','');
     }
 
     ngOnInit() {
         this.getProducts();
         this.getDRooms();
         this.getRequests();
+        
+        
     }
 
+    deleteElement(i){
+        this.selected.splice(i,1);
+    }
     getRequests() {
         this.requests = [];
         this.rest.getRequests().subscribe((data: {}) => {
             this.requests = data;
             this.requests = this.requests.requests;
-            
+            console.log(this.requests)
         });
       }
 
@@ -54,9 +66,16 @@ export class RequestComponent implements OnInit {
         });
     }
 
-    addProduct(name,unit){
-
-        this.selected.push({name:name,unit:unit});
+    addProduct(prod){
+        this.pSelected = prod.unit;
+        this.pSelected2 = prod.provider;
+        this.pToAdd.name = prod.name;
+        console.log(this.pSelected);
+        //this.selected.push({name:name,unit:unit});
+    }
+    addToList(){
+        this.selected.push(this.pToAdd);
+        this.pToAdd = {};
     }
 
     deleteRequest(id) {
@@ -71,11 +90,47 @@ export class RequestComponent implements OnInit {
 
     createRequest() {
         this.request.products = this.selected;
+        
+        this.request.user= 'Lyria';
+        
         console.log(this.request);
         this.rest.createRequest(this.request).subscribe((result) => {
             this.getRequests();
           }, (err) => {
             console.log(err);
           });
+    }
+    copyReq(reqst){
+        this.pStatusEdit = reqst;
+        this.action = this.pStatusEdit.status === 'Creado' ? 'Autorizar' :
+                                        this.pStatusEdit.status === 'Autorizado' ? 'Aprobar' : 'Aprobar';
+    }
+    authRequest(){
+        this.statusEdit.user = 'Lyria';
+        this.statusEdit.type = this.action === 'Autorizar' ? 'Authorization' : 'Approved';
+        this.rest.updateStatus(this.pStatusEdit._id,this.statusEdit).subscribe((result) =>{
+            this.getRequests();
+        }, (err) => {
+            console.log(err);
+          });
+    }
+
+    canStatusUpgrade(status){
+        if(this.rest.getRole() === 'Chef') {
+            return false;
+        }
+        if(this.rest.getRole() === 'Gerente'){
+            return status !== 'Rechazado' && status === 'Creado';
+        }
+        if(this.rest.getRole() === 'Compras'){
+            return status !== 'Rechazado' && status === 'Autorizado';
+        }
+        return this.rest.getRole()!=='Chef' && status !== 'Rechazado';
+    }
+    canStatusDownGrade(status){
+        if(this.rest.getRole()=== 'Chef'){
+            return status === 'Creado';
+        }
+        return status !== 'Rechazado' && status !== 'Aprobado';
     }
 }
