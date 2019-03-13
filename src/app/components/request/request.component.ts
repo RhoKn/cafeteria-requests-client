@@ -20,7 +20,7 @@ export class RequestComponent implements OnInit {
     public request: Request;
     public pStatusEdit: any ={};
     public statusEdit: any={};
-    
+    public ptypes: any = [];
     public action: String;
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Usuarios';
@@ -31,8 +31,7 @@ export class RequestComponent implements OnInit {
         this.getProducts();
         this.getDRooms();
         this.getRequests();
-        
-        
+        this.getProductTypes();
     }
 
     deleteElement(i){
@@ -105,19 +104,48 @@ export class RequestComponent implements OnInit {
         this.action = this.pStatusEdit.status === 'Creado' ? 'Autorizar' :
                                         this.pStatusEdit.status === 'Autorizado' ? 'Aprobar' : 'Aprobar';
     }
-    authRequest(){
+    authRequest(auth){
         this.statusEdit.user = 'Lyria';
-        this.statusEdit.type = this.action === 'Autorizar' ? 'Authorization' : 'Approved';
+        if(auth){
+            this.statusEdit.type = this.action === 'Autorizar' ? 'Authorization' : 'Approved';
+        }else{
+            this.statusEdit.type = 'Rechazado';
+        }
         this.rest.updateStatus(this.pStatusEdit._id,this.statusEdit).subscribe((result) =>{
             this.getRequests();
         }, (err) => {
             console.log(err);
-          });
+        });
     }
 
     canStatusUpgrade(status){
+        //if(this.rest.getRole() === 'Chef') {
+          //  return false;
+        //}
+        if(this.rest.getRole() === 'Gerente'){
+            return status !== 'Rechazado' && status === 'Creado';
+        }
+        if(this.rest.getRole() === 'Compras'){
+            return status !== 'Rechazado' && status === 'Autorizado';
+        }
+        return this.rest.getRole()!=='Chef' && status !== 'Rechazado' && status !== 'Aprobado';
+    }
+    canStatusDownGrade(status){
+        //if(this.rest.getRole() === 'Chef') {
+         //   return false;
+        //}
+        if(this.rest.getRole() === 'Gerente'){
+            return status !== 'Rechazado' && status === 'Creado';
+        }
+        if(this.rest.getRole() === 'Compras'){
+            return status !== 'Rechazado' && status === 'Autorizado';
+        }
+        return this.rest.getRole()!== 'Chef' && status !== 'Rechazado' && status !== 'Aprobado';
+    }
+
+    canEdit(status){
         if(this.rest.getRole() === 'Chef') {
-            return false;
+            return status === 'Creado';
         }
         if(this.rest.getRole() === 'Gerente'){
             return status !== 'Rechazado' && status === 'Creado';
@@ -125,12 +153,18 @@ export class RequestComponent implements OnInit {
         if(this.rest.getRole() === 'Compras'){
             return status !== 'Rechazado' && status === 'Autorizado';
         }
-        return this.rest.getRole()!=='Chef' && status !== 'Rechazado';
-    }
-    canStatusDownGrade(status){
-        if(this.rest.getRole()=== 'Chef'){
-            return status === 'Creado';
-        }
         return status !== 'Rechazado' && status !== 'Aprobado';
     }
+    canDelete(status){
+        return this.rest.getRole() === 'Admin';
+    }
+
+    getProductTypes() {
+
+        this.rest.getProductTypes().subscribe((data: {}) => {
+            this.ptypes = data;
+            this.ptypes = this.ptypes.types;
+            console.log(this.ptypes)
+        });
+      }
 }

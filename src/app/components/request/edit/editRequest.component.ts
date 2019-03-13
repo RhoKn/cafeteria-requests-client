@@ -17,6 +17,7 @@ export class RequestEditComponent implements OnInit {
     public pSelected: any ={};
     public pSelected2: any={};
     public pToAdd: any ={};
+    public ptypes: any = [];
 
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
@@ -25,11 +26,10 @@ export class RequestEditComponent implements OnInit {
       this.req = data;
       this.req = this.req.request;
       this.selected = this.req.products;
-      console.log('********')
-      console.log(this.req)
     });
     this.getProducts();
     this.getDRooms();
+    this.getProductTypes();
 
   }
 
@@ -77,7 +77,14 @@ getDRooms() {
       console.log(err);
     });
   }
+  getProductTypes() {
 
+    this.rest.getProductTypes().subscribe((data: {}) => {
+        this.ptypes = data;
+        this.ptypes = this.ptypes.types;
+        console.log(this.ptypes)
+    });
+  }
 
 }
 
