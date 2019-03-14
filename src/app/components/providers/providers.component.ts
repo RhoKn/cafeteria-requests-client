@@ -3,6 +3,8 @@ import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Provider } from '../../models/provider';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-providers',
   templateUrl: './providers.component.html',
@@ -12,12 +14,28 @@ export class ProvidersComponent implements OnInit {
   public title: String;
   public providers: any = [];
   public provider: Provider;
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+
+  public reactiveForm: FormGroup;
+
+  constructor(public rest: RestService, private route: ActivatedRoute,
+    private router: Router,private formBuilder:FormBuilder) {
       this.title = 'Usuarios';
       this.provider = new Provider('','','',0,'','',0,'',0,'','');
   }
   ngOnInit() {
     if(this.getRole()){
+      this.reactiveForm = this.formBuilder.group({
+          contact_first_name: ['', Validators.required],
+          contact_last_name: ['', Validators.required],
+          phone_number: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+          email: ['', [Validators.required, Validators.email]],
+          RFC: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+          postal_code: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]],
+          street_name: ['', [Validators.required,Validators.minLength(3)]],
+          street_number: ['', Validators.required],
+          suite_number:[],
+          colony: ['', [Validators.required, Validators.minLength(3)]]
+      });
       this.getProviders();
     }else{
       this.router.navigate(['/requests']);
@@ -41,6 +59,7 @@ export class ProvidersComponent implements OnInit {
     }
 
   createProvider() {
+    this.provider=this.reactiveForm.value;
     this.provider.name=`${this.provider.contact_first_name} ${this.provider.contact_last_name}`;
       this.rest.createObject(this.provider,'providers/create').subscribe((result) => {
           this.getProviders();

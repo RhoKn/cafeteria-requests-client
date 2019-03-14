@@ -5,6 +5,8 @@ import { Request } from '../../models/request';
 import * as $ from 'jquery';
 import 'select2';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
     selector: 'app-request',
     templateUrl: './request.component.html',
@@ -28,7 +30,10 @@ export class RequestComponent implements OnInit {
     public today: any;
     public text: any =[];
     public linesByCat = [];
-    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router, private refChange: ChangeDetectorRef) {
+    public reactiveForm: FormGroup;
+    public reactiveForm2: FormGroup;
+    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router, 
+        private refChange: ChangeDetectorRef, private formBuilder:FormBuilder) {
         this.title = 'Usuarios';
         this.request = new Request( '', this.selected,'','');
     }
@@ -52,6 +57,12 @@ export class RequestComponent implements OnInit {
     }
 
     ngOnInit() {
+
+      this.reactiveForm=this.formBuilder.group({
+        uType: ['', Validators.required],
+        pProv: ['', Validators.required],
+        qtty: ['', Validators.required]
+      });
         this.getProducts();
         this.getDRooms();
         this.getRequests();
@@ -102,6 +113,7 @@ export class RequestComponent implements OnInit {
         //this.selected.push({name:name,unit:unit});
     }
     addToList(){
+        this.pToAdd=this.reactiveForm.value;
         this.selected.push(this.pToAdd);
         this.pToAdd = {};
     }
@@ -118,8 +130,8 @@ export class RequestComponent implements OnInit {
 
     createRequest() {
         this.request.products = this.selected;
-
-        this.request.user= 'Lyria';
+        let nickName =this.rest.getNick();
+        this.request.user= nickName;
 
         
         this.rest.createRequest(this.request).subscribe((result) => {
