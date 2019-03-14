@@ -60,8 +60,8 @@ export class RequestComponent implements OnInit {
         this.rest.getDRooms().subscribe((data: {}) => {
             this.dRooms = data;
             this.dRooms = this.dRooms.dRooms;
-            
-            
+
+
         });
     }
 
@@ -89,9 +89,9 @@ export class RequestComponent implements OnInit {
 
     createRequest() {
         this.request.products = this.selected;
-        
+
         this.request.user= 'Lyria';
-        
+
         console.log(this.request);
         this.rest.createRequest(this.request).subscribe((result) => {
             this.getRequests();
@@ -105,7 +105,8 @@ export class RequestComponent implements OnInit {
                                         this.pStatusEdit.status === 'Autorizado' ? 'Aprobar' : 'Aprobar';
     }
     authRequest(auth){
-        this.statusEdit.user = 'Lyria';
+      let nickName =this.rest.getNick();
+        this.statusEdit.user = nickName;
         if(auth){
             this.statusEdit.type = this.action === 'Autorizar' ? 'Authorization' : 'Approved';
         }else{

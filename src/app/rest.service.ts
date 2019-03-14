@@ -133,9 +133,14 @@ createProvider (user): Observable<any> {
     return localStorage.getItem('role');
   }
 
+  getNick(){
+    return localStorage.getItem('name');
+  }
+
   logoutUser(){
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('name');
     this.router.navigate(['/login']);
   }
 
