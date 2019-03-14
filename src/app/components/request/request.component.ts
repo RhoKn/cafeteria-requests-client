@@ -36,8 +36,8 @@ export class RequestComponent implements OnInit {
         this.linesByCat[index].push(1);
         this.refChange.detectChanges();
         console.log(this.refChange.detectChanges());
-        let a = $('.js-example-basic-single');
-        a.select2();
+        //let a = $('.js-example-basic-single');
+        //a.select2();
         //a.on('select2:select', function (e) {
        // document.getElementById('helper'+e.target.id.replace('product','')).click();
         //});
