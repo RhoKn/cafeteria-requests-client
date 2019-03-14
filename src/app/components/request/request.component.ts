@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from '../../models/request';
+import * as $ from 'jquery';
+import 'select2';
 
 @Component({
     selector: 'app-request',
@@ -22,9 +24,31 @@ export class RequestComponent implements OnInit {
     public statusEdit: any={};
     public ptypes: any = [];
     public action: String;
-    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+    public hours: any;
+    public today: any;
+    public text: any =[];
+    public linesByCat = [];
+    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router, private refChange: ChangeDetectorRef) {
         this.title = 'Usuarios';
-        this.request = new Request( '', [{}],'','');
+        this.request = new Request( '', this.selected,'','');
+    }
+    addLine(index){
+        this.linesByCat[index].push(1);
+        this.refChange.detectChanges();
+        console.log(this.refChange.detectChanges());
+        let a = $('.js-example-basic-single');
+        a.select2();
+        //a.on('select2:select', function (e) {
+       // document.getElementById('helper'+e.target.id.replace('product','')).click();
+        //});
+        //let exte = $('.chido'+index);
+        //console.log(exte)
+        //$('.js-example-basic-single').select2();
+        
+        console.log(this.linesByCat);
+    }
+    showReq(){
+        console.log(this.request)
     }
 
     ngOnInit() {
@@ -32,6 +56,11 @@ export class RequestComponent implements OnInit {
         this.getDRooms();
         this.getRequests();
         this.getProductTypes();
+        this.hours = new Date().toLocaleTimeString();
+        this.today = new Date().toLocaleDateString();
+        
+        
+        
     }
 
     deleteElement(i){
@@ -42,7 +71,7 @@ export class RequestComponent implements OnInit {
         this.rest.getRequests().subscribe((data: {}) => {
             this.requests = data;
             this.requests = this.requests.requests;
-            console.log(this.requests)
+            
         });
       }
 
@@ -51,7 +80,9 @@ export class RequestComponent implements OnInit {
         this.rest.getProducts().subscribe((data: {}) => {
             this.products = data;
             this.products = this.products.products;
-            console.log(this.products)
+            this.products.forEach(element => {
+                this.linesByCat.push([]);
+            });
         });
     }
 
@@ -60,8 +91,6 @@ export class RequestComponent implements OnInit {
         this.rest.getDRooms().subscribe((data: {}) => {
             this.dRooms = data;
             this.dRooms = this.dRooms.dRooms;
-
-
         });
     }
 
@@ -69,7 +98,7 @@ export class RequestComponent implements OnInit {
         this.pSelected = prod.unit;
         this.pSelected2 = prod.provider;
         this.pToAdd.name = prod.name;
-        console.log(this.pSelected);
+        
         //this.selected.push({name:name,unit:unit});
     }
     addToList(){
@@ -92,7 +121,7 @@ export class RequestComponent implements OnInit {
 
         this.request.user= 'Lyria';
 
-        console.log(this.request);
+        
         this.rest.createRequest(this.request).subscribe((result) => {
             this.getRequests();
           }, (err) => {
@@ -165,7 +194,7 @@ export class RequestComponent implements OnInit {
         this.rest.getProductTypes().subscribe((data: {}) => {
             this.ptypes = data;
             this.ptypes = this.ptypes.types;
-            console.log(this.ptypes)
+            
         });
       }
 }
