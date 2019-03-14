@@ -8,18 +8,19 @@
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
                         <p>Unidades</p>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createUnits()">
                             <div class="form-row">
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Unidad de Medida</label>
-                                <input type="text" class="form-control" name="name" class="form-control" #name="ngModel" [(ngModel)]="unit.name" id="validationCustom01" placeholder="Caja"  required>
+                                <input type="text" class="form-control" formControlName="name" class="form-control" #name id="validationCustom01" placeholder="Caja"  required>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Peso en Kilogramos</label>
-                                <input type="text" class="form-control" name="val" class="form-control" #val="ngModel" [(ngModel)]="unit.weigh" id="validationCustom01" placeholder="32"  required>
+                                <input type="number" class="form-control" formControlName="weigh" class="form-control" #weigh id="validationCustom01" placeholder="32"  required>
                               </div>
                             </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createUnits()">Agregar</button>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createUnits()"
+                            [disabled]="!reactiveForm.valid">Agregar</button>
                           </form>
                     </div>
                   </div>

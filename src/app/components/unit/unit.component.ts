@@ -3,6 +3,8 @@ import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Unit } from '../../models/unit';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
@@ -14,13 +16,20 @@ export class UnitComponent implements OnInit {
   public unit: Unit;
   public value: Number;
 
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+  public reactiveForm: FormGroup;
+
+  constructor(public rest: RestService, private route: ActivatedRoute,
+    private router: Router,private formBuilder:FormBuilder) {
       this.title = 'Usuarios';
       this.unit = new Unit( '', this.value);
   }
 
   ngOnInit() {
     if(this.getRole()){
+      this.reactiveForm = this.formBuilder.group({
+          name: ['', Validators.required],
+          weigh: ['', Validators.required]
+      });
         this.getTheUnits();
     }else{
       this.router.navigate(['/requests']);
@@ -54,7 +63,7 @@ export class UnitComponent implements OnInit {
   }
 
   createUnits() {
-    console.log(this.unit);
+      this.unit=this.reactiveForm.value;
       this.rest.createObject(this.unit,'units/create').subscribe((result) => {
           this.getTheUnits();
         }, (err) => {

@@ -3,6 +3,8 @@ import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductType } from '../../models/productType';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-unit',
   templateUrl: './productType.component.html',
@@ -12,11 +14,17 @@ export class PTypeComponent implements OnInit {
   public ptypes: any = [];
   public ptype: ProductType;
 
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+  public reactiveForm: FormGroup;
+
+  constructor(public rest: RestService, private route: ActivatedRoute,
+     private router: Router,private formBuilder:FormBuilder) {
       this.ptype = new ProductType('');
   }
 
   ngOnInit() {
+    this.reactiveForm = this.formBuilder.group({
+        type: ['', Validators.required]
+    });
       this.getProductTypes();
   }
 
@@ -38,6 +46,7 @@ export class PTypeComponent implements OnInit {
   }
 
   createProductTypes() {
+    this.ptype=this.reactiveForm.value;
       this.rest.createProductTypes(this.ptype).subscribe((result) => {
           this.getProductTypes();
         }, (err) => {
@@ -45,8 +54,3 @@ export class PTypeComponent implements OnInit {
         });
   }
 }
-
-
-
-
-

@@ -3,6 +3,8 @@ import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
     selector: 'app-user',
     templateUrl: './product.component.html',
@@ -18,12 +20,23 @@ export class ProductComponent implements OnInit {
     public providersToAdd: any = [];
     public x;
     public units: any = [];
-    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+
+
+    public reactiveForm: FormGroup;
+
+    constructor(public rest: RestService, private route: ActivatedRoute,
+      private router: Router,private formBuilder:FormBuilder) {
         this.title = 'Usuarios';
-        this.product = new Product( '', [''], '', 0, '',['']);
+        this.product = new Product( '', [''], '', '', 0,['']);
     }
 
     ngOnInit() {
+      this.reactiveForm = this.formBuilder.group({
+          name: ['', Validators.required],
+          category: ['', Validators.required],
+          description: ['', Validators.required],
+          price: ['', Validators.required]
+      });
         this.getProducts();
         this.getProductTypes();
         this.getTheUnits();
@@ -45,7 +58,7 @@ export class ProductComponent implements OnInit {
     addUnit(unitId){
         this.unitsToAdd.push(unitId)
         console.log(this.unitsToAdd)
-        // 
+        //
     }
 
     getProducts() {
@@ -54,7 +67,7 @@ export class ProductComponent implements OnInit {
             this.products = data;
             this.products = this.products.products;
             console.log(this.products)
-        }); 
+        });
       }
     deleteProducts(id) {
         this.rest.deleteProduct(id)
@@ -74,6 +87,7 @@ export class ProductComponent implements OnInit {
       }
 
     createProducts() {
+        this.product=this.reactiveForm.value;
         this.product.unit = this.unitsToAdd;
         this.product.provider = this.providersToAdd;
         console.log(this.product);

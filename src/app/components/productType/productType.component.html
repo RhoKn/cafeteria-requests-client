@@ -8,14 +8,15 @@
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
                         <p>Categorias</p>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createProductTypes()">
                             <div class="form-row">
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Categorias</label>
-                                <input type="text" class="form-control" name="type" class="form-control" #type="ngModel" [(ngModel)]="ptype.type" id="validationCustom01" placeholder="Fruta"  required>
+                                <input type="text" class="form-control" formControlName="type" class="form-control" #type id="validationCustom01" placeholder="Fruta"  required>
                               </div>
                             </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProductTypes()">Agregar</button>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProductTypes()"
+                            [disabled]="!reactiveForm.valid">Agregar</button>
                           </form>
                     </div>
                   </div>

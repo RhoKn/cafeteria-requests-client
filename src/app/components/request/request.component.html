@@ -7,33 +7,25 @@
                 <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
                         <h2>Nuevo pedido</h2>
-                        <form class="needs-validation" novalidate>
-
+                        <form class="needs-validation">
                             <div class="form-row">
-
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="validationCustom05">Comedor que reliza el pedido</label>
                                     <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="request.dRoom" required>
                                         <option selected> Elegir...</option>
                                         <option *ngFor="let dr of dRooms">{{dr._id}}</option>
                                     </select>
                                 </div>
-
-                                <br>
-                                <br>
-
+                            </div>
+                            <div class="form-row">
                                 <div class="container mb-3">
                                     <label for="tArequest">Observaciones</label>
                                     <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="request.observations">
-
                                  </textarea>
                                 </div>
-
-                                <br>
-                                <br>
-                                <br>
-
-                                <div class="container">
+                            </div>
+                            <div class="form-row">
+                              <div class="table-responsive">
                                     <p>Productos seleccionados</p>
                                     <table class="table user-list">
                                         <thead>
@@ -71,17 +63,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-
                                 <div class="row">
-
-
                                 </div>
-                            </div>
+                                </div>
                             <button class="btn btn-primary float-right mb-3" type="reset" (click)="createRequest()">Agregar</button>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -96,7 +83,7 @@
             <div class="table-responsive">
                 <div class="main-box no-header clearfix">
                     <div class="main-box-body clearfix">
-                        <div class="container">
+                        <div class="table-responsive">
                             <h2>Productos disponibles</h2>
                             <br>
                             <ng-container *ngFor="let pt of ptypes, let i = index" id="accordion">
@@ -104,20 +91,16 @@
                                     <a data-toggle="collapse" href="#acc{{i}}" role="button" aria-expanded="false" aria-controls="samplse" >
                                         {{pt.type}}
                                     </a>
-                                    <!--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{pt._id}}" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        Button with data-target
-                                    </button>-->
                                 </p>
                                 <hr>
-                                <div class="collapse" id="acc{{i}}">
+                                <div class="collapse table-responsive" id="acc{{i}}">
                                     <ng-container  *ngFor="let p of products">
-                                        <div class="form-row" *ngIf="p.category._id == pt._id">
+                                        <div class="form-row table-responsive" *ngIf="p.category._id == pt._id">
                                                 <p style="width: 2%"></p>
-                                                        <p style="width: 15%">
+                                                        <p style="width: 10%">
                                                                 <a href="#" class="">{{p.name}}</a>
                                                             </p>
-                                                            <p style="width: 53%">
+                                                            <p style="width: 58%">
                                                                 {{p.description}}
                                                             </p>
                                                             <p style="width: 15%">
@@ -129,14 +112,10 @@
                                                 <hr style="width:95%">
                                         </div>
                                     </ng-container>
-
-
-
                                 </div>
                             </ng-container>
                             <br>
                             <br>
-
                         </div>
                     </div>
                 </div>
@@ -144,25 +123,6 @@
         </div>
     </div>
 
-
-    <!--
-<div class="container">
-    <div class="row">
-        <div *ngFor="let p of products" class="col-sm-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{p.name}}</h5>
-                    <p class="card-text">{{p.category.type}}
-                    </p>
-                    <p class="card-text font-weight-bold">{{p.unit.name}}
-                    </p>
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="addProduct(p)">Add</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
     <br>
     <br>
     <br>
@@ -243,49 +203,52 @@
     </div>
 
     <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+       <div class="modal-dialog">
+           <div class="modal-content">
+             <form [formGroup]="reactiveForm" (ngSubmit)="addToList()">
 
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Producto a agregar: {{pSelected.name}}</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="col-md-3 mb-3">
-                            <label for="validationCustom05">Unidad deseada</label>
-                            <select id="inputType" class="form-control" name="uType " #uType="ngModel" [(ngModel)]="pToAdd.unit" required>
-                                <option selected>Elegir..</option>
-                                <option *ngFor="let u of pSelected">{{u.name}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationCustom05">Proveedor deseado</label>
-                            <select id="inputType" class="form-control" name="pProv " #pProv="ngModel" [(ngModel)]="pToAdd.provider" required>
-                                <option selected>Elegir..</option>
-                                <option *ngFor="let p of pSelected2">{{p}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationCustom01">Cantidad requerida</label>
-                            <input type="text" class="form-control" name="qtty" #qtty="ngModel" [(ngModel)]="pToAdd.quantity" placeholder="2" required>
-                        </div>
+               <!-- Modal Header -->
+               <div class="modal-header">
+                   <h4 class="modal-title">Producto a agregar: {{pSelected.name}}</h4>
+                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+               </div>
 
-                    </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                   <div class="form-row">
+                       <div class="col-md-3 mb-3">
+                           <label for="validationCustom05">Unidad deseada</label>
+                           <select id="inputType" class="form-control" formControlName="uType" #uType required>
+                               <option selected>Elegir..</option>
+                               <option *ngFor="let u of pSelected">{{u.name}}</option>
+                           </select>
+                       </div>
+                       <div class="col-md-3 mb-3">
+                           <label for="validationCustom05">Proveedor deseado</label>
+                           <select id="inputType" class="form-control" formControlName="pProv" #pProv required>
+                               <option selected>Elegir..</option>
+                               <option *ngFor="let p of pSelected2">{{p}}</option>
+                           </select>
+                       </div>
+                       <div class="col-md-3 mb-3">
+                           <label for="validationCustom01">Cantidad requerida</label>
+                           <input type="number" class="form-control" formControlName="qtty" #qtty placeholder="2" required>
+                       </div>
 
-                </div>
+                   </div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="addToList()">Agregar</button>
-                </div>
+               </div>
 
-            </div>
-        </div>
-    </div>
+               <!-- Modal footer -->
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-success" data-dismiss="modal" (click)="addToList()"
+                   [disabled]="!reactiveForm.valid">Agregar</button>
+               </div>
+             </form>
+           </div>
+       </div>
+   </div>
 
 
     <div class="modal" id="authorization">
