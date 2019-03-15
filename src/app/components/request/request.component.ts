@@ -33,7 +33,7 @@ export class RequestComponent implements OnInit {
     public linesByCat = [];
     public reactiveForm: FormGroup;
     public reactiveForm2: FormGroup;
-    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router, 
+    constructor(public rest: RestService, private route: ActivatedRoute, private router: Router,
         private refChange: ChangeDetectorRef, private formBuilder:FormBuilder) {
         this.title = 'Usuarios';
         this.request = new Request( '', this.selected,'','');
@@ -50,7 +50,7 @@ export class RequestComponent implements OnInit {
         //let exte = $('.chido'+index);
         //console.log(exte)
         //$('.js-example-basic-single').select2();
-        
+
         console.log(this.linesByCat);
     }
     showReq(){
@@ -70,9 +70,9 @@ export class RequestComponent implements OnInit {
         this.getProductTypes();
         this.hours = new Date().toLocaleTimeString();
         this.today = new Date().toLocaleDateString();
-        
-        
-        
+
+
+
     }
 
     deleteElement(i){
@@ -83,7 +83,9 @@ export class RequestComponent implements OnInit {
         this.rest.getRequests().subscribe((data: {}) => {
             this.requests = data;
             this.requests = this.requests.requests;
-            
+            console.log(this.requests);
+                  let prueba=this.requests.filter(n => n.status=='Creado');
+                  console.log(prueba);
         });
       }
 
@@ -110,7 +112,7 @@ export class RequestComponent implements OnInit {
         this.pSelected = prod.unit;
         this.pSelected2 = prod.provider;
         this.pToAdd.name = prod.name;
-        
+
         //this.selected.push({name:name,unit:unit});
     }
     addToList(){
@@ -134,7 +136,7 @@ export class RequestComponent implements OnInit {
         let nickName =this.rest.getNick();
         this.request.user= nickName;
 
-        
+
         this.rest.createRequest(this.request).subscribe((result) => {
             this.getRequests();
           }, (err) => {
@@ -207,7 +209,7 @@ export class RequestComponent implements OnInit {
         this.rest.getProductTypes().subscribe((data: {}) => {
             this.ptypes = data;
             this.ptypes = this.ptypes.types;
-            
+
         });
       }
 }

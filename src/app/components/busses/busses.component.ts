@@ -68,7 +68,7 @@ export class BussesComponent implements OnInit {
       this.rest.getUsers().subscribe((data: {}) => {
           this.users = data;
           this.users = this.users.users;
-          this.users=this.users.filter(n => n.user_type=='Admin');
+          this.users=this.users.filter(n => n.user_type=='Chofer');
       });
   }
   deleteBus(id) {
