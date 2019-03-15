@@ -1,0 +1,74 @@
+<div class="mb-4 text-right">
+        <a [routerLink]="['/requests/create']" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Agregar pedido</span>
+        </a>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Pedidos Existentes</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Comedor</th>
+                            <th>Solicitante</th>
+                            <th>Productos</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let rq of requests">
+                            <td>{{rq.dRoom.dRoom}}</td>
+                            <td>{{rq.created.user}}</td>
+                            <td>
+                                <ol class="list-unstyled">
+                                    <li *ngFor="let e of rq.products" href="#" class="">
+                                        <span class="badge badge-primary badge-pill">{{e.quantity}}</span> {{e.unit}} de {{e.name}}
+                                    </li>
+                                </ol>
+                            </td>
+                            <td>
+                                <span class="badge badge-primary">{{rq.status}}</span>
+                            </td>
+                            <td>
+                                <a class="table-link" *ngIf="canStatusUpgrade(rq.status) === true" data-toggle="modal" data-target="#authorization" (click)="copyReq(rq)">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fas fa-check fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <a class="table-link" *ngIf="canStatusDownGrade(rq.status) === true" data-toggle="modal" data-target="#rejection" (click)="copyReq(rq)">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <a routerLink="/requests/update/{{rq._id}}" class="table-link" *ngIf="canEdit(rq.status) === true">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fas fa-pencil-alt fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <a class="table-link danger" (click)="deleteRequest(rq._id)" *ngIf="canDelete(rq.status) === true">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fas fa-trash-alt fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    

@@ -1,18 +1,19 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Request } from '../../models/request';
+import { Request } from '../../../models/request';
 declare var $;
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-request',
-    templateUrl: './request.component.html',
-    styleUrls: ['./request.component.css']
+  selector: 'app-req-view',
+  templateUrl: './viewRequest.component.html',
+  styleUrls: ['./viewRequest.component.css']
 })
-export class RequestComponent implements OnInit {
-    public providers: any = [];
+export class RequestViewComponent implements OnInit {
+
+  public providers: any = [];
     public $: any;
     public fieldsCounter = 0;
     public requests: any = [];
@@ -204,7 +205,7 @@ export class RequestComponent implements OnInit {
         this.request.user = this.rest.getNick();
 
         this.rest.createRequest(this.request).subscribe((result) => {
-            this.router.navigate(['/requests']);
+            this.getRequests();
         }, (err) => {
             console.log(err);
         });
@@ -278,4 +279,6 @@ export class RequestComponent implements OnInit {
 
         });
     }
+
 }
+

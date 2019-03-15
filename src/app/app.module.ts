@@ -20,6 +20,7 @@ import { DRoomsComponent } from './components/dRooms/dRooms.component';
 import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
 import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
+import { RequestViewComponent } from './components/request/viewList/viewRequest.component';
 import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 import { ProductComponent } from './components/products/product.component';
@@ -50,7 +51,8 @@ import {RestService} from './rest.service';
     PTypeComponent,
     PTypeEditComponent,
     ProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    RequestViewComponent
   ],
   imports: [
     BrowserModule,

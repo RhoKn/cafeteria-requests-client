@@ -14,6 +14,7 @@ import { DRoomsComponent } from './components/dRooms/dRooms.component';
 import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
 import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
+import { RequestViewComponent } from './components/request/viewList/viewRequest.component';
 import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 import { ProductComponent } from './components/products/product.component';
@@ -39,7 +40,9 @@ const appRoutes: Routes = [
     {path:'units/update/:id',component:UnitEditComponent,canActivate:[AuthGuard]},
     {path:'dinningRooms',component:DRoomsComponent,canActivate:[AuthGuard]},
     {path:'dinningRooms/update/:id',component:DRoomEditComponent,canActivate:[AuthGuard]},
-    {path:'requests',component:RequestComponent,canActivate:[AuthGuard]},
+    {path:'requests',component:RequestViewComponent,canActivate:[AuthGuard]},
+    {path:'requests/create',component:RequestComponent,canActivate:[AuthGuard]},
+    
     {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
     {path:'productTypes',component:PTypeComponent,canActivate:[AuthGuard]},
     {path:'productTypes/update/:id',component:PTypeEditComponent,canActivate:[AuthGuard]},

@@ -77,19 +77,30 @@
                                 <hr>
                             </ng-container>
                             <div class="mb-4 text-right">
-                                    <a (click)="addLine(i)" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"></i>
-                                        </span>
-                                        <span class="text" style="color:white">Agregar pedido</span>
-                                    </a>
+                                    <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
+                                    
                                 </div>
                 </div>
 
                 
             </div>
         </ng-container>
-        <button class="btn btn-primary float-right mb-3" type="reset" (click)="createRequest()">Agregar</button>
+        <a (click)="createRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text" style="color:white">Agregar Pedido</span>
+            </a>
+        <a [routerLink]="['/requests']" class="btn btn-danger btn-icon-split float-right mb-3">
+                <span class="icon text-white-50">
+                    <i class="fas fa-times"></i>
+                </span>
+                <span class="text" style="color:white">Cancelar</span>
+            </a>
+
+       
+        
+        
     </div>
 
 
