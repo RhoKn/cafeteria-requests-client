@@ -44,7 +44,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-3">
-                                        
+
                                         <select class="unit{{p}} form-control" name="unit" id="unit{{p}}" hidden required>
                                             <option selected> Unidad...</option>
                                             <ng-container *ngFor="let p of products">
@@ -56,7 +56,7 @@
                                             <input type="text" id="qtty{{p}}" class="form-control"  placeholder="2" hidden required>
                                     </div>
                                     <div class="col-sm-3">
-                                        
+
                                         <select class="provider{{p}} form-control" name="provider" id="provider{{p}}" hidden required>
                                             <option selected> Proveedor...</option>
                                             <ng-container *ngFor="let p of products">
@@ -78,11 +78,11 @@
                             </ng-container>
                             <div class="mb-4 text-right">
                                     <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
-                                    
+
                                 </div>
                 </div>
 
-                
+
             </div>
         </ng-container>
         <a (click)="createRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
@@ -98,15 +98,14 @@
                 <span class="text" style="color:white">Cancelar</span>
             </a>
 
-       
-        
-        
+
+
+
     </div>
 
 
 
 <!--
-
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -191,30 +190,4 @@
         </ng-container>
         <button class="btn btn-primary float-right mb-3" type="reset" (click)="createRequest()">Agregar</button>
     </div>
-
-
 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

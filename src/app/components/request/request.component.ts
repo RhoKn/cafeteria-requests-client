@@ -183,7 +183,7 @@ export class RequestComponent implements OnInit {
                 let qttyInpt = document.getElementById(`qtty${this.linesByCat[counter][aux]}`) as HTMLInputElement;
                 let providSelect = document.getElementById(`provider${this.linesByCat[counter][aux]}`) as HTMLSelectElement;
                 let tmpProvId ;
-                
+
                 this.providers.forEach(prov =>{
                     if (prov.name=== providSelect.value){
                         tmpProvId = prov._id;
@@ -200,7 +200,7 @@ export class RequestComponent implements OnInit {
             }
         }
         this.request.products = this.selected;
-        
+
         this.request.user = this.rest.getNick();
 
         this.rest.createRequest(this.request).subscribe((result) => {

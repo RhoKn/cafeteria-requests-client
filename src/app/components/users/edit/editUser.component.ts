@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../models/user';
 
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-user-edit',
   templateUrl: './editUser.component.html',
@@ -11,8 +13,13 @@ import { User } from '../../../models/user';
 })
 export class UserEditComponent implements OnInit {
 
-  @Input() user: any = { };
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
+  @Input()
+  user: any = { };
+  public reactiveForm:FormGroup;
+  constructor(public rest: RestService, private route: ActivatedRoute,
+    private router: Router,private fb: FormBuilder) {
+       this.createForm();
+    }
 
   ngOnInit() {
 
@@ -20,10 +27,25 @@ export class UserEditComponent implements OnInit {
       this.rest.getUser(this.route.snapshot.params['id']).subscribe((data: {}) => {
         this.user = data;
         this.user = this.user.user;
-      });
+        this.reactiveForm.get('first_name').setValue(this.user.first_name);
+        this.reactiveForm.get('last_name').setValue(this.user.last_name);
+        this.reactiveForm.get('nick_name').setValue(this.user.nick_name);
+        this.reactiveForm.get('email').setValue(this.user.email);
+      })
     }else{
       this.router.navigate(['/requests']);
     }
+  }
+
+  createForm(){
+    this.reactiveForm = this.fb.group({
+        first_name: ['', Validators.required],
+        last_name: ['', Validators.required],
+        nick_name: ['', [Validators.required,Validators.minLength(5)]],
+        user_type: [],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   getRole(){
