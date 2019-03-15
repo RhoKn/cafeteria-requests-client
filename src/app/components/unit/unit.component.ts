@@ -46,12 +46,12 @@ export class UnitComponent implements OnInit {
 
 
   getTheUnits() {
-
       this.rest.getUnits().subscribe((data: {}) => {
           this.units = data;
           this.units = this.units.units;
       });
     }
+
   deleteUnits(id) {
       this.rest.deleteUnit(id)
         .subscribe(res => {

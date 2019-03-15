@@ -7,15 +7,16 @@
             <div class="main-box no-header clearfix">
                 <div class="main-box-body clearfix">
                   <div class=" col-md-12 mb-3">
-                      <p>Titulo chido</p>
-                      <form class="needs-validation" novalidate>
+                      <p>Actualizar Categoría</p>
+                      <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="updatePType()">
                           <div class="form-row">
                             <div class="col-md-4 mb-3">
-                              <label for="validationCustom01">Unidad de Medida</label>
-                              <input type="text" class="form-control" name="type" class="form-control" #type="ngModel" [(ngModel)]="ptype.type" id="validationCustom01" placeholder="Fruta"  required>
+                              <label for="validationCustom01">Categoría</label>
+                              <input type="text" class="form-control" formControlName="type" class="form-control" #type id="validationCustom01" placeholder="Fruta"  required>
                             </div>
                           </div>
-                          <button class="btn btn-primary float-right mb-3" type="reset" (click)="updatePType()">Agregar</button>
+                          <button class="btn btn-primary float-right mb-3" type="reset" (click)="updatePType()"
+                          [disabled]="!reactiveForm.valid">Actualizar</button>
                         </form>
                   </div>
                 </div>

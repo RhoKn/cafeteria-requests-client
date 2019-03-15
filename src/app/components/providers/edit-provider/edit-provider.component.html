@@ -6,54 +6,55 @@
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
                         <p>Actualizar Proveedor</p>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="updateProvider()">
                             <div class="form-row">
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Nombre(s)</label>
-                                <input type="text" class="form-control" name="contact_first_name" class="form-control" #contact_first_name="ngModel" [(ngModel)]="provider.contact_first_name" id="validationCustom01" placeholder="Lyria Fernanda"  required>
+                                <input type="text" class="form-control" formControlName="contact_first_name" class="form-control" #contact_first_name id="validationCustom01" placeholder="Lyria Fernanda"  required>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom02">Apellido(s)</label>
-                                <input type="text" class="form-control" name="contact_last_name" #contact_last_name="ngModel" [(ngModel)]="provider.contact_last_name" id="validationCustom02" placeholder="Gonzalez" required>
+                                <input type="text" class="form-control" formControlName="contact_last_name" #contact_last_name id="validationCustom02" placeholder="Gonzalez" required>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom03">Telefono</label>
-                                <input type="number" class="form-control" name="phone_number" #phone_number="ngModel" [(ngModel)]="provider.phone_number" id="validationCustom03" placeholder="6147850212" required>
+                                <input type="number" class="form-control" formControlName="phone_number" #phone_number id="validationCustom03" placeholder="6147850212" required>
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="col-md-5 mb-3">
                                 <label for="validationCustom04">Correo electrónico</label>
-                                <input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="provider.email" id="validationCustom04" placeholder="lyriaglez@gmail.com" required>
+                                <input type="text" class="form-control" formControlName="email" #email id="validationCustom04" placeholder="lyriaglez@gmail.com" required>
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom05">RFC</label>
-                                <input type="text" class="form-control" name="RFC" #RFC="ngModel" [(ngModel)]="provider.RFC" id="validationCustom05" placeholder="GL950214" required>
+                                <input type="text" class="form-control" formControlName="RFC" #RFC id="validationCustom05" placeholder="GL950214" required>
                               </div>
                               <div class="col-md-3 mb-3">
                                 <label for="validationCustom06">Codigo Postal</label>
-                                <input type="text" class="form-control" name="postal_code" #postal_code="ngModel" [(ngModel)]="provider.postal_code" id="validationCustom06" placeholder="31100" required>
+                                <input type="text" class="form-control" formControlName="postal_code" #postal_code id="validationCustom06" placeholder="31100" required>
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="col-md-5 mb-3">
                                 <label for="validationCustom07">Calle</label>
-                                <input type="text" class="form-control" name="street_name" #street_name="ngModel" [(ngModel)]="provider.street_name" id="validationCustom07" placeholder="Av. Tecnologico" required>
+                                <input type="text" class="form-control" formControlName="street_name" #street_name id="validationCustom07" placeholder="Av. Tecnologico" required>
                               </div>
                               <div class="col-md-2 mb-3">
                                 <label for="validationCustom08">Num. Exterior</label>
-                                <input type="text" class="form-control" name="street_number" #street_number="ngModel" [(ngModel)]="provider.street_number" id="validationCustom08" placeholder="303">
+                                <input type="text" class="form-control" formControlName="street_number" #street_number id="validationCustom08" placeholder="303">
                               </div>
                               <div class="col-md-2 mb-3">
                                 <label for="validationCustom09">Num. Interior</label>
-                                <input type="text" class="form-control" name="suite_number" #suite_number="ngModel" [(ngModel)]="provider.suite_number" id="validationCustom09" placeholder="5">
+                                <input type="text" class="form-control" formControlName="suite_number" #suite_number id="validationCustom09" placeholder="5">
                               </div>
                               <div class="col-md-3 mb-3">
                                 <label for="validationCustom10">Colonia</label>
-                                <input type="text" class="form-control" name="colony" #colony="ngModel" [(ngModel)]="provider.colony" id="validationCustom10" placeholder="Diego Lucero" required>
+                                <input type="text" class="form-control" formControlName="colony" #colony id="validationCustom10" placeholder="Diego Lucero" required>
                               </div>
                             </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateProvider()">Actualizar</button>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateProvider()"
+                            [disabled]="!reactiveForm.valid">Actualizar</button>
                           </form>
                     </div>
                   </div>
