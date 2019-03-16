@@ -5,7 +5,7 @@
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLinkActive]="['active']" [routerLink]="['/users']">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLinkActive]="['active']" [routerLink]="['/requests']">
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
@@ -17,7 +17,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active" *ngIf="rest.loggedIn()">
-      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/users']">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/requests']">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Inicio</span></a>
     </li>
@@ -45,23 +45,53 @@
       </div>
     </li>
 
-    <li class="nav-item" *ngIf="rest.loggedIn()">
+    <li class="nav-item" *ngIf="rest.loggedIn() && rest.getRole()!='Chofer'">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fas fa-fw fa-wrench"></i>
         <span>Pedidos</span>
       </a>
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" *ngIf="rest.loggedIn()">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Funciones</h6>
+          <h6 class="collapse-header">Pedidos</h6>
           <a class="collapse-item" *ngIf="rest.loggedIn() && rest.getRole()=='Admin'" [routerLinkActive]="['active']" [routerLink]="['/dinningRooms']">Comedores</a>
-          <a class="collapse-item" *ngIf="rest.loggedIn() && rest.getRole()!='Compras'" [routerLinkActive]="['active']" [routerLink]="['/units']">Unidades</a>
+
           <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/requests']">Pedidos</a>
-          <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/productTypes']">Categorias de productos</a>
-          <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/products']">Productos</a>
-            <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/busses']">Camiones</a>
+          <!-- <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/productTypes']">Categorias de productos</a>
+          <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/products']">Productos</a> -->
+          <a class="collapse-item" *ngIf="rest.getRole()=='Admin'" [routerLinkActive]="['active']" [routerLink]="['/busses']">Camiones</a>
         </div>
       </div>
     </li>
+
+    <li class="nav-item" *ngIf="rest.loggedIn() && (rest.getRole()=='Admin' || rest.getRole()=='Gerente' || rest.getRole()=='Chef')">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
+        <i class="fas fa-fw fa-wrench"></i>
+        <span>Productos</span>
+      </a>
+      <div id="collapseProducts" class="collapse" aria-labelledby="collapseProducts" data-parent="#accordionSidebar" *ngIf="rest.loggedIn()">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Productos</h6>
+          <a class="collapse-item" *ngIf="rest.loggedIn() && rest.getRole()!='Compras'" [routerLinkActive]="['active']" [routerLink]="['/units']">Unidades</a>
+          <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/productTypes']">Categorias de productos</a>
+          <a class="collapse-item" [routerLinkActive]="['active']" [routerLink]="['/products']">Productos</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item" *ngIf="rest.loggedIn() && (rest.getRole()!='Compras' && rest.getRole()!='Chef')">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRequests" aria-expanded="true" aria-controls="collapseRequests">
+        <i class="fas fa-fw fa-wrench"></i>
+        <span>Salidas</span>
+      </a>
+      <div id="collapseRequests" class="collapse" aria-labelledby="collapseRequests" data-parent="#accordionSidebar" *ngIf="rest.loggedIn()">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Salidas</h6>
+          <a class="collapse-item" *ngIf="rest.loggedIn()" [routerLinkActive]="['active']" [routerLink]="['/units']">Salidas</a>
+        </div>
+      </div>
+    </li>
+
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

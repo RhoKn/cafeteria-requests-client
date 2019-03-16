@@ -31,17 +31,32 @@ export class ProductComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.reactiveForm = this.formBuilder.group({
-          name: ['', Validators.required],
-          category: ['', Validators.required],
-          description: ['', Validators.required],
-          price: ['', Validators.required]
-      });
-        this.getProducts();
-        this.getProductTypes();
-        this.getTheUnits();
-        this.getProviders();
+
+      if(this.getRole()){
+        this.reactiveForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            category: ['', Validators.required],
+            description: ['', Validators.required],
+            price: ['', Validators.required]
+        });
+          this.getProducts();
+          this.getProductTypes();
+          this.getTheUnits();
+          this.getProviders();
+      }else{
+        this.router.navigate(['/requests']);
+      }
     }
+
+    getRole(){
+      if(this.rest.getRole()!='Compras' && this.rest.getRole()!='Chofer'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+
 
     getTheUnits() {
 

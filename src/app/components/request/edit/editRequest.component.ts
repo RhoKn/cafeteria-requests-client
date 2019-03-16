@@ -22,16 +22,30 @@ export class RequestEditComponent implements OnInit {
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.rest.getRequest(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.req = data;
-      this.req = this.req.request;
-      this.selected = this.req.products;
-    });
-    this.getProducts();
-    this.getDRooms();
-    this.getProductTypes();
 
+    if(this.getRole()){
+      this.rest.getRequest(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.req = data;
+        this.req = this.req.request;
+        this.selected = this.req.products;
+      });
+      this.getProducts();
+      this.getDRooms();
+      this.getProductTypes();
+
+    }else{
+      this.router.navigate(['/requests']);
+    }
   }
+
+  getRole(){
+    if(this.rest.getRole()=='Admin' || this.rest.getRole()=='Chef' || this.rest.getRole()=='Gerente'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   getProducts() {
     this.products = [];
@@ -41,7 +55,7 @@ export class RequestEditComponent implements OnInit {
         console.log(this.products)
     });
   }
-  
+
   addProduct(prod){
     this.pSelected = prod.unit;
     this.pSelected2 = prod.provider;
@@ -63,8 +77,8 @@ getDRooms() {
   this.rest.getDRooms().subscribe((data: {}) => {
       this.dRooms = data;
       this.dRooms = this.dRooms.dRooms;
-      
-      
+
+
   });
 }
 
@@ -87,4 +101,3 @@ getDRooms() {
   }
 
 }
-

@@ -35,13 +35,18 @@ export class BussesEditComponent implements OnInit {
 
 
   ngOnInit() {
-      this.getUsers();
-    this.rest.getBus(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.bus = data;
-      this.bus = this.bus.bus;
-      this.updateForm.get('space_box').setValue(this.bus.space_box);
-      this.updateForm.get('license_plate').setValue(this.bus.license_plate);
-    })
+
+    if(this.getRole()){
+        this.getUsers();
+        this.rest.getBus(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.bus = data;
+        this.bus = this.bus.bus;
+        this.updateForm.get('space_box').setValue(this.bus.space_box);
+        this.updateForm.get('license_plate').setValue(this.bus.license_plate);
+      })
+    }else{
+      this.router.navigate(['/requests']);
+    }
 
   }
 
@@ -57,7 +62,7 @@ export class BussesEditComponent implements OnInit {
       this.rest.getUsers().subscribe((data: {}) => {
           this.users = data;
           this.users = this.users.users;
-          this.users=this.users.filter(n => n.user_type=='Admin');
+          this.users=this.users.filter(n => n.user_type=='Chofer');
 
       });
 

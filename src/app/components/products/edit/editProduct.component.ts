@@ -19,20 +19,33 @@ export class EditProductComponent implements OnInit {
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.rest.getProduct(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.product = data;
-      this.product = this.product.product;
-      console.log(this.product);
-    });
-    this.getTheUnits();
-    this.getProductTypes();
-    this.getProviders();
-    this.product.unit = this.unitsToAdd;
-    this.product.provider = this.providersToAdd;
+
+    if(this.getRole()){
+      this.rest.getProduct(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.product = data;
+        this.product = this.product.product;
+        console.log(this.product);
+      });
+      this.getTheUnits();
+      this.getProductTypes();
+      this.getProviders();
+      this.product.unit = this.unitsToAdd;
+      this.product.provider = this.providersToAdd;
+    }else{
+      this.router.navigate(['/requests']);
+    }
+  }
+
+  getRole(){
+    if(this.rest.getRole()!='Compras' && this.rest.getRole()!='Chofer' && this.rest.getRole()!='Chef'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   updateProduct() {
-    
+
     this.product.unit = this.unitsToAdd;
     this.product.provider = this.providersToAdd;
     this.rest.updateProduct(this.route.snapshot.params['id'], this.product).subscribe((result) => {
@@ -64,7 +77,7 @@ export class EditProductComponent implements OnInit {
 addUnit(unitId){
     this.unitsToAdd.push(unitId)
     console.log(this.unitsToAdd)
-    // 
+    //
 }
 getProviders() {
   this.providers = [];

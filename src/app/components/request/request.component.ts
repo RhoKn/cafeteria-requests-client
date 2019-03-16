@@ -93,6 +93,7 @@ export class RequestComponent implements OnInit {
 
     ngOnInit() {
 
+      if(this.getRole()){
         this.reactiveForm = this.formBuilder.group({
             uType: ['', Validators.required],
             pProv: ['', Validators.required],
@@ -105,7 +106,21 @@ export class RequestComponent implements OnInit {
         this.getProviders();
         this.hours = new Date().toLocaleTimeString();
         this.today = new Date().toLocaleDateString();
+      }else{
+        this.router.navigate(['/requests']);
+      }
     }
+
+    getRole(){
+      if(this.rest.getRole()=='Admin' || this.rest.getRole()=='Chef' || this.rest.getRole()=='Gerente'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+
+
     getProviders() {
         this.providers = [];
         this.rest.getProviders().subscribe((data: {}) => {
