@@ -1,186 +1,99 @@
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-
-<div class="container bootstrap snippet">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="main-box no-header clearfix">
-                <div class="main-box-body clearfix">
-                    <div class=" col-md-12 mb-3">
-                        <p>Titulo chido</p>
-                        <form class="needs-validation" novalidate>
-
-                            <div class="form-row">
-
-                                <div class="col-md-3 mb-3">
-                                    <label for="validationCustom05">Comedor que reliza el pedido</label>
-                                    <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="req.dRoom" required>
-                                        <option selected>{{req.dRoom}}</option>
-                                        <option *ngFor="let dr of dRooms">{{dr._id}}</option>
-                                    </select>
-                                </div>
-
-                                <br>
-                                <div class="container mb-3">
-                                        <label for="tArequest">Observaciones</label>
-                                        <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="req.observations">
-                                        
-                                     </textarea>
-                                    </div>
-                                <br>
-                                    
-                                        
-                                        <div class="container">
-                                                <p>Productos seleccionados</p>
-                                                <table class="table user-list">
-                                                    <thead>
-                                                        <tr>
-                                                            <th><span>Producto</span></th>
-                                                            <th><span>Unidades</span></th>
-                                                            <th><span>Cantidad</span></th>
-                                                            <th><span>Proveedor</span></th>
-                                                            <th><span>Opciones</span></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let sl of selected, let i = index">
-                                                            <td>
-                                                                <a href="#" >{{sl.name}}</a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" >{{sl.unit}}</a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" >{{sl.quantity}}</a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" >{{sl.provider}}</a>
-                                                            </td>
-                                                            <td style="width: 20%;">
-                                                                <a class="table-link danger" (click)="deleteElement(i)">
-                                                                    <span class="fa-stack">
-                                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                
-
-                                <div class="row">
-
-                                    
-                                </div>
-                            </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="updateRequest()">Editar</button>
-                        </form>
-                    </div>
-
-                </div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Editar Pedido</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-row mb-2">
+            <div class="col-md-3 mb-3">
+                <label for="validationCustom05">Comedor que relizó el pedido</label>
+                <select id="inputType" class="form-control" name="dR" #dR="ngModel" [(ngModel)]="tmpdRoom" required>
+                    <option *ngFor="let dr of dRoomsName">{{dr}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3"></div>
+            <div class="col-md-6 mb-3 ">
+                <div class="text-right"><label>Creado en:</label></div>
+                <!--<h3 class="text-right">{{req.created.date}}</h3>-->
             </div>
         </div>
-    </div>
-</div>
-<br>
-
-
-<div class="container bootstrap snippet">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive">
-                    <div class="main-box no-header clearfix">
-                        <div class="main-box-body clearfix">
-                            <div class="container">
-                                <h2>Productos disponibles</h2>
-                                    <br>
-                                    <ng-container *ngFor="let pt of ptypes">
-                                            <table class="table user-list" >
-                                                    <thead>
-                                                            {{pt.type}}
-                                                    </thead>
-                                                    <tbody>
-                                                        <ng-container *ngFor="let p of products">
-                                                                <tr *ngIf="p.category._id == pt._id" >
-                                                                        <td style="width: 15%">
-                                                                            <a href="#" class="">{{p.name}}</a>
-                                                                        </td>
-                                                                        <td style="width: 55%">
-                                                                            <p >{{p.description}}</p>
-                                                                        </td>
-                                                                        <td style="width: 15%">
-                                                                            <p>${{p.price}}</p>
-                                                                        </td>  
-                                                                        <td style="width: 15%">
-                                                                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" (click)="addProduct(p)">Añadir a listado</button>
-                                                                        </td>
-                                                                </tr>
-                                                        </ng-container>
-                                                        
-                                                        
-                                                    </tbody>
-                                                </table>
-                                                <br>
-                                    </ng-container>
-                            </div>
-                    </div>
-                </div>
-            </div>
+        <div class="form-row mb-4">
+            <label for="tArequest">Observaciones</label>
+            <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="req.observations">
+                </textarea>
         </div>
-    </div>
 
+        <ng-container *ngFor="let pt of ptypes, let i = index" id="accordion">
+            <a>
+                {{pt.type}}
+            </a>
+            <hr>
 
-
-
-
-    <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-        
-                    
-                    <div class="modal-header">
-                            <h4 class="modal-title">Producto a agregar: {{pSelected.name}}</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="container">
+                <ng-container *ngFor="let p of arrayAuxBuild[i], let j = index">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select required id="includedP{{p}}" class="form-control searcher{{p}}" required>
+                                <option selected > Producto...</option>
+                                <ng-container *ngFor="let p of products">
+                                    <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
+                                </ng-container>
+                            </select>
                         </div>
-            
-                    
-                        <div class="modal-body">
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="validationCustom05">Unidad deseada</label>
-                                    <select id="inputType" class="form-control" name="uType " #uType="ngModel" [(ngModel)]="pToAdd.unit" required>
-                                        <option selected>Elegir..</option>
-                                        <option *ngFor="let u of pSelected">{{u.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="validationCustom05">Proveedor deseado</label>
-                                    <select id="inputType" class="form-control" name="pProv " #pProv="ngModel" [(ngModel)]="pToAdd.provider" required>
-                                        <option selected>Elegir..</option>
-                                        <option *ngFor="let p of pSelected2">{{p}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom01">Cantidad requerida</label>
-                                    <input type="text" class="form-control" name="qtty" #qtty="ngModel" [(ngModel)]="pToAdd.quantity" placeholder="2" required>
-                                </div>
-            
+                        <div class="col-sm-3">
+                            <select  required id="includedU{{p}}" class="form-control" hidden required>
+                                <option selected> Unidad...</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                                <input type="text" id="includedC{{p}}" placeholder="Cantidad" class="form-control" hidden required>
+                        </div>
+                        <div class="col-sm-3">
+                            <select  required id="includedPr{{p}}"  class="form-control" hidden required>
+                                <option selected> Provider...</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                                <a class="table-link danger " (click)="deleteLine(i,j)">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <button type="button" id="trigger{{p}}" (click)="setInfo(p)">{{p}}</button>
                             </div>
-            
-                        </div>
-            
-                       
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="addToList()">Add</button>
-                        </div>
-            
+                        
                     </div>
+                    <hr>
+                </ng-container>
+                <div class="mb-4 text-right">
+                    <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
+                    <br>
+                    <br>
+                    <br>
+
                 </div>
             </div>
 
 
 
 
+        </ng-container>
 
 
+        <a (click)="updateRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Editar Pedido</span>
+        </a>
+        <a [routerLink]="['/requests']" class="btn btn-danger btn-icon-split float-right mb-3">
+            <span class="icon text-white-50">
+                <i class="fas fa-times"></i>
+            </span>
+            <span class="text" style="color:white">Cancelar</span>
+        </a>
+
+
+
+
+    </div>

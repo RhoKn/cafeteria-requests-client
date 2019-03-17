@@ -135,6 +135,8 @@ export class RequestComponent implements OnInit {
                 this.linesByCat.push([]);
             });
         });
+
+        
     }
 
     getDRooms() {
