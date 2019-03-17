@@ -29,6 +29,8 @@ import { TokenInterceptorService} from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth-guard.service';
 import {RestService} from './rest.service';
 
+
+
 const appRoutes: Routes = [
   //  {path: '', component: LoginComponent},
     {path: '', redirectTo: 'users', pathMatch: 'full'},
@@ -44,7 +46,7 @@ const appRoutes: Routes = [
     {path:'dinningRooms/update/:id',component:DRoomEditComponent,canActivate:[AuthGuard]},
     {path:'requests',component:RequestViewComponent,canActivate:[AuthGuard]},
     {path:'requests/create',component:RequestComponent,canActivate:[AuthGuard]},
-    
+
     {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
     {path:'productTypes',component:PTypeComponent,canActivate:[AuthGuard]},
     {path:'productTypes/update/:id',component:PTypeEditComponent,canActivate:[AuthGuard]},
@@ -56,7 +58,7 @@ const appRoutes: Routes = [
     {path: '**', component: NotFoundComponent}
 ];
 
-export const appRoutingProviders: any[] = [    RestService, AuthGuard,{
+export const appRoutingProviders: any[] = [RestService, AuthGuard,{
       provide: HTTP_INTERCEPTORS,
       useClass:TokenInterceptorService,
       multi:true

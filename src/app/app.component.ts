@@ -21,7 +21,17 @@ export class AppComponent {
       this.getRequests();
     }
 
+    getRole(){
+      if(this.rest.getRole()=='Admin' || this.rest.getRole()=='Gerente'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+
   getRequests() {
+    if(this.getRole()){
       this.requests = [];
       this.rest.getRequests().subscribe((data: {}) => {
           this.requests = data;
@@ -30,8 +40,8 @@ export class AppComponent {
           console.log(prueba.length);
           this.notif=prueba.length;
       });
+    }else{
+      this.notif='';
     }
-
-
-
+  }
 }

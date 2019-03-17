@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from '../../models/request';
 declare var $;
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms';
 
 @Component({
     selector: 'app-request',
@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RequestComponent implements OnInit {
     public providers: any = [];
     public $: any;
+    public flag=0;
     public fieldsCounter = 0;
     public requests: any = [];
     public products: any = [];
@@ -38,23 +39,7 @@ export class RequestComponent implements OnInit {
 
         this.request = new Request('', this.selected, '', '');
     }
-    addLine(index) {
-        this.fieldsCounter++;
-        this.linesByCat[index].push(this.fieldsCounter);
-        this.refChange.detectChanges();
 
-        let a = $('.searcher' + this.fieldsCounter);
-        a.select2();
-        a.on('select2:select', function (e) {
-            document.getElementById('trigger' + e.target.id).click();
-        });
-
-
-    }
-    deleteLine(index) {
-        this.linesByCat[index].splice(index, 1);
-        this.refChange.detectChanges();
-    }
     setInfo(idHelper) {
         let prodSelect = document.getElementById(idHelper) as HTMLSelectElement;
         let unitSelect = document.getElementById('unit' + idHelper) as HTMLSelectElement;
@@ -95,9 +80,9 @@ export class RequestComponent implements OnInit {
 
       if(this.getRole()){
         this.reactiveForm = this.formBuilder.group({
-            uType: ['', Validators.required],
-            pProv: ['', Validators.required],
-            qtty: ['', Validators.required]
+          unit:['',Validators.required],
+          provider:['',Validators.required],
+          qtty:['',Validators.required]
         });
         this.getProducts();
         this.getDRooms();
@@ -118,8 +103,6 @@ export class RequestComponent implements OnInit {
         return false;
       }
     }
-
-
 
     getProviders() {
         this.providers = [];
@@ -183,6 +166,38 @@ export class RequestComponent implements OnInit {
             );
     }
 
+
+
+    test(){
+      while(true){
+        if(this.flag==0){
+          return true;
+        }
+
+        for(let counter = 0; counter < this.linesByCat.length;counter++){
+            for (let aux = 0; aux < this.linesByCat[counter].length; aux++) {
+                let prodSelect = document.getElementById(''+this.linesByCat[counter][aux]) as HTMLSelectElement;
+                let unitSelect = document.getElementById('unit' + this.linesByCat[counter][aux]) as HTMLSelectElement;
+                let qttyInpt = document.getElementById(`qtty${this.linesByCat[counter][aux]}`) as HTMLInputElement;
+                let providSelect = document.getElementById(`provider${this.linesByCat[counter][aux]}`) as HTMLSelectElement;
+
+                if(prodSelect.value=='' || unitSelect.value=='' || qttyInpt.value==''
+                || providSelect.value=='' || unitSelect.value=='Unidad...' || providSelect.value=='Proveedor...'){
+
+                  return true;
+                }
+
+            }
+
+        }
+
+        return false;
+      }
+
+
+    }
+
+
     createRequest() {
         let tmpDRoomId;
         this.dRooms.forEach(dR =>{
@@ -224,6 +239,28 @@ export class RequestComponent implements OnInit {
             console.log(err);
         });
     }
+
+    addLine(index) {
+        this.flag++;
+        this.fieldsCounter++;
+        this.linesByCat[index].push(this.fieldsCounter);
+        this.refChange.detectChanges();
+
+        let a = $('.searcher' + this.fieldsCounter);
+        a.select2();
+        a.on('select2:select', function (e) {
+            document.getElementById('trigger' + e.target.id).click();
+        });
+
+
+    }
+    deleteLine(index) {
+        this.flag--;
+        this.linesByCat[index].splice(index, 1);
+        this.refChange.detectChanges();
+    }
+
+
     copyReq(reqst) {
         this.pStatusEdit = reqst;
         this.action = this.pStatusEdit.status === 'Creado' ? 'Autorizar' :
