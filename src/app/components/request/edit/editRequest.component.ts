@@ -175,7 +175,7 @@ export class RequestEditComponent implements OnInit {
 
   updateRequest() {
     this.pEditedToAdd = [];
-    console.log(this.arrayAuxBuild)
+    
     this.dRooms.forEach(dR => {
       if (dR.dRoom === this.tmpdRoom) {
         this.req.dRoom = dR._id;
@@ -212,7 +212,7 @@ export class RequestEditComponent implements OnInit {
     }
 
     this.req.products = this.pEditedToAdd;
-    console.log(this.req.products);
+    
 
     
     this.rest.updateRequest(this.route.snapshot.params['id'], this.req).subscribe((result) => {
