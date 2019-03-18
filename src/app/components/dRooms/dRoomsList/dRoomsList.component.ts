@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DRoom } from '../../models/dRoom';
+import { DRoom } from '../../../models/dRoom';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-droom',
-    templateUrl: './dRooms.component.html',
-    styleUrls: ['./dRooms.component.css']
+    selector: 'app-droom-list',
+    templateUrl: './dRoomsList.component.html',
+    styleUrls: ['./dRoomsList.component.css']
 })
-export class DRoomsComponent implements OnInit {
+export class DRoomsListComponent implements OnInit {
     public title: String;
     public users: any = [];
-    public usersName: any = [];
     public dRooms: any = [];
     public dinning: DRoom;
 
@@ -58,12 +57,6 @@ export class DRoomsComponent implements OnInit {
         this.rest.getUsers().subscribe((data: {}) => {
             this.users = data;
             this.users = this.users.users;
-            this.users.forEach(user => {
-              if(user.user_type === 'Gerente'){
-                this.usersName.push(user.nick_name);
-              }
-              
-            });
         });
     }
     getDRooms() {
@@ -85,13 +78,8 @@ export class DRoomsComponent implements OnInit {
 
     createDRoom() {
         this.dinning=this.reactiveForm.value;
-        this.users.forEach(user =>{
-          if(user.nick_name === this.dinning.user) {
-            this.dinning.user = user._id;
-          }
-        })
         this.rest.createDRoom(this.dinning).subscribe((result) => {
-            this.router.navigate(['/dinningRooms']);
+            this.getDRooms();
           }, (err) => {
             console.log(err);
           });

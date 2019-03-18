@@ -24,6 +24,7 @@ import { EditProductComponent } from './components/products/edit/editProduct.com
 import { RequestOneComponent } from './components/request/view/seeOne.component'
 import { BussesComponent } from './components/busses/busses.component';
 import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
+import { DRoomsListComponent } from './components/dRooms/dRoomsList/dRoomsList.component';
 
 //Token
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
     {path:'providers/update/:id',component:EditProviderComponent,canActivate:[AuthGuard]},
     {path:'units',component:UnitComponent,canActivate:[AuthGuard]},
     {path:'units/update/:id',component:UnitEditComponent,canActivate:[AuthGuard]},
-    {path:'dinningRooms',component:DRoomsComponent,canActivate:[AuthGuard]},
+    {path:'dinningRooms/create',component:DRoomsComponent,canActivate:[AuthGuard]},
+    {path:'dinningRooms',component:DRoomsListComponent,canActivate:[AuthGuard]},
     {path:'dinningRooms/update/:id',component:DRoomEditComponent,canActivate:[AuthGuard]},
     {path:'requests',component:RequestViewComponent,canActivate:[AuthGuard]},
     {path:'requests/create',component:RequestComponent,canActivate:[AuthGuard]},
