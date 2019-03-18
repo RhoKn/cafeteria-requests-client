@@ -7,6 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/users/user.component';
+import { UsersListComponent } from './components/users/listUsers/usersList.component';
 import { UserEditComponent } from './components/users/edit/editUser.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
@@ -43,6 +44,7 @@ import {RestService} from './rest.service';
   declarations: [
     AppComponent,
     UserComponent,
+    UsersListComponent,
     LoginComponent,
     RegisterComponent,
     NotFoundComponent,

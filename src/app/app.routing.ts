@@ -2,6 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './components/users/user.component';
+import { UsersListComponent } from './components/users/listUsers/usersList.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
     {path: '', redirectTo: 'users', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'users', component: UserComponent,canActivate:[AuthGuard]},
+    {path: 'users/create', component: UserComponent,canActivate:[AuthGuard]},
+    {path: 'users', component: UsersListComponent,canActivate:[AuthGuard]},
     {path: 'users/edit/:id', component: UserEditComponent,canActivate:[AuthGuard]},
     {path:'providers',component:ProvidersComponent,canActivate:[AuthGuard]},
     {path:'providers/update/:id',component:EditProviderComponent,canActivate:[AuthGuard]},
