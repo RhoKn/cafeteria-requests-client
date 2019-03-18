@@ -26,12 +26,18 @@ import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 import { ProductComponent } from './components/products/product.component';
 import { EditProductComponent } from './components/products/edit/editProduct.component';
+import { BussesComponent } from './components/busses/busses.component';
+import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
+
+
 
 //Token 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService} from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
 import {RestService} from './rest.service';
+
+
 
 @NgModule({
   declarations: [
@@ -54,7 +60,10 @@ import {RestService} from './rest.service';
     PTypeEditComponent,
     ProductComponent,
     EditProductComponent,
-    RequestOneComponent
+    RequestOneComponent,
+    RequestViewComponent,
+    BussesComponent,
+    BussesEditComponent
   ],
   imports: [
     BrowserModule,

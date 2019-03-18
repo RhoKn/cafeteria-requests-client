@@ -25,7 +25,7 @@
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom03">Encargado</label>
                                 <select id="inputType" class="form-control" formControlName="user" #user id="validationCustom03" required>
-                                   <option selected> Elegir...</option>
+                                   <option disabled selected> Elegir...</option>
                                     <option *ngFor="let u of users">{{u._id}}</option>
                                 </select>
                               </div>

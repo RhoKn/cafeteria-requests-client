@@ -20,12 +20,16 @@ import { PTypeEditComponent } from './components/productType/edit-unit/editPType
 import { ProductComponent } from './components/products/product.component';
 import { EditProductComponent } from './components/products/edit/editProduct.component';
 import { RequestOneComponent } from './components/request/view/seeOne.component'
+import { BussesComponent } from './components/busses/busses.component';
+import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
 
 //Token
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService} from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth-guard.service';
 import {RestService} from './rest.service';
+
+
 
 const appRoutes: Routes = [
   //  {path: '', component: LoginComponent},
@@ -43,18 +47,18 @@ const appRoutes: Routes = [
     {path:'requests',component:RequestViewComponent,canActivate:[AuthGuard]},
     {path:'requests/create',component:RequestComponent,canActivate:[AuthGuard]},
     {path:'requests/see/:id',component:RequestOneComponent,canActivate:[AuthGuard]},
-    
-    
     {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
     {path:'productTypes',component:PTypeComponent,canActivate:[AuthGuard]},
     {path:'productTypes/update/:id',component:PTypeEditComponent,canActivate:[AuthGuard]},
     {path:'products',component:ProductComponent,canActivate:[AuthGuard]},
     {path:'products/update/:id',component:EditProductComponent,canActivate:[AuthGuard]},
+    {path:'busses',component:BussesComponent,canActivate:[AuthGuard]},
+    {path:'busses/update/:id',component:BussesEditComponent,canActivate:[AuthGuard]},
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}
 ];
 
-export const appRoutingProviders: any[] = [    RestService, AuthGuard,{
+export const appRoutingProviders: any[] = [RestService, AuthGuard,{
       provide: HTTP_INTERCEPTORS,
       useClass:TokenInterceptorService,
       multi:true

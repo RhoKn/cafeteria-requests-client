@@ -25,6 +25,7 @@ export class RequestEditComponent implements OnInit {
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router, private refChange: ChangeDetectorRef) { }
 
   async ngOnInit() {
+    if(this.getRole()){
     this.getProviders();
     this.rest.getRequest(this.route.snapshot.params['id']).subscribe((data: {}) => {
       this.req = data;
@@ -36,6 +37,9 @@ export class RequestEditComponent implements OnInit {
     await this.getDRooms();
     await this.getProducts();
     await this.getProductTypes();
+  }else{
+    this.router.navigate(['/requests']);
+  }
   }
 
   getProviders() {
@@ -45,6 +49,15 @@ export class RequestEditComponent implements OnInit {
       this.providers = this.providers.providers;
     });
   }
+  getRole(){
+    if(this.rest.getRole()=='Admin' || this.rest.getRole()=='Chef' || this.rest.getRole()=='Gerente'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+
 
   getProducts() {
     this.products = [];
@@ -239,4 +252,3 @@ export class RequestEditComponent implements OnInit {
 
 
 }
-

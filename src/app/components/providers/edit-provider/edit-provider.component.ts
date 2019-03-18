@@ -3,6 +3,7 @@ import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Provider } from '../../../models/provider';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-provider',
@@ -10,8 +11,13 @@ import { Provider } from '../../../models/provider';
   styleUrls: ['./edit-provider.component.css']
 })
 export class EditProviderComponent implements OnInit {
-    @Input() provider: any = { };
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
+    @Input()
+    provider: any = { };
+    public reactiveForm:FormGroup;
+  constructor(public rest: RestService, private route: ActivatedRoute,
+     private router: Router,private fb: FormBuilder) {
+     this.createForm();
+    }
 
   ngOnInit() {
 
@@ -19,12 +25,36 @@ export class EditProviderComponent implements OnInit {
       this.rest.getProvider(this.route.snapshot.params['id']).subscribe((data: {}) => {
         this.provider = data;
         this.provider = this.provider.provider;
-        console.log(this.provider);
-      });
+        this.reactiveForm.get('contact_first_name').setValue(this.provider.contact_first_name);
+        this.reactiveForm.get('contact_last_name').setValue(this.provider.contact_last_name);
+        this.reactiveForm.get('phone_number').setValue(this.provider.phone_number);
+        this.reactiveForm.get('email').setValue(this.provider.email);
+        this.reactiveForm.get('RFC').setValue(this.provider.RFC);
+        this.reactiveForm.get('postal_code').setValue(this.provider.postal_code);
+        this.reactiveForm.get('street_name').setValue(this.provider.street_name);
+        this.reactiveForm.get('street_number').setValue(this.provider.street_number);
+        this.reactiveForm.get('suite_number').setValue(this.provider.suite_number);
+        this.reactiveForm.get('colony').setValue(this.provider.colony);
+      })
     }else{
       this.router.navigate(['/requests']);
     }
 
+  }
+
+  createForm(){
+    this.reactiveForm = this.fb.group({
+      contact_first_name: ['', Validators.required],
+      contact_last_name: ['', Validators.required],
+      phone_number: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
+      RFC: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+      postal_code: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]],
+      street_name: ['', [Validators.required,Validators.minLength(3)]],
+      street_number: ['', Validators.required],
+      suite_number:[],
+      colony: ['', [Validators.required, Validators.minLength(3)]]
+    });
   }
 
 
@@ -37,6 +67,8 @@ export class EditProviderComponent implements OnInit {
   }
 
   updateProvider() {
+    this.provider=this.reactiveForm.value;
+    this.provider.name=`${this.provider.contact_first_name} ${this.provider.contact_last_name}`;
     this.rest.updateProvider(this.route.snapshot.params['id'], this.provider).subscribe((result) => {
       this.router.navigate(['/providers']);
     }, (err) => {

@@ -5,6 +5,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { global } from './services/global';
 import {Router} from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,16 @@ export class RestService {
     private http: HttpClient,
     private router:Router
   ) {
+  }
+  createObject(object,route):Observable<any>{
+    console.log("Objecto"+object);
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.post<any>(global.url + route, JSON.stringify(object), {headers: headers}).pipe(
+      tap((newObject) => console.log(`added product w/ id=${newObject.id}`)),
+      catchError(this.handleError<any>('addProduct'))
+    );
   }
 
   //Users
@@ -26,19 +37,6 @@ export class RestService {
       catchError(this.handleError<any>('addProduct'))
     );
   }
-
-  createObject(object,route):Observable<any>{
-    console.log("Objecto"+object);
-    const headers = new HttpHeaders({
-      'Content-Type':  'application/json'
-    });
-    return this.http.post<any>(global.url + route, JSON.stringify(object), {headers: headers}).pipe(
-      tap((newObject) => console.log(`added product w/ id=${newObject.id}`)),
-      catchError(this.handleError<any>('addProduct'))
-    );
-  }
-
-
 
   getUsers(): Observable<any> {
     return this.http.get<any>(global.url + 'users/all').pipe(
@@ -69,6 +67,52 @@ export class RestService {
       catchError(this.handleError<any>('deleteProduct'))
     );
   }
+
+  //Camiones
+  createBus (bus): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    console.log(bus);
+    return this.http.post<any>(global.url + 'busses/create', JSON.stringify(bus), {headers: headers}).pipe(
+      tap((newBus) => console.log(`added product w/ id=${newBus.id}`)),
+      catchError(this.handleError<any>('addProduct'))
+    );
+  }
+
+  getBusses(): Observable<any> {
+    return this.http.get<any>(global.url + 'busses/all').pipe(
+      map(this.extractData));
+  }
+
+  getBus(id): Observable<any> {
+    return this.http.get(global.url + 'busses/view/' + id).pipe(
+      map(this.extractData));
+  }
+
+  updateBus (id, user): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.put(global.url + 'busses/update/' + id, JSON.stringify(user), {headers: headers}).pipe(
+      tap(_ => console.log(`updated product id=${id}`)),
+      catchError(this.handleError<any>('updateProduct'))
+    );
+  }
+
+  deleteBus (id): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json'
+    });
+    return this.http.delete<any>(global.url + 'busses/delete/' + id, {headers: headers}).pipe(
+      tap(_ => console.log(`deleted product id=${id}`)),
+      catchError(this.handleError<any>('deleteProduct'))
+    );
+  }
+
+
+
+
 
   //Providers
 createProvider (user): Observable<any> {
