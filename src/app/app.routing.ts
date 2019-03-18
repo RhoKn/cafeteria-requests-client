@@ -19,7 +19,7 @@ import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 import { ProductComponent } from './components/products/product.component';
 import { EditProductComponent } from './components/products/edit/editProduct.component';
-
+import { RequestOneComponent } from './components/request/view/seeOne.component'
 
 //Token
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -42,6 +42,8 @@ const appRoutes: Routes = [
     {path:'dinningRooms/update/:id',component:DRoomEditComponent,canActivate:[AuthGuard]},
     {path:'requests',component:RequestViewComponent,canActivate:[AuthGuard]},
     {path:'requests/create',component:RequestComponent,canActivate:[AuthGuard]},
+    {path:'requests/see/:id',component:RequestOneComponent,canActivate:[AuthGuard]},
+    
     
     {path:'requests/update/:id',component:RequestEditComponent,canActivate:[AuthGuard]},
     {path:'productTypes',component:PTypeComponent,canActivate:[AuthGuard]},

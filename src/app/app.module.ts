@@ -21,12 +21,13 @@ import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.c
 import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
 import { RequestViewComponent } from './components/request/viewList/viewRequest.component';
+import { RequestOneComponent } from './components/request/view/seeOne.component';
 import { PTypeComponent } from './components/productType/productType.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 import { ProductComponent } from './components/products/product.component';
 import { EditProductComponent } from './components/products/edit/editProduct.component';
 
-//Token
+//Token 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService} from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -48,11 +49,12 @@ import {RestService} from './rest.service';
     DRoomEditComponent,
     RequestComponent,
     RequestEditComponent,
+    RequestViewComponent,
     PTypeComponent,
     PTypeEditComponent,
     ProductComponent,
     EditProductComponent,
-    RequestViewComponent
+    RequestOneComponent
   ],
   imports: [
     BrowserModule,

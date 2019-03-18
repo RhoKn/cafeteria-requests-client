@@ -37,18 +37,13 @@
                                 <span class="badge badge-primary">{{rq.status}}</span>
                             </td>
                             <td>
-                                <a class="table-link" *ngIf="canStatusUpgrade(rq.status) === true" data-toggle="modal" data-target="#authorization" (click)="copyReq(rq)">
+                                <a class="table-link" (click)="watchRq(rq._id)" >
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fas fa-check fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                                <a class="table-link" *ngIf="canStatusDownGrade(rq.status) === true" data-toggle="modal" data-target="#rejection" (click)="copyReq(rq)">
-                                    <span class="fa-stack">
-                                        <i class="fa fa-square fa-stack-2x"></i>
-                                        <i class="fa fa-times fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
+                                
                                 <a routerLink="/requests/update/{{rq._id}}" class="table-link" *ngIf="canEdit(rq.status) === true">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>

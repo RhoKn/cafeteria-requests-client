@@ -279,6 +279,9 @@ export class RequestViewComponent implements OnInit {
 
         });
     }
+    watchRq(rq){
+        this.router.navigate(['/requests/see/' + rq]);
+    }
 
 }
 
