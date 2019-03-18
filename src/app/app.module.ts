@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProvidersComponent} from './components/providers/providers.component';
+import { ProvidersListComponent} from './components/providers/providersList/providersList.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { EditProviderComponent } from './components/providers/edit-provider/edit-provider.component';
 import { UnitComponent } from './components/unit/unit.component';
@@ -65,7 +66,8 @@ import {RestService} from './rest.service';
     RequestOneComponent,
     RequestViewComponent,
     BussesComponent,
-    BussesEditComponent
+    BussesEditComponent,
+    ProvidersListComponent
   ],
   imports: [
     BrowserModule,

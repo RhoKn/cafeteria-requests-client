@@ -1,138 +1,227 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-  <div class="container bootstrap snippet">
-      <div class="row">
-          <div class="col-lg-12">
-              <div class="main-box no-header clearfix">
-                  <div class="main-box-body clearfix">
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Nuevo proveedor</h6>
+    </div>
+    <div class="card-body">
+        <div class=" col-md-12 mb-3">
+            <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createProvider()">
+                <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                                <label for="validationCustom01">Nombre del proveedor</label>
+                                <input type="text" class="form-control" name="prov_name" class="form-control" formControlName="prov_name"
+                                    #contact_first_name id="validationCustom01" placeholder="Granjas de don Pepe" required>
+                        </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom01">Nombre(s) del contacto</label>
+                        <input type="text" class="form-control" name="contact_first_name" class="form-control" formControlName="contact_first_name"
+                            #contact_first_name id="validationCustom01" placeholder="Lyria Fernanda" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Apellido(s) del contacto</label>
+                        <input type="text" class="form-control" formControlName="contact_last_name" #contact_last_name id="validationCustom02" placeholder="Gonzalez"
+                            required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom03">Telefono</label>
+                        <input type="number" class="form-control" formControlName="phone_number" #phone_number id="validationCustom03" placeholder="6147850212"
+                            required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-3">
+                        <label for="validationCustom04">Correo electrónico</label>
+                        <input type="text" class="form-control" formControlName="email" #email id="validationCustom04" placeholder="lyriaglez@gmail.com"
+                            required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom05">RFC</label>
+                        <input type="text" class="form-control" formControlName="RFC" #RFC id="validationCustom05" placeholder="GL950214" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom06">Codigo Postal</label>
+                        <input type="text" class="form-control" formControlName="postal_code" #postal_code id="validationCustom06" placeholder="31100"
+                            required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-3">
+                        <label for="validationCustom07">Calle</label>
+                        <input type="text" class="form-control" formControlName="street_name" #street_name id="validationCustom07" placeholder="Av. Tecnologico"
+                            required>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="validationCustom08">Num. Exterior</label>
+                        <input type="text" class="form-control" formControlName="street_number" #street_number id="validationCustom08" placeholder="303"
+                            required>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="validationCustom09">Num. Interior</label>
+                        <input type="text" class="form-control" formControlName="suite_number" #suite_number id="validationCustom09" placeholder="5">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom10">Colonia</label>
+                        <input type="text" class="form-control" formControlName="colony" #colony id="validationCustom10" placeholder="Diego Lucero"
+                            required>
+                    </div>
+                </div>
+                <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProvider() " [disabled]="!reactiveForm.valid">Agregar</button>
+                <button class="btn btn-danger float-right mb-3 mr-3" type="reset" [routerLink]="['/providers']"
+                        >Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
                         <p>Proveedores</p>
                         <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createProvider()">
                             <div class="form-row">
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustom01">Nombre(s)</label>
-                                <input type="text" class="form-control" name="contact_first_name" class="form-control" formControlName="contact_first_name" #contact_first_name id="validationCustom01" placeholder="Lyria Fernanda"  required>
-                              </div>
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustom02">Apellido(s)</label>
-                                <input type="text" class="form-control" formControlName="contact_last_name" #contact_last_name id="validationCustom02" placeholder="Gonzalez" required>
-                              </div>
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustom03">Telefono</label>
-                                <input type="number" class="form-control" formControlName="phone_number" #phone_number id="validationCustom03" placeholder="6147850212" required>
-                              </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Nombre(s)</label>
+                                    <input type="text" class="form-control" name="contact_first_name" class="form-control" formControlName="contact_first_name"
+                                        #contact_first_name id="validationCustom01" placeholder="Lyria Fernanda" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom02">Apellido(s)</label>
+                                    <input type="text" class="form-control" formControlName="contact_last_name" #contact_last_name id="validationCustom02" placeholder="Gonzalez"
+                                        required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom03">Telefono</label>
+                                    <input type="number" class="form-control" formControlName="phone_number" #phone_number id="validationCustom03" placeholder="6147850212"
+                                        required>
+                                </div>
                             </div>
                             <div class="form-row">
-                              <div class="col-md-5 mb-3">
-                                <label for="validationCustom04">Correo electrónico</label>
-                                <input type="text" class="form-control" formControlName="email" #email id="validationCustom04" placeholder="lyriaglez@gmail.com" required>
-                              </div>
-                              <div class="col-md-4 mb-3">
-                                <label for="validationCustom05">RFC</label>
-                                <input type="text" class="form-control" formControlName="RFC" #RFC id="validationCustom05" placeholder="GL950214" required>
-                              </div>
-                              <div class="col-md-3 mb-3">
-                                <label for="validationCustom06">Codigo Postal</label>
-                                <input type="text" class="form-control" formControlName="postal_code" #postal_code id="validationCustom06" placeholder="31100" required>
-                              </div>
+                                <div class="col-md-5 mb-3">
+                                    <label for="validationCustom04">Correo electrónico</label>
+                                    <input type="text" class="form-control" formControlName="email" #email id="validationCustom04" placeholder="lyriaglez@gmail.com"
+                                        required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom05">RFC</label>
+                                    <input type="text" class="form-control" formControlName="RFC" #RFC id="validationCustom05" placeholder="GL950214" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom06">Codigo Postal</label>
+                                    <input type="text" class="form-control" formControlName="postal_code" #postal_code id="validationCustom06" placeholder="31100"
+                                        required>
+                                </div>
                             </div>
                             <div class="form-row">
-                              <div class="col-md-5 mb-3">
-                                <label for="validationCustom07">Calle</label>
-                                <input type="text" class="form-control" formControlName="street_name" #street_name id="validationCustom07" placeholder="Av. Tecnologico" required>
-                              </div>
-                              <div class="col-md-2 mb-3">
-                                <label for="validationCustom08">Num. Exterior</label>
-                                <input type="text" class="form-control" formControlName="street_number" #street_number id="validationCustom08" placeholder="303" required>
-                              </div>
-                              <div class="col-md-2 mb-3">
-                                <label for="validationCustom09">Num. Interior</label>
-                                <input type="text" class="form-control" formControlName="suite_number" #suite_number id="validationCustom09" placeholder="5">
-                              </div>
-                              <div class="col-md-3 mb-3">
-                                <label for="validationCustom10">Colonia</label>
-                                <input type="text" class="form-control" formControlName="colony" #colony id="validationCustom10" placeholder="Diego Lucero" required>
-                              </div>
+                                <div class="col-md-5 mb-3">
+                                    <label for="validationCustom07">Calle</label>
+                                    <input type="text" class="form-control" formControlName="street_name" #street_name id="validationCustom07" placeholder="Av. Tecnologico"
+                                        required>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="validationCustom08">Num. Exterior</label>
+                                    <input type="text" class="form-control" formControlName="street_number" #street_number id="validationCustom08" placeholder="303"
+                                        required>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="validationCustom09">Num. Interior</label>
+                                    <input type="text" class="form-control" formControlName="suite_number" #suite_number id="validationCustom09" placeholder="5">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom10">Colonia</label>
+                                    <input type="text" class="form-control" formControlName="colony" #colony id="validationCustom10" placeholder="Diego Lucero"
+                                        required>
+                                </div>
                             </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProvider() "
-                            [disabled]="!reactiveForm.valid">Agregar</button>
-                          </form>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProvider() " [disabled]="!reactiveForm.valid">Agregar</button>
+                        </form>
                     </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-  </div>
-
-
-
-  <div class="container bootstrap snippet">
-      <div class="row">
-          <div class="col-lg-12">
-                      <div class="table-responsive">
-                          <div class="main-box no-header clearfix">
-                              <div class="main-box-body clearfix">
-                          <table class="table user-list" >
-                              <thead>
-                                  <tr >
-                                  <th><span>Contacto</span></th>
-                                  <th><span>Correo electrónico</span></th>
-                                  <th>RFC</th>
-                                  <th>Codigo Postal</th>
-                                  <th>Calle</th>
-                                  <th>Num. Exterior</th>
-                                  <th>Num. Interior</th>
-                                  <th>Colonia</th>
-                                  </tr >
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let p of providers">
-                                      <td>
-                                          <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
-                                          <a href="#" class="user-link">{{p.contact_first_name}} {{p.contact_last_name}}</a>
-                                          <span class="user-subhead">{{p.phone_number}}</span>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.email}}</a>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.RFC}}</a>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.postal_code}}</a>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.street_name}}</a>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.street_number}}</a>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.suite_number}}</a>
-                                      </td>
-                                      <td>
-                                          <a href="#">{{p.colony}}</a>
-                                      </td>
-                                      <td style="width: 20%;">
-                                          <a routerLink="/providers/update/{{p._id}}" class="table-link">
-                                              <span class="fa-stack">
-                                                  <i class="fa fa-square fa-stack-2x"></i>
-                                                  <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                              </span>
-                                          </a>
-                                          <a class="table-link danger" (click)="deleteUser(p._id)">
-                                              <span class="fa-stack">
-                                                  <i class="fa fa-square fa-stack-2x"></i>
-                                                  <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                              </span>
-                                          </a>
-                                      </td>
-                                  </tr>
-
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
                 </div>
-              </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                    <th><span>Contacto</span></th>
+                                    <th><span>Correo electrónico</span></th>
+                                    <th>RFC</th>
+                                    <th>Codigo Postal</th>
+                                    <th>Calle</th>
+                                    <th>Num. Exterior</th>
+                                    <th>Num. Interior</th>
+                                    <th>Colonia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let p of providers">
+                                    <td>
+                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                                        <a href="#" class="user-link">{{p.contact_first_name}} {{p.contact_last_name}}</a>
+                                        <span class="user-subhead">{{p.phone_number}}</span>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.email}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.RFC}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.postal_code}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.street_name}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.street_number}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.suite_number}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{p.colony}}</a>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <a routerLink="/providers/update/{{p._id}}" class="table-link">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <a class="table-link danger" (click)="deleteUser(p._id)">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

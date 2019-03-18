@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { UserEditComponent } from './components/users/edit/editUser.component';
 import {ProvidersComponent} from './components/providers/providers.component';
+import { ProvidersListComponent} from './components/providers/providersList/providersList.component';
 import {EditProviderComponent} from './components/providers/edit-provider/edit-provider.component';
 import { UnitComponent} from './components/unit/unit.component';
 import { UnitEditComponent } from './components/unit/edit-unit/editUnit.component';
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     {path: 'users/create', component: UserComponent,canActivate:[AuthGuard]},
     {path: 'users', component: UsersListComponent,canActivate:[AuthGuard]},
     {path: 'users/edit/:id', component: UserEditComponent,canActivate:[AuthGuard]},
-    {path:'providers',component:ProvidersComponent,canActivate:[AuthGuard]},
+    {path:'providers/create',component:ProvidersComponent,canActivate:[AuthGuard]},
+    {path:'providers',component:ProvidersListComponent,canActivate:[AuthGuard]},
     {path:'providers/update/:id',component:EditProviderComponent,canActivate:[AuthGuard]},
     {path:'units',component:UnitComponent,canActivate:[AuthGuard]},
     {path:'units/update/:id',component:UnitEditComponent,canActivate:[AuthGuard]},

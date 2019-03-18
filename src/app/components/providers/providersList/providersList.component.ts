@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Provider } from '../../models/provider';
+import { Provider } from '../../../models/provider';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-providers',
-  templateUrl: './providers.component.html',
-  styleUrls: ['./providers.component.css']
+  selector: 'app-providers-list',
+  templateUrl: './providersList.component.html',
+  styleUrls: ['./providersList.component.css']
 })
-export class ProvidersComponent implements OnInit {
+export class ProvidersListComponent implements OnInit {
   public title: String;
   public providers: any = [];
   public provider: Provider;
@@ -25,7 +25,6 @@ export class ProvidersComponent implements OnInit {
   ngOnInit() {
     if(this.getRole()){
       this.reactiveForm = this.formBuilder.group({
-          prov_name: ['', Validators.required],
           contact_first_name: ['', Validators.required],
           contact_last_name: ['', Validators.required],
           phone_number: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
@@ -61,9 +60,9 @@ export class ProvidersComponent implements OnInit {
 
   createProvider() {
     this.provider=this.reactiveForm.value;
-    
+    this.provider.name=`${this.provider.contact_first_name} ${this.provider.contact_last_name}`;
       this.rest.createObject(this.provider,'providers/create').subscribe((result) => {
-        this.router.navigate(['/providers']);
+          this.getProviders();
         }, (err) => {
           console.log(err);
         });

@@ -1,0 +1,128 @@
+
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="mb-4 text-right">
+        <a [routerLink]="['/providers/create']" class="btn btn-primary btn-icon-split" *ngIf="rest.getRole()=='Admin'">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Agregar proveedor</span>
+        </a>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Proveedores Existentes</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Proveedor</th>
+                            <th>Contacto</th>
+                            <th>Correo</th>
+                            <th>RFC</th>
+                            <th>Dirección</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr *ngFor="let p of providers">
+                            <td>{{p.name}}</td>
+                            <td>{{p.contact_first_name}} {{p.contact_last_name}}</td>
+                            <td>{{p.email}}</td>
+                            <td>{{p.RFC}}</td>
+                            <td>{{p.street_name}} #{{p.street_number}} interior {{p.suite_number}} col. {{p.colony}}</td>
+                            <td style="width: 20%;">
+                                <a routerLink="/providers/update/{{p._id}}" class="table-link">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <a class="table-link danger" (click)="deleteUser(p._id)">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<!--
+  <div class="container bootstrap snippet">
+      <div class="row">
+          <div class="col-lg-12">
+                      <div class="table-responsive">
+                          <div class="main-box no-header clearfix">
+                              <div class="main-box-body clearfix">
+                          <table class="table user-list" >
+                              <thead>
+                                  <tr >
+                                  <th><span>Contacto</span></th>
+                                  <th><span>Correo electrónico</span></th>
+                                  <th>RFC</th>
+                                  <th>Codigo Postal</th>
+                                  <th>Calle</th>
+                                  <th>Num. Exterior</th>
+                                  <th>Num. Interior</th>
+                                  <th>Colonia</th>
+                                  </tr >
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let p of providers">
+                                      <td>
+                                          <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                                          <a href="#" class="user-link">{{p.contact_first_name}} {{p.contact_last_name}}</a>
+                                          <span class="user-subhead">{{p.phone_number}}</span>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.email}}</a>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.RFC}}</a>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.postal_code}}</a>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.street_name}}</a>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.street_number}}</a>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.suite_number}}</a>
+                                      </td>
+                                      <td>
+                                          <a href="#">{{p.colony}}</a>
+                                      </td>
+                                      <td style="width: 20%;">
+                                          <a routerLink="/providers/update/{{p._id}}" class="table-link">
+                                              <span class="fa-stack">
+                                                  <i class="fa fa-square fa-stack-2x"></i>
+                                                  <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                              </span>
+                                          </a>
+                                          <a class="table-link danger" (click)="deleteUser(p._id)">
+                                              <span class="fa-stack">
+                                                  <i class="fa fa-square fa-stack-2x"></i>
+                                                  <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                              </span>
+                                          </a>
+                                      </td>
+                                  </tr>
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+  </div>
+-->
