@@ -7,7 +7,7 @@
             <div class="col-md-3 mb-3">
                 <label for="validationCustom05">Comedor que reliza el pedido</label>
                 <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="request.dRoom" required>
-                    <option selected> Elegir...</option>
+                    <option disabled selected> Elegir...</option>
                     <option *ngFor="let dr of dRooms">{{dr.dRoom}}</option>
                 </select>
             </div>
@@ -26,39 +26,52 @@
             <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="request.observations">
             </textarea>
         </div>
+
         <ng-container *ngFor="let pt of ptypes, let i = index" id="accordion">
+
             <a data-toggle="collapse" href="#acc{{i}}" role="button" aria-expanded="false" aria-controls="samplse">
                 {{pt.type}}
             </a>
+
             <hr>
             <div class="collapse mb-4" id="acc{{i}}">
+
                 <div class="container">
+                  <div class="mb-4 text-right">
+                          <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
+
+                  </div>
                         <ng-container *ngFor="let p of linesByCat[i], let j = index">
+
+
+
                                 <div class="row">
                                     <div class="col-sm-3">
+                                      <span>Producto</span>
                                         <select class="searcher{{p}} form-control" name="product" id="{{p}}"  #hello required>
-                                            <option selected> Producto...</option>
+                                            <option disabled selected> Producto...</option>
                                             <ng-container *ngFor="let p of products">
                                                 <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
                                             </ng-container>
                                         </select>
                                     </div>
                                     <div class="col-sm-3">
-                                        
-                                        <select class="unit{{p}} form-control" name="unit" id="unit{{p}}" hidden required>
-                                            <option selected> Unidad...</option>
+                                      <span>Unidad</span>
+                                        <select class="unit{{p}} form-control" (click)="test()" name="unit" #unit id="unit{{p}}" hidden required>
+                                            <option disabled selected> Unidad...</option>
                                             <ng-container *ngFor="let p of products">
                                                 <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
                                             </ng-container>
                                         </select>
                                     </div>
                                     <div class="col-sm-2">
-                                            <input type="text" id="qtty{{p}}" class="form-control"  placeholder="2" hidden required>
+                                      <span>Cantidad</span>
+                                            <input type="number" id="qtty{{p}}" (click)="test()" (keyup)="test()" name="qtty" #qtty class="form-control"  placeholder="2" hidden required>
                                     </div>
                                     <div class="col-sm-3">
-                                        
-                                        <select class="provider{{p}} form-control" name="provider" id="provider{{p}}" hidden required>
-                                            <option selected> Proveedor...</option>
+                                      <span>Proveedor</span>
+                                        <select class="provider{{p}} form-control" (click)="test()" name="provider" #provider id="provider{{p}}" hidden required>
+                                            <option disabled selected> Proveedor...</option>
                                             <ng-container *ngFor="let p of products">
                                                 <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
                                             </ng-container>
@@ -75,146 +88,26 @@
                                     </div>
                                 </div>
                                 <hr>
-                            </ng-container>
-                            <div class="mb-4 text-right">
-                                    <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
-                                    
-                                </div>
-                </div>
 
-                
+                            </ng-container>
+
+                </div>
             </div>
         </ng-container>
-        <a (click)="createRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
+
+        <button (click)="createRequest()" [disabled]="test()"
+        class="btn btn-primary btn-icon-split float-right mb-3">
+
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text" style="color:white">Agregar Pedido</span>
-            </a>
+          </button>
+
         <a [routerLink]="['/requests']" class="btn btn-danger btn-icon-split float-right mb-3">
                 <span class="icon text-white-50">
                     <i class="fas fa-times"></i>
                 </span>
                 <span class="text" style="color:white">Cancelar</span>
             </a>
-
-       
-        
-        
     </div>
-
-
-
-<!--
-
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Nuevo Pedido</h6>
-    </div>
-    <div class="card-body">
-        <div class="form-row mb-2">
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom05">Comedor que reliza el pedido</label>
-                <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="request.dRoom" required>
-                    <option selected> Elegir...</option>
-                    <option *ngFor="let dr of dRooms">{{dr.dRoom}}</option>
-                </select>
-            </div>
-            <div class="col-md-3 mb-3"></div>
-            <div class="col-md-3 mb-3 pull-right">
-                <div class="text-right"><label>Hora</label></div>
-                <h3 class="text-right">{{hours}}</h3>
-            </div>
-            <div class="col-md-3 mb-3 ">
-                <div class="text-right"><label>Fecha</label></div>
-                <h3 class="text-right">{{today}}</h3>
-            </div>
-        </div>
-        <div class="form-row mb-4">
-            <label for="tArequest">Observaciones</label>
-            <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="request.observations">
-            </textarea>
-            <button (click)="showReq()">show</button>
-        </div>
-        <ng-container *ngFor="let pt of ptypes, let i = index" id="accordion">
-            <a data-toggle="collapse" href="#acc{{i}}" role="button" aria-expanded="false" aria-controls="samplse">
-                {{pt.type}}
-            </a>
-            <hr>
-            <div class="collapse mb-4" id="acc{{i}}">
-                <ng-container *ngFor="let p of linesByCat[i], let j = index">
-                    <div class="row">
-                        <div class="col">
-                            <label>Producto</label>
-                            <select class="searcher{{i}} form-control" name="product" id="product{{i}}">
-                                <option selected> Producto...</option>
-                                <ng-container *ngFor="let p of products">
-                                    <option *ngIf="p.category.type == pt.type" (click)="setInfo(p,i)"> {{p.name}}</option>
-                                </ng-container>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label>Unidad</label>
-                            <select class="searcher{{i}} form-control" name="unit" id="unit{{i}}">
-                                <option selected> Producto...</option>
-                                <ng-container *ngFor="let p of products">
-                                    <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
-                                </ng-container>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label>Cantidad</label>
-                        </div>
-                        <div class="col">
-                            <label>Proveedor</label>
-                            <select class="searcher{{i}} form-control" name="provider" id="provider{{i}}">
-                                <option selected> Producto...</option>
-                                <ng-container *ngFor="let p of products">
-                                    <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
-                                </ng-container>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3 align-middle">
-                            <a class="table-link danger " (click)="deleteLine(i)">
-                                <span class="fa-stack">
-                                    <i class="fa fa-square fa-stack-2x"></i>
-                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <button hidden type="button" id="trigger{{i}}" (click)="setPInfo(p,i,j)"></button>
-                </ng-container>
-                <button (click)="addLine(i)">add line</button>
-            </div>
-        </ng-container>
-        <button class="btn btn-primary float-right mb-3" type="reset" (click)="createRequest()">Agregar</button>
-    </div>
-
-
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

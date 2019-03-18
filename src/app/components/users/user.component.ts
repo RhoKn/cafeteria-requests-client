@@ -3,6 +3,8 @@ import { RestService } from '../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user';
 
+
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -33,11 +35,13 @@ export class UserComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
+
         this.getUsers();
       }else{
         this.router.navigate(['/requests']);
       }
     }
+
 
     getRole(){
       if(this.rest.getRole()=='Admin'){
@@ -51,7 +55,7 @@ export class UserComponent implements OnInit {
     getUsers() {
         this.users = [];
         this.rest.getUsers().subscribe((data: {}) => {
-        
+
             this.users = data;
             this.users = this.users.users;
         });

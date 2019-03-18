@@ -1,0 +1,39 @@
+
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+  <div class="container bootstrap snippet">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="main-box no-header clearfix">
+                  <div class="main-box-body clearfix">
+                    <div class=" col-md-12 mb-3">
+                        <p>Actualizar Camión</p>
+                        <form class="needs-validation" [formGroup]="updateForm" (ngSubmit)="updatedBus()">
+                            <div class="form-row">
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom01">Espacio del camión</label>
+                                <input type="number" class="form-control" formControlName="space_box" class="form-control" #space_box id="validationCustom01" placeholder="10"  required>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                <label for="validationCustom01">Conductor del camión</label>
+                                <select id="inputType" class="form-control" name="user" #user="ngModel" [(ngModel)]="bus.user" [ngModelOptions]="{standalone: true}" required>
+                                    <option selected> {{bus.user}}</option>
+                                    <option *ngFor="let u of users">
+                                      <span *ngIf="bus.user!=u._id">{{u._id}}</span>
+                                </select>
+
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                <label for="validationCustom01">Placa del camión</label>
+                                <input type="text" class="form-control" formControlName="license_plate" class="form-control" #license_plate id="validationCustom01" placeholder="EHT9784"  required>
+                              </div>
+                            </div>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="updatedBus()"
+                            [disabled]="!updateForm.valid">Actualizar</button>
+                          </form>
+                    </div>
+                  </div>
+              </div>
+            </div>
+      </div>
+  </div>

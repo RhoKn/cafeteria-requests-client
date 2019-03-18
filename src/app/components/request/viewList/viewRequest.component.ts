@@ -94,6 +94,7 @@ export class RequestViewComponent implements OnInit {
 
     ngOnInit() {
 
+      if(this.getRole()){
         this.reactiveForm = this.formBuilder.group({
             uType: ['', Validators.required],
             pProv: ['', Validators.required],
@@ -106,7 +107,21 @@ export class RequestViewComponent implements OnInit {
         this.getProviders();
         this.hours = new Date().toLocaleTimeString();
         this.today = new Date().toLocaleDateString();
+      }else{
+        this.router.navigate(['/requests']);
+      }
     }
+
+
+    getRole(){
+      if(this.rest.getRole()=='Admin' || this.rest.getRole()=='Chef' || this.rest.getRole()=='Gerente' || this.rest.getRole()=='Compras'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+
     getProviders() {
         this.providers = [];
         this.rest.getProviders().subscribe((data: {}) => {
@@ -184,7 +199,7 @@ export class RequestViewComponent implements OnInit {
                 let qttyInpt = document.getElementById(`qtty${this.linesByCat[counter][aux]}`) as HTMLInputElement;
                 let providSelect = document.getElementById(`provider${this.linesByCat[counter][aux]}`) as HTMLSelectElement;
                 let tmpProvId ;
-                
+
                 this.providers.forEach(prov =>{
                     if (prov.name=== providSelect.value){
                         tmpProvId = prov._id;
@@ -201,7 +216,7 @@ export class RequestViewComponent implements OnInit {
             }
         }
         this.request.products = this.selected;
-        
+
         this.request.user = this.rest.getNick();
 
         this.rest.createRequest(this.request).subscribe((result) => {
@@ -281,4 +296,3 @@ export class RequestViewComponent implements OnInit {
     }
 
 }
-
