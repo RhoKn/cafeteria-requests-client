@@ -73,8 +73,7 @@ export class UserComponent implements OnInit {
     createUser() {
       this.user=this.reactiveForm.value;
         this.rest.createObject(this.user,'users/register').subscribe((result) => {
-          console.log("as");
-            this.getUsers();
+          this.router.navigate(['/users']);
           }, (err) => {
             console.log(err);
           });
