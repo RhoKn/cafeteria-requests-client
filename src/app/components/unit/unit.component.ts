@@ -37,7 +37,7 @@ export class UnitComponent implements OnInit {
   }
 
   getRole(){
-    if(this.rest.getRole()!='Compras'){
+    if(this.rest.getRole()!='Compras' && this.rest.getRole()!='Chofer'){
       return true;
     }else{
       return false;

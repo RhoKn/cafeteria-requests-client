@@ -18,35 +18,52 @@ export class RequestOneComponent implements OnInit {
   public cancel = false;
   public action = 'Autorizar';
   public statToSend: any = {};
-  
+
   constructor(public rest: RestService, private route: ActivatedRoute, private router: Router, private refChange: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.getProviders();
-    this.rest.getRequest(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      this.req = data;
-      this.req = this.req.request;
-      let date = document.getElementById('dateReq') as HTMLTitleElement;
-      let created = document.getElementById('createdBy') as HTMLTitleElement;
-      let comedor = document.getElementById('comedor') as HTMLTitleElement;
-      let observations = document.getElementById('observations') as HTMLTitleElement;
-      let stat = document.getElementById('stat') as HTMLTitleElement;
-      
-      for (let index = 0; index < this.req.products.length; index++) {
-        this.providers.forEach(element => {
-          if(element._id === this.req.products[index].provider){
-            this.theProv.push(element.name);
-          }
-        });
-      }
-      console.log(this.req)
-      date.innerText = this.req.created.date;
-      created.innerText = `Creado por ${this.req.created.user} en `;
-      comedor.innerText = `Pedido para el comedor ${this.req.dRoom.dRoom} - `;
-      stat.innerText = `${this.req.status}`;
-      observations.innerText = `${this.req.observations}`;
-    });
+
+    if(this.getRole()){
+      this.getProviders();
+      this.rest.getRequest(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.req = data;
+        this.req = this.req.request;
+        let date = document.getElementById('dateReq') as HTMLTitleElement;
+        let created = document.getElementById('createdBy') as HTMLTitleElement;
+        let comedor = document.getElementById('comedor') as HTMLTitleElement;
+        let observations = document.getElementById('observations') as HTMLTitleElement;
+        let stat = document.getElementById('stat') as HTMLTitleElement;
+
+        for (let index = 0; index < this.req.products.length; index++) {
+          this.providers.forEach(element => {
+            if(element._id === this.req.products[index].provider){
+              this.theProv.push(element.name);
+            }
+          });
+        }
+        console.log(this.req)
+        date.innerText = this.req.created.date;
+        created.innerText = `Creado por ${this.req.created.user} en `;
+        comedor.innerText = `Pedido para el comedor ${this.req.dRoom.dRoom} - `;
+        stat.innerText = `${this.req.status}`;
+        observations.innerText = `${this.req.observations}`;
+      });
+    }else{
+      this.router.navigate(['/requests']);
+    }
+
+
   }
+
+
+  getRole(){
+    if(this.rest.getRole()!='Chofer'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   getProviders() {
     this.providers = [];
@@ -129,4 +146,3 @@ canEdit(status) {
 
 
 }
-
