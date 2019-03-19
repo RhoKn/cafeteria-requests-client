@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../../models/product';
+import { Product } from '../../../models/product';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-user',
-    templateUrl: './product.component.html',
-    styleUrls: ['./product.component.css']
+    templateUrl: './productList.component.html',
+    styleUrls: ['./productList.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductListComponent implements OnInit {
     public title: String;
     public products: any = [];
     public ptypes: any = [];
     public product: Product;
     public providers: any = [];
-    public providersName: any = [];
     public unitsToAdd: any = [];
     public providersToAdd: any = [];
     public x;
@@ -106,14 +105,9 @@ export class ProductComponent implements OnInit {
         this.product=this.reactiveForm.value;
         this.product.unit = this.unitsToAdd;
         this.product.provider = this.providersToAdd;
-        this.ptypes.forEach(pt => {
-            if(pt.type === this.product.category){
-                this.product.category = pt._id;
-            }
-        });
         console.log(this.product);
         this.rest.createProduct(this.product).subscribe((result) => {
-            this.router.navigate(['/products']);
+            this.getProducts();
           }, (err) => {
             console.log(err);
           });
@@ -124,7 +118,6 @@ export class ProductComponent implements OnInit {
         this.rest.getProviders().subscribe((data: {}) => {
             this.providers = data;
             this.providers = this.providers.providers;
-            
         });
       }
 }

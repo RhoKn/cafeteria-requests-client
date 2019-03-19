@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Unit } from '../../models/unit';
+import { Unit } from '../../../models/unit';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-unit',
-  templateUrl: './unit.component.html',
-  styleUrls: ['./unit.component.css']
+  selector: 'app-unit-list',
+  templateUrl: './unitsList.component.html',
+  styleUrls: ['./unitsList.component.css']
 })
-export class UnitComponent implements OnInit {
+export class UnitsListComponent implements OnInit {
   public title: String;
   public units: any = [];
   public unit: Unit;
