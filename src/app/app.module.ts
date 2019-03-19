@@ -30,6 +30,7 @@ import { PTypeEditComponent } from './components/productType/edit-unit/editPType
 import { ProductComponent } from './components/products/product.component';
 import { EditProductComponent } from './components/products/edit/editProduct.component';
 import { BussesComponent } from './components/busses/busses.component';
+import { BussesListComponent } from './components/busses/bussesList/bussesList.component';
 import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
 
 
@@ -69,6 +70,7 @@ import {RestService} from './rest.service';
     RequestViewComponent,
     BussesComponent,
     BussesEditComponent,
+    BussesListComponent,
     ProvidersListComponent
   ],
   imports: [

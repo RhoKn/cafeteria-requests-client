@@ -24,6 +24,7 @@ import { EditProductComponent } from './components/products/edit/editProduct.com
 import { RequestOneComponent } from './components/request/view/seeOne.component'
 import { BussesComponent } from './components/busses/busses.component';
 import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
+import { BussesListComponent } from './components/busses/bussesList/bussesList.component';
 import { DRoomsListComponent } from './components/dRooms/dRoomsList/dRoomsList.component';
 
 //Token
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
     {path:'productTypes/update/:id',component:PTypeEditComponent,canActivate:[AuthGuard]},
     {path:'products',component:ProductComponent,canActivate:[AuthGuard]},
     {path:'products/update/:id',component:EditProductComponent,canActivate:[AuthGuard]},
-    {path:'busses',component:BussesComponent,canActivate:[AuthGuard]},
+    {path:'busses',component:BussesListComponent,canActivate:[AuthGuard]},
+    {path:'busses/create',component:BussesComponent,canActivate:[AuthGuard]},
     {path:'busses/update/:id',component:BussesEditComponent,canActivate:[AuthGuard]},
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}
