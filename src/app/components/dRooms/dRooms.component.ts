@@ -32,10 +32,10 @@ export class DRoomsComponent implements OnInit {
             dRoom: ['', Validators.required],
             observations: ['', Validators.required],
             street: ['', [Validators.required,Validators.minLength(3)]],
-            street_number: ['',[Validators.required,Validators.minLength(3)]],
-            suite_number:[],
+            street_number: ['',[Validators.required,Validators.min(1)]],
+            suite_number:[Validators.min(1)],
             colony: ['', [Validators.required, Validators.minLength(3)]],
-            postal_code: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]]
+            postal_code: ['', [Validators.required, Validators.min(10000),Validators.max(99999)]]
         });
           this.getUsers();
           this.getDRooms();
@@ -62,7 +62,7 @@ export class DRoomsComponent implements OnInit {
               if(user.user_type === 'Gerente'){
                 this.usersName.push(user.nick_name);
               }
-              
+
             });
         });
     }

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Bus } from '../../models/bus';
+import { Bus } from '../../../models/bus';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-busses',
-  templateUrl: './busses.component.html',
-  styleUrls: ['./busses.component.css']
+  selector: 'app-busses-list',
+  templateUrl: './bussesList.component.html',
+  styleUrls: ['./bussesList.component.css']
 })
-export class BussesComponent implements OnInit {
+export class BussesListComponent implements OnInit {
 
   public title: String;
   public busses: any = [];
@@ -28,9 +28,9 @@ export class BussesComponent implements OnInit {
   ngOnInit() {
     if(this.getRole()){
       this.reactiveForm = this.formBuilder.group({
-          space_box: ['', [Validators.required,Validators.min(1)]],
+          space_box: ['', Validators.required],
           user: ['', Validators.required],
-          license_plate: ['', [Validators.required,Validators.minLength(7),Validators.maxLength(7)]]
+          license_plate: ['', Validators.required]
       });
         this.getTheBusses();
         this.getUsers();
@@ -57,7 +57,7 @@ export class BussesComponent implements OnInit {
   createBusses() {
       this.bus=this.reactiveForm.value;
       this.rest.createBus(this.bus).subscribe((result) => {
-          this.router.navigate(['/busses']);
+          this.getTheBusses();
         }, (err) => {
           console.log(err);
         });

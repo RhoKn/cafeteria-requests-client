@@ -28,13 +28,13 @@ export class ProvidersComponent implements OnInit {
           prov_name: ['', Validators.required],
           contact_first_name: ['', Validators.required],
           contact_last_name: ['', Validators.required],
-          phone_number: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+          phone_number: ['', [Validators.required,Validators.min(1000000000),Validators.max(9999999999)]],
           email: ['', [Validators.required, Validators.email]],
           RFC: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
-          postal_code: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]],
-          street_name: ['', [Validators.required,Validators.minLength(3)]],
+          postal_code: ['', [Validators.required, Validators.min(10000),Validators.max(99999)]],
+          street_name: ['', [Validators.required,Validators.min(0)]],
           street_number: ['', Validators.required],
-          suite_number:[],
+          suite_number:[Validators.min(0)],
           colony: ['', [Validators.required, Validators.minLength(3)]]
       });
       this.getProviders();
@@ -61,7 +61,7 @@ export class ProvidersComponent implements OnInit {
 
   createProvider() {
     this.provider=this.reactiveForm.value;
-    
+
       this.rest.createObject(this.provider,'providers/create').subscribe((result) => {
         this.router.navigate(['/providers']);
         }, (err) => {
