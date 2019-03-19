@@ -19,6 +19,7 @@ import { EditProviderComponent } from './components/providers/edit-provider/edit
 import { UnitComponent } from './components/unit/unit.component';
 import { UnitEditComponent } from './components/unit/edit-unit/editUnit.component';
 import { DRoomsComponent } from './components/dRooms/dRooms.component';
+import { DRoomsListComponent } from './components/dRooms/dRoomsList/dRoomsList.component';
 import { DRoomEditComponent } from './components/dRooms/dRooms-edit/editDRooms.component';
 import { RequestComponent } from './components/request/request.component';
 import { RequestEditComponent } from './components/request/edit/editRequest.component';
@@ -56,6 +57,7 @@ import {RestService} from './rest.service';
     UnitEditComponent,
     DRoomsComponent,
     DRoomEditComponent,
+    DRoomsListComponent,
     RequestComponent,
     RequestEditComponent,
     RequestViewComponent,

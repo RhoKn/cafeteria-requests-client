@@ -1,0 +1,186 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="mb-4 text-right">
+    <a [routerLink]="['/dinningRooms/create']" class="btn btn-primary btn-icon-split" *ngIf="rest.getRole()=='Admin'">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text" style="color:white">Agregar comedor</span>
+    </a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Comedores Existentes</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Comedor</th>
+                        <th>Descripción</th>
+                        <th>Encargado</th>
+                        <th>Dirección</th>
+                        <th>Código postal</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dr of dRooms">
+                        <td>{{dr.dRoom}}</td>
+                        <td>{{dr.observations}}</td>
+                        <td>{{dr.user.nick_name}}</td>
+                        <td>{{dr.street}} #{{dr.street_number}} interior {{dr.suite_number}} col.{{dr.colony}} </td>
+                        <td>{{dr.postal_code}}</td>
+                        <td style="width: 20%;">
+                            <a routerLink="/dinningRooms/update/{{dr._id}}" class="table-link">
+                                <span class="fa-stack">
+                                    <i class="fa fa-square fa-stack-2x"></i>
+                                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <a class="table-link danger" (click)="deleteDRoom(dr._id)">
+                                <span class="fa-stack">
+                                    <i class="fa fa-square fa-stack-2x"></i>
+                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                    <div class=" col-md-12 mb-3">
+                        <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createDRoom()">
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom01">Nombre del comedor</label>
+                                    <input type="text" class="form-control" formControlName="dRoom" class="form-control" #dRoom id="validationCustom01" placeholder="Lyria Fernanda"
+                                        required>
+                                </div>
+                                <div class="col-md-7 mb-3">
+                                    <label for="validationCustom02">Observaciones</label>
+                                    <input type="text" class="form-control" formControlName="observations" #observations id="validationCustom02" placeholder="Comedor de la empresa Empresa Inc."
+                                        required>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom03">Encargado</label>
+                                    <select id="inputType" class="form-control" formControlName="user" #user id="validationCustom03" required>
+                                        <option disabled selected> Elegir...</option>
+                                        <option *ngFor="let u of users">{{u._id}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom04">Nombre de la calle</label>
+                                    <input type="text" class="form-control" formControlName="street" class="form-control" #street id="validationCustom04" placeholder="Calle Egipto"
+                                        required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom05">Numero exterior</label>
+                                    <input type="number" class="form-control" formControlName="street_number" #street_number id="validationCustom05" placeholder="305"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom06">Numero interior</label>
+                                    <input type="number" class="form-control" formControlName="suite_number" #suite_number id="validationCustom06" placeholder="10">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom07">Colonia</label>
+                                    <input type="text" class="form-control" formControlName="colony" class="form-control" #colony id="validationCustom07" placeholder="Diego Lucero"
+                                        required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="validationCustom08">Codigo Postal</label>
+                                    <input type="number" class="form-control" formControlName="postal_code" #postal_code id="validationCustom08" placeholder="31100"
+                                        required>
+                                </div>
+                            </div>
+
+
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createDRoom()" [disabled]="!reactiveForm.valid">Agregar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                    <th><span>Comedor</span></th>
+                                    <th><span>Descripción</span></th>
+                                    <th><span>Encargado</span></th>
+                                    <th><span>Nombre de la Calle</span></th>
+                                    <th><span>Numero Exterior</span></th>
+                                    <th><span>Numero Interior</span></th>
+                                    <th><span>Colonia</span></th>
+                                    <th><span>Codigo Postal</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dr of dRooms">
+                                    <td>
+                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                                        <a href="#" class="user-link">{{dr.dRoom}}</a>
+                                    </td>
+                                    <td>{{dr.observations}}</td>
+                                    <td>
+                                        <a href="#">{{dr.user.nick_name}}</a>
+                                    </td>
+                                    <td>{{dr.street}}</td>
+                                    <td>{{dr.street_number}}</td>
+                                    <td>{{dr.suite_number}}</td>
+                                    <td>{{dr.colony}}</td>
+                                    <td>{{dr.postal_code}}</td>
+                                    <td style="width: 20%;">
+                                        <a routerLink="/dinningRooms/update/{{dr._id}}" class="table-link">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <a class="table-link danger" (click)="deleteDRoom(dr._id)">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
