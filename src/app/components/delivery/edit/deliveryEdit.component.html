@@ -1,0 +1,104 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Editar salida</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-row mb-2">
+            <div class="col-md-3 mb-3">
+                <label for="validationCustom05">Conductor seleccionado</label>
+                <select id="selectedDriver" class="form-control driverSearcher" name="userType"
+                    required>
+                    <option > Elegir...</option>
+                    <option *ngFor="let bs of busses">{{bs.user.nick_name}}</option>
+                </select>
+                <button hidden type="button" id="searcherTrigger" (click)="setInfo()"></button>
+            </div>
+            <div class="col-md-3 mb-3"></div>
+            <div class="col-md-3 mb-3 pull-right">
+                <div class="text-right"><label>Placas</label></div>
+                <h3 class="text-right" id="plateslbl">----</h3>
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <div class="text-right"><label>Espacio en la caja</label></div>
+                <h3 class="text-right" id="boxSpacelbl">----</h3>
+            </div>
+        </div>
+        <h3>Pedidos disponibles para entrega</h3>
+        <ng-container *ngFor="let cm of dRooms, let i = index" id="accordion">
+
+            <a data-toggle="collapse" href="#acc{{i}}" role="button" aria-expanded="false" aria-controls="samplse">
+                {{cm.dRoom}}
+            </a>
+
+            <hr>
+            <div class="collapse mb-4" id="acc{{i}}">
+                <ng-container *ngFor="let req of requests,let j = index">
+                    <div class="container" *ngIf="req.dRoom.dRoom === cm.dRoom">
+                        <ng-container *ngIf="req.status == 'Aprobado' || req.status === 'EntregaParcial'">
+
+                            <a data-toggle="collapse" href="#tbl{{j}}" role="button" aria-expanded="false" aria-controls="samplse">
+                                {{req.created.date}}
+                            </a>
+                            <div class="collapse mb-4" id="tbl{{j}}">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Unidad</th>
+                                                <th>Proveedor</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let prod of req.products, let k = index">
+                                                <tr *ngIf="!prod.sTs">
+                                                    <td id="name{{j}}{{k}}">{{prod.name}}</td>
+                                                    <td id="qtty{{j}}{{k}}">{{prod.quantity}}</td>
+                                                    <td id="unit{{j}}{{k}}">{{prod.unit}}</td>
+                                                    <td id="prov{{j}}{{k}}">{{prod.provider}}</td>
+                                                    <td>
+                                                        <button class="btn btn-primary float-right mb-3" type="reset" (click)="addElement(j,k)" id="add{{j}}{{k}}">Agregar</button>
+                                                        <button class="btn btn-danger float-right mb-3" type="reset" (click)="deleteElement(j,k) " id="del{{j}}{{k}}" hidden>Remover</button>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <br>
+                        </ng-container>
+                    </div>
+                </ng-container>
+
+
+
+
+            </div>
+        </ng-container>
+
+        <button [disabled]="" (click)="createDelivery()" class="btn btn-primary btn-icon-split float-right mb-3">
+
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Editar salida</span>
+        </button>
+
+        <a [routerLink]="['/deliveries']" class="btn btn-danger btn-icon-split float-right mb-3">
+            <span class="icon text-white-50">
+                <i class="fas fa-times"></i>
+            </span>
+            <span class="text" style="color:white">Cancelar</span>
+        </a>
+    </div>
+</div>
+   
+
+
+   

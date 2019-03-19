@@ -37,10 +37,6 @@
             <div class="collapse mb-4" id="acc{{i}}">
 
                 <div class="container">
-                    <div class="mb-4 text-right">
-                        <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
-
-                    </div>
                     <ng-container *ngFor="let p of linesByCat[i], let j = index">
 
 
@@ -91,10 +87,14 @@
                         <hr>
 
                     </ng-container>
-                    <!-- <div class="mb-4 text-right">
+                    <div class="mb-4 text-right">
                         <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
                         <br>
                         <br>
+                    </div>
+                    <!-- <div class="mb-4 text-right">
+                        <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
+                        
 
                     </div> -->
                 </div>

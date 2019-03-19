@@ -1,0 +1,99 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <h6 class="m-0 font-weight-bold text-primary" id="comedor">Pedido para el comedor </h6> <h6 id="stat" [ngClass]="{
+                'text-success':req.status === 'Aprobado',
+                'text-secondary':req.status === 'Creado',
+                'text-info':req.status === 'Autorizado',
+                'text-danger': action === 'Rechazado'
+              }">Status</h6>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-row mb-2">
+            <div class="col-md-12 mb-3 ">
+                <div class="text-right" id="createdBy"><label>Creado en:</label></div>
+                <h3 class="text-right" id="dateReq">Obteniendo fecha</h3>
+            </div>
+        </div>
+        <div class="mb-4 col-md-12">
+            <div class="row">
+                <h5> Observaciones:</h5>
+            </div>
+            <div class="row border border-primary rounded">
+                <p class=" col-md-12" id="observations"> </p>
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Categoria</th>
+                        <th>Unidad</th>
+                        <th>Cantidad</th>
+                        <th>Proveedor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of req.products, let i = index">
+                        <td>{{product.name}}</td>
+                        <td>{{product.category}}</td>
+                        <td>{{product.unit}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>{{theProv[i]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-row mb-4" *ngIf="cancel != false">
+            <label for="tArequest"[ngClass]="{
+                'text-success':action === 'Autorizar',
+                'text-danger': action === 'Rechazar'
+              }">Motivo para {{action}}</label>
+            <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="statToSend.AuthObservations">
+                </textarea>
+        </div>
+
+        <a (click)="actionToReq()" class="btn btn-primary btn-icon-split float-right mb-3" *ngIf="canStatusUpgrade() && cancel != true">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Aprobar Pedido</span>
+        </a>
+        <a (click)="actionToReject()" class="btn btn-danger btn-icon-split float-right mb-3" *ngIf="canStatusDownGrade() && cancel != true">
+            <span class="icon text-white-50">
+                <i class="fas fa-times"></i>
+            </span>
+            <span class="text" style="color:white">Rechazar pedido</span>
+        </a>
+        <a (click)="getToAction()" class="btn btn-primary btn-icon-split float-right mb-3" *ngIf="cancel != false && action!='Rechazar'">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">{{action}}</span>
+        </a>
+        <a (click)="getToReject()" class="btn btn-warning btn-icon-split float-right mb-3" *ngIf="cancel != false && action=='Rechazar'" >
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">{{action}}</span>
+        </a>
+        <a (click)="returnCancel()" class="btn btn-danger btn-icon-split float-right mb-3" *ngIf="cancel != false">
+            <span class="icon text-white-50">
+                <i class="fas fa-times"></i>
+            </span>
+            <span class="text" style="color:white">Cancelar</span>
+        </a>
+
+
+        <!-- <p>{{req}}</p> -->
+
+
+
+
+    </div>
