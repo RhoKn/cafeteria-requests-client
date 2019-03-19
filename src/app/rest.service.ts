@@ -322,6 +322,7 @@ getRequest(id): Observable<any> {
 }
 
 updateRequest (id, request): Observable<any> {
+  console.log(request)
   const headers = new HttpHeaders({
     'Content-Type':  'application/json'
   });

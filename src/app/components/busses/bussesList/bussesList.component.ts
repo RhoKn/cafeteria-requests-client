@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Bus } from '../../models/bus';
+import { Bus } from '../../../models/bus';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-busses',
-  templateUrl: './busses.component.html',
-  styleUrls: ['./busses.component.css']
+  selector: 'app-busses-list',
+  templateUrl: './bussesList.component.html',
+  styleUrls: ['./bussesList.component.css']
 })
-export class BussesComponent implements OnInit {
+export class BussesListComponent implements OnInit {
 
   public title: String;
   public busses: any = [];
@@ -57,7 +57,7 @@ export class BussesComponent implements OnInit {
   createBusses() {
       this.bus=this.reactiveForm.value;
       this.rest.createBus(this.bus).subscribe((result) => {
-          this.router.navigate(['/busses']);
+          this.getTheBusses();
         }, (err) => {
           console.log(err);
         });
