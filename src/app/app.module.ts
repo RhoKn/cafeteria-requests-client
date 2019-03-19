@@ -17,6 +17,7 @@ import { ProvidersListComponent} from './components/providers/providersList/prov
 import { routing, appRoutingProviders } from './app.routing';
 import { EditProviderComponent } from './components/providers/edit-provider/edit-provider.component';
 import { UnitComponent } from './components/unit/unit.component';
+import { UnitsListComponent } from './components/unit/unitList/unitsList.component';
 import { UnitEditComponent } from './components/unit/edit-unit/editUnit.component';
 import { DRoomsComponent } from './components/dRooms/dRooms.component';
 import { DRoomsListComponent } from './components/dRooms/dRoomsList/dRoomsList.component';
@@ -26,8 +27,10 @@ import { RequestEditComponent } from './components/request/edit/editRequest.comp
 import { RequestViewComponent } from './components/request/viewList/viewRequest.component';
 import { RequestOneComponent } from './components/request/view/seeOne.component';
 import { PTypeComponent } from './components/productType/productType.component';
+import { PTypeListComponent } from './components/productType/productTypeList/productTypesList.component';
 import { PTypeEditComponent } from './components/productType/edit-unit/editPType.component';
 import { ProductComponent } from './components/products/product.component';
+import { ProductListComponent } from './components/products/productsList/productList.component';
 import { EditProductComponent } from './components/products/edit/editProduct.component';
 import { BussesComponent } from './components/busses/busses.component';
 import { BussesListComponent } from './components/busses/bussesList/bussesList.component';
@@ -56,6 +59,7 @@ import {RestService} from './rest.service';
     EditProviderComponent,
     UnitComponent,
     UnitEditComponent,
+    UnitsListComponent,
     DRoomsComponent,
     DRoomEditComponent,
     DRoomsListComponent,
@@ -63,6 +67,7 @@ import {RestService} from './rest.service';
     RequestEditComponent,
     RequestViewComponent,
     PTypeComponent,
+    PTypeListComponent,
     PTypeEditComponent,
     ProductComponent,
     EditProductComponent,
@@ -71,7 +76,8 @@ import {RestService} from './rest.service';
     BussesComponent,
     BussesEditComponent,
     BussesListComponent,
-    ProvidersListComponent
+    ProvidersListComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

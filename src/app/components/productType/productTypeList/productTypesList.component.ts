@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../rest.service';
+import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductType } from '../../models/productType';
+import { ProductType } from '../../../models/productType';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-unit',
-  templateUrl: './productType.component.html',
-  styleUrls: ['./productType.component.css']
+  templateUrl: './productTypesList.component.html',
+  styleUrls: ['./productTypesList.component.css']
 })
-export class PTypeComponent implements OnInit {
+export class PTypeListComponent implements OnInit {
   public ptypes: any = [];
   public ptype: ProductType;
 
@@ -63,7 +63,7 @@ export class PTypeComponent implements OnInit {
   createProductTypes() {
     this.ptype=this.reactiveForm.value;
       this.rest.createProductTypes(this.ptype).subscribe((result) => {
-          this.router.navigate(['/productTypes']);
+          this.getProductTypes();
         }, (err) => {
           console.log(err);
         });

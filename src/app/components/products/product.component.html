@@ -1,5 +1,79 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Nuevo producto</h6>
+    </div>
+    <div class="card-body">
+        <div class=" col-md-12 mb-3">
+            <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="createProvider()">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom01">Nombre(s)</label>
+                        <input type="text" class="form-control" formControlName="name" class="form-control" #name id="validationCustom01" placeholder="Naranja"
+                            required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom05">Categoria</label>
+                        <select id="inputType" class="form-control" formControlName="category" #category required>
+                            <!-- <option selected> {{product.category}}</option> -->
+                            <option *ngFor="let ct of ptypes ">{{ct.type}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustomUsername">Precio</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">$</span>
+                            </div>
+                            <input type="number" class="form-control" id="validationCustomUsername" formControlName="price" #price placeholder="13.00"
+                                aria-describedby="inputGroupPrepend" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom03">Descripción</label>
+                        <input type="text" class="form-control" formControlName="description" #description placeholder="Naranja traida de las granjas de XXXXX"
+                            required>
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Tipo de unidad</label>
+                        <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
+                                    <option selected> {{product.unit}}</option>
+                                    <option *ngFor="let u of units ">{{u._id}}</option>
+                                </select> -->
+                        <div *ngFor="let u of units">
+                            <input type="checkbox" name="" value="{{u.name}}" (click)="addUnit(u._id)">{{u.name}}
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Proveedores</label>
+                        <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
+                                    <option selected> {{product.unit}}</option>
+                                    <option *ngFor="let u of units ">{{u._id}}</option>
+                                </select> -->
+                        <div *ngFor="let p of providers">
+                            <input type="checkbox" value="{{p._id}}" (click)="addProvider(p._id)">{{p.name}}
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProducts()" [disabled]="!reactiveForm.valid">Agregar</button>
+                <button class="btn btn-danger float-right mb-3 mr-3" type="reset" [routerLink]="['/products']">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
 <div class="container bootstrap snippet" *ngIf="rest.loggedIn() && rest.getRole()=='Admin' || rest.getRole()=='Gerente'">
     <div class="row">
         <div class="col-lg-12">
@@ -11,14 +85,14 @@
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label for="validationCustom01">Nombre(s)</label>
-                                    <input type="text" class="form-control" formControlName="name" class="form-control" #name id="validationCustom01"
-                                        placeholder="Naranja" required>
+                                    <input type="text" class="form-control" formControlName="name" class="form-control" #name id="validationCustom01" placeholder="Naranja"
+                                        required>
                                 </div>
 
                                 <div class="col-md-4 mb-3">
                                     <label for="validationCustom05">Categoria</label>
                                     <select id="inputType" class="form-control" formControlName="category" #category required>
-                                        <!-- <option selected> {{product.category}}</option> -->
+                                        
                                         <option *ngFor="let ct of ptypes ">{{ct._id}}</option>
                                     </select>
                                 </div>
@@ -28,44 +102,37 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">$</span>
                                         </div>
-                                        <input type="number" class="form-control" id="validationCustomUsername" formControlName="price" #price
-                                            placeholder="13.00" aria-describedby="inputGroupPrepend" required>
+                                        <input type="number" class="form-control" id="validationCustomUsername" formControlName="price" #price placeholder="13.00"
+                                            aria-describedby="inputGroupPrepend" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="validationCustom03">Descripción</label>
-                                    <input type="text" class="form-control" formControlName="description" #description
-                                        placeholder="Naranja traida de las granjas de XXXXX" required>
+                                    <input type="text" class="form-control" formControlName="description" #description placeholder="Naranja traida de las granjas de XXXXX"
+                                        required>
                                 </div>
 
                             </div>
                             <div class="form-row">
                                 <div class="col-md-3 mb-3">
                                     <label for="validationCustom05">Tipo de unidad</label>
-                                    <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
-                                        <option selected> {{product.unit}}</option>
-                                        <option *ngFor="let u of units ">{{u._id}}</option>
-                                    </select> -->
+                                    
                                     <div *ngFor="let u of units">
-                                      <input type="checkbox" name="" value="{{u.name}}" (click)="addUnit(u._id)" >{{u.name}}
+                                        <input type="checkbox" name="" value="{{u.name}}" (click)="addUnit(u._id)">{{u.name}}
                                     </div>
-                                  </div>
+                                </div>
 
-                                  <div class="col-md-3 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="validationCustom05">Proveedores</label>
-                                    <!-- <select id="inputType" class="form-control" name="pUnit" #pUnit="ngModel" [(ngModel)]="product.unit" required>
-                                        <option selected> {{product.unit}}</option>
-                                        <option *ngFor="let u of units ">{{u._id}}</option>
-                                    </select> -->
+                                    
                                     <div *ngFor="let p of providers">
-                                      <input type="checkbox"  value="{{p._id}}" (click)="addProvider(p._id)">{{p._id}}
+                                        <input type="checkbox" value="{{p._id}}" (click)="addProvider(p._id)">{{p._id}}
                                     </div>
-                                  </div>
+                                </div>
                             </div>
-                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProducts()"
-                            [disabled]="!reactiveForm.valid">Agregar</button>
+                            <button class="btn btn-primary float-right mb-3" type="reset" (click)="createProducts()" [disabled]="!reactiveForm.valid">Agregar</button>
                         </form>
                     </div>
 
@@ -73,61 +140,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container bootstrap snippet">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="table-responsive">
-                <div class="main-box no-header clearfix">
-                    <div class="main-box-body clearfix">
-                        <table class="table user-list">
-                            <thead>
-                                <tr>
-                                    <th><span>Producto</span></th>
-                                    <th><span>Unidad</span></th>
-                                    <th class="text-center"><span>Categoria</span></th>
-                                    <th><span>Precio</span></th>
-                                    <th *ngIf="rest.loggedIn() && rest.getRole()=='Admin' || rest.getRole()=='Gerente'">Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let p of products">
-                                    <td>
-                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
-                                        <a href="#" class="user-link">{{p.name}} </a>
-                                        <span class="user-subhead">{{p.description}}</span>
-                                    </td>
-
-                                    <td class="text-center">
-                                        <span class="badge badge-primary">{{p.unit.name}}</span>
-                                    </td>
-                                    <td>
-                                        <a href="#">{{p.category.type}}</a>
-                                    </td>
-                                    <td>
-                                        <a href="#">{{p.price}}</a>
-                                    </td>
-                                    <td style="width: 20%;" *ngIf="rest.loggedIn() && rest.getRole()=='Admin' || rest.getRole()=='Gerente'">
-                                        <a routerLink="/products/update/{{p._id}}" class="table-link">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                        <a class="table-link danger" (click)="deleteProducts(p._id)">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</div>-->
