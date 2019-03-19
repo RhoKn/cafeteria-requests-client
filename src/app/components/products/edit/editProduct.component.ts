@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RestService } from '../../../rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './editProduct.component.html',
@@ -16,25 +16,49 @@ export class EditProductComponent implements OnInit {
   public providers: any = [];
   public unitsToAdd: any = [];
   public providersToAdd: any = [];
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
+
+  public reactiveForm: FormGroup;
+
+  public filcat:any=[];
+  public prueba;
+
+  constructor(public rest: RestService, private route: ActivatedRoute,
+     private router: Router,private formBuilder:FormBuilder) {
+            this.createForm();
+     }
 
   ngOnInit() {
 
     if(this.getRole()){
-      this.rest.getProduct(this.route.snapshot.params['id']).subscribe((data: {}) => {
-        this.product = data;
-        this.product = this.product.product;
-        console.log(this.product);
-      });
       this.getTheUnits();
       this.getProductTypes();
       this.getProviders();
+      this.rest.getProduct(this.route.snapshot.params['id']).subscribe((data: {}) => {
+        this.product = data;
+        this.product = this.product.product;
+        this.reactiveForm.get('name').setValue(this.product.name);
+        this.reactiveForm.get('category').setValue(this.product.category);
+        this.reactiveForm.get('description').setValue(this.product.description);
+        this.reactiveForm.get('price').setValue(this.product.price);
+        this.prueba=this.product.category;
+      });
+
       this.product.unit = this.unitsToAdd;
       this.product.provider = this.providersToAdd;
     }else{
       this.router.navigate(['/requests']);
     }
   }
+
+  createForm(){
+    this.reactiveForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required,Validators.min(1)]]
+    });
+  }
+
 
   getRole(){
     if(this.rest.getRole()!='Compras' && this.rest.getRole()!='Chofer' && this.rest.getRole()!='Chef'){
@@ -45,7 +69,7 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct() {
-
+    this.product=this.reactiveForm.value;
     this.product.unit = this.unitsToAdd;
     this.product.provider = this.providersToAdd;
     this.rest.updateProduct(this.route.snapshot.params['id'], this.product).subscribe((result) => {
@@ -66,6 +90,7 @@ export class EditProductComponent implements OnInit {
     this.rest.getProductTypes().subscribe((data: {}) => {
         this.ptypes = data;
         this.ptypes = this.ptypes.types;
+        this.filcat=this.ptypes.filter(n=>n._id!=this.product.category);
     });
   }
 

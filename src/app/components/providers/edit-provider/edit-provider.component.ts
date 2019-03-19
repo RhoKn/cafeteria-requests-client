@@ -46,13 +46,13 @@ export class EditProviderComponent implements OnInit {
     this.reactiveForm = this.fb.group({
       contact_first_name: ['', Validators.required],
       contact_last_name: ['', Validators.required],
-      phone_number: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+      phone_number: ['', [Validators.required,Validators.min(1000000000),Validators.max(9999999999)]],
       email: ['', [Validators.required, Validators.email]],
       RFC: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
-      postal_code: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]],
-      street_name: ['', [Validators.required,Validators.minLength(3)]],
-      street_number: ['', Validators.required],
-      suite_number:[],
+      postal_code: ['', [Validators.required, Validators.min(10000),Validators.max(99999)]],
+      street_name: ['', Validators.required],
+      street_number: ['', [Validators.required,Validators.min(1)]],
+      suite_number:[Validators.min(0)],
       colony: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
@@ -68,7 +68,7 @@ export class EditProviderComponent implements OnInit {
 
   updateProvider() {
     this.provider=this.reactiveForm.value;
-    this.provider.name=`${this.provider.contact_first_name} ${this.provider.contact_last_name}`;
+    // this.provider.name=`${this.provider.contact_first_name} ${this.provider.contact_last_name}`;
     this.rest.updateProvider(this.route.snapshot.params['id'], this.provider).subscribe((result) => {
       this.router.navigate(['/providers']);
     }, (err) => {

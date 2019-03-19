@@ -5,7 +5,7 @@
               <div class="main-box no-header clearfix">
                   <div class="main-box-body clearfix">
                     <div class=" col-md-12 mb-3">
-                        <p>Actualizar Proveedor</p>
+                        <p>Actualizar Contacto</p>
                         <form class="needs-validation" [formGroup]="reactiveForm" (ngSubmit)="updateProvider()">
                             <div class="form-row">
                               <div class="col-md-4 mb-3">
@@ -32,7 +32,7 @@
                               </div>
                               <div class="col-md-3 mb-3">
                                 <label for="validationCustom06">Codigo Postal</label>
-                                <input type="text" class="form-control" formControlName="postal_code" #postal_code id="validationCustom06" placeholder="31100" required>
+                                <input type="number" class="form-control" formControlName="postal_code" #postal_code id="validationCustom06" placeholder="31100" required>
                               </div>
                             </div>
                             <div class="form-row">
@@ -42,11 +42,11 @@
                               </div>
                               <div class="col-md-2 mb-3">
                                 <label for="validationCustom08">Num. Exterior</label>
-                                <input type="text" class="form-control" formControlName="street_number" #street_number id="validationCustom08" placeholder="303">
+                                <input type="number" class="form-control" formControlName="street_number" #street_number id="validationCustom08" placeholder="303">
                               </div>
                               <div class="col-md-2 mb-3">
                                 <label for="validationCustom09">Num. Interior</label>
-                                <input type="text" class="form-control" formControlName="suite_number" #suite_number id="validationCustom09" placeholder="5">
+                                <input type="number" class="form-control" formControlName="suite_number" #suite_number id="validationCustom09" placeholder="5">
                               </div>
                               <div class="col-md-3 mb-3">
                                 <label for="validationCustom10">Colonia</label>

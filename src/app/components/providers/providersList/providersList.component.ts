@@ -55,7 +55,9 @@ export class ProvidersListComponent implements OnInit {
       this.rest.getProviders().subscribe((data: {}) => {
           this.providers = data;
           this.providers = this.providers.providers;
+      
       });
+
     }
 
   createProvider() {

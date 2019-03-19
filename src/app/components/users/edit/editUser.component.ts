@@ -15,6 +15,14 @@ export class UserEditComponent implements OnInit {
 
   @Input()
   user: any = { };
+  public prueba;
+  public filro=[{user_type:"Admin"},
+                {user_type:"Gerente"},
+                {user_type:"Chef"},
+                {user_type:"Compras"},
+                {user_type:"Chofer"}];
+
+  public filroles;
   public reactiveForm:FormGroup;
   constructor(public rest: RestService, private route: ActivatedRoute,
     private router: Router,private fb: FormBuilder) {
@@ -31,6 +39,8 @@ export class UserEditComponent implements OnInit {
         this.reactiveForm.get('last_name').setValue(this.user.last_name);
         this.reactiveForm.get('nick_name').setValue(this.user.nick_name);
         this.reactiveForm.get('email').setValue(this.user.email);
+        this.prueba=this.user.user_type;
+        this.filroles=this.filro.filter(n=>n.user_type!=this.user.user_type);
       })
     }else{
       this.router.navigate(['/requests']);

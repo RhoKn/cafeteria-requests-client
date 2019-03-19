@@ -39,10 +39,9 @@
                                 <label for="validationCustom05">Tipo de usuario</label>
                                 <select id="inputType" class="form-control" name="user_type" #user_type="ngModel" [(ngModel)]="user.user_type" [ngModelOptions]="{standalone: true}" required>
                                     <option disabled> Elegir...</option>
-                                    <option>Admin</option>
-                                    <option>Finanza</option>
-                                    <option selected="">Chef</option>
-                                    <option>Compras</option>
+                                    <option>{{prueba}}</option>
+                                    <option *ngFor="let role of filroles ">{{role.user_type}}</option>
+
                                 </select>
                               </div>
                             </div>

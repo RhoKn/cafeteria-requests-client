@@ -25,15 +25,15 @@ export class ProvidersComponent implements OnInit {
   ngOnInit() {
     if(this.getRole()){
       this.reactiveForm = this.formBuilder.group({
-          prov_name: ['', Validators.required],
+          name: ['', Validators.required],
           contact_first_name: ['', Validators.required],
           contact_last_name: ['', Validators.required],
           phone_number: ['', [Validators.required,Validators.min(1000000000),Validators.max(9999999999)]],
           email: ['', [Validators.required, Validators.email]],
           RFC: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
           postal_code: ['', [Validators.required, Validators.min(10000),Validators.max(99999)]],
-          street_name: ['', [Validators.required,Validators.min(0)]],
-          street_number: ['', Validators.required],
+          street_name: ['', Validators.required],
+          street_number: ['', [Validators.required,Validators.min(0)]],
           suite_number:[Validators.min(0)],
           colony: ['', [Validators.required, Validators.minLength(3)]]
       });

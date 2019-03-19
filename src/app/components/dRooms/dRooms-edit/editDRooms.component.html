@@ -19,9 +19,9 @@
                             <div class="col-md-3 mb-3">
                               <label for="validationCustom05">Encargado</label>
                               <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="dRoom.user" [ngModelOptions]="{standalone: true}" required>
-                                  <option selected> {{dRoom.user}}</option>
-                                  <option *ngFor="let u of users">
-                                    <span *ngIf="dRoom.user!=u._id">{{u._id}}</span>
+                                  <option selected> {{prueba}}</option>
+                                  <option *ngFor="let u of getId(users)">
+                                    {{u._id}}<!-- <span *ngIf="dRoom.user!=u._id">{{u._id}}</span> -->
                                   </option>
                               </select>
                             </div>

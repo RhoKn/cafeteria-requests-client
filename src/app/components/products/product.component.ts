@@ -38,7 +38,7 @@ export class ProductComponent implements OnInit {
             name: ['', Validators.required],
             category: ['', Validators.required],
             description: ['', Validators.required],
-            price: ['', Validators.required]
+            price: ['', [Validators.required,Validators.min(1)]]
         });
           this.getProducts();
           this.getProductTypes();
@@ -124,7 +124,7 @@ export class ProductComponent implements OnInit {
         this.rest.getProviders().subscribe((data: {}) => {
             this.providers = data;
             this.providers = this.providers.providers;
-            
+
         });
       }
 }

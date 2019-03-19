@@ -28,7 +28,7 @@ export class UnitComponent implements OnInit {
     if(this.getRole()){
       this.reactiveForm = this.formBuilder.group({
           name: ['', Validators.required],
-          weigh: ['', Validators.required]
+          weigh: ['', [Validators.required,Validators.min(1)]]
       });
         this.getTheUnits();
     }else{

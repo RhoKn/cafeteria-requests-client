@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class DRoomEditComponent implements OnInit {
   public users: any = [];
+  public filusers:any=[];
+  public prueba;
   dRoom: any = { };
   public reactiveForm: FormGroup;
   constructor(public rest: RestService, private route: ActivatedRoute,
@@ -33,7 +35,9 @@ export class DRoomEditComponent implements OnInit {
         this.reactiveForm.get('suite_number').setValue(this.dRoom.suite_number);
         this.reactiveForm.get('colony').setValue(this.dRoom.colony);
         this.reactiveForm.get('postal_code').setValue(this.dRoom.postal_code);
+        this.prueba=this.dRoom.user;
       });
+
     }else{
       this.router.navigate(['/requests']);
     }
@@ -41,7 +45,7 @@ export class DRoomEditComponent implements OnInit {
 
   createForm(){
     this.reactiveForm = this.formBuilder.group({
-        user: ['', Validators.required],
+        user: [],
         dRoom: ['', Validators.required],
         observations: ['', Validators.required],
         street: ['', [Validators.required,Validators.minLength(3)]],
@@ -66,8 +70,14 @@ export class DRoomEditComponent implements OnInit {
     this.rest.getUsers().subscribe((data: {}) => {
         this.users = data;
         this.users = this.users.users;
+        this.users=this.users.filter(n => n.user_type=='Gerente');
     });
 }
+
+  getId(users){
+    this.filusers=this.users.filter(n=>n._id!=this.dRoom.user);
+    return this.filusers
+  }
 
   updateDRoom() {
     this.reactiveForm.value.user=this.dRoom.user;

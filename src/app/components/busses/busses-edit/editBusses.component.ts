@@ -13,10 +13,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class BussesEditComponent implements OnInit {
 
-  public bus:any = {}
+  bus:any = {}
   public updatedbus:any=[];
   public users: any = [];
   public updateForm:FormGroup;
+  public prueba;
+  public filusers:any=[];
 
   constructor(public rest: RestService, private route: ActivatedRoute,
      private router: Router,private fb: FormBuilder) {
@@ -26,9 +28,9 @@ export class BussesEditComponent implements OnInit {
 
   createForm(){
     this.updateForm=this.fb.group({
-      space_box: ['', Validators.required],
-      user:[],
-      license_plate: ['', Validators.required]
+      space_box: ['', [Validators.required,Validators.min(1)]],
+      user: [],
+      license_plate: ['', [Validators.required,Validators.minLength(7),Validators.maxLength(7)]]
     });
   }
 
@@ -39,11 +41,12 @@ export class BussesEditComponent implements OnInit {
     if(this.getRole()){
         this.getUsers();
         this.rest.getBus(this.route.snapshot.params['id']).subscribe((data: {}) => {
-        this.bus = data;
-        this.bus = this.bus.bus;
-        this.updateForm.get('space_box').setValue(this.bus.space_box);
-        this.updateForm.get('license_plate').setValue(this.bus.license_plate);
-      })
+          this.bus = data;
+          this.bus = this.bus.bus;
+          this.updateForm.get('space_box').setValue(this.bus.space_box);
+          this.updateForm.get('license_plate').setValue(this.bus.license_plate);
+          this.prueba=this.bus.user;
+      });
     }else{
       this.router.navigate(['/requests']);
     }
@@ -57,16 +60,19 @@ export class BussesEditComponent implements OnInit {
       return false;
     }
   }
+
+
   getUsers() {
       this.users = [];
       this.rest.getUsers().subscribe((data: {}) => {
           this.users = data;
           this.users = this.users.users;
           this.users=this.users.filter(n => n.user_type=='Chofer');
-
+          this.filusers=this.users.filter(n=>n._id!=this.bus.user);
       });
 
     }
+
 
     updatedBus() {
       this.updateForm.value.user=this.bus.user;

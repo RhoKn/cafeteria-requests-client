@@ -35,8 +35,8 @@ export class UnitEditComponent implements OnInit {
 
   createForm(){
     this.reactiveForm = this.fb.group({
-        name: ['', Validators.required],
-        weigh: ['', Validators.required]
+      name: ['', Validators.required],
+      weigh: ['', [Validators.required,Validators.min(1)]]
     });
   }
 

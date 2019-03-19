@@ -16,10 +16,12 @@
                               </div>
                               <div class="col-md-4 mb-3">
                                 <label for="validationCustom01">Conductor del camión</label>
-                                <select id="inputType" class="form-control" name="user" #user="ngModel" [(ngModel)]="bus.user" [ngModelOptions]="{standalone: true}" required>
-                                    <option selected> {{bus.user}}</option>
-                                    <option *ngFor="let u of users">
-                                      <span *ngIf="bus.user!=u._id">{{u._id}}</span>
+                                <select id="inputType" class="form-control" name="userType" #userType="ngModel" [(ngModel)]="bus.user" [ngModelOptions]="{standalone: true}" required>
+                                    <option selected>{{prueba}}</option>
+                                    <option *ngFor="let u of filusers">
+                                      {{u._id}}<!-- <span *ngIf="dRoom.user!=u._id">{{u._id}}</span> -->
+                                    </option>
+
                                 </select>
 
                               </div>
