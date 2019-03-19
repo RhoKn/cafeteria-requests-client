@@ -31,6 +31,7 @@ import { BussesListComponent } from './components/busses/bussesList/bussesList.c
 import { DRoomsListComponent } from './components/dRooms/dRoomsList/dRoomsList.component';
 import { DeliveryComponent } from './components/delivery/delivery.component';
 import { DeliveriesListComponent } from './components/delivery/viewList/deliveryList.component';
+import { DeliveryEditComponent } from './components/delivery/edit/deliveryEdit.component';
 
 //Token
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
     {path:'busses/update/:id',component:BussesEditComponent,canActivate:[AuthGuard]},
     {path:'deliveries',component:DeliveriesListComponent,canActivate:[AuthGuard]},
     {path:'deliveries/create',component:DeliveryComponent,canActivate:[AuthGuard]},
+    {path:'deliveries/edit/:id',component:DeliveryEditComponent,canActivate:[AuthGuard]},
     
     {path: '404', component: NotFoundComponent},
     {path: '**', component: NotFoundComponent}

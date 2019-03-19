@@ -37,7 +37,7 @@ import { BussesListComponent } from './components/busses/bussesList/bussesList.c
 import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
 import { DeliveryComponent } from './components/delivery/delivery.component';
 import { DeliveriesListComponent } from './components/delivery/viewList/deliveryList.component';
-
+import { DeliveryEditComponent } from './components/delivery/edit/deliveryEdit.component';
 
 //Token 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -80,7 +80,8 @@ import {RestService} from './rest.service';
     ProvidersListComponent,
     ProductListComponent,
     DeliveryComponent,
-    DeliveriesListComponent
+    DeliveriesListComponent,
+    DeliveryEditComponent
   ],
   imports: [
     BrowserModule,
