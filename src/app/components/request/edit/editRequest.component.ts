@@ -11,6 +11,7 @@ declare var $;
 export class RequestEditComponent implements OnInit {
 
   @Input() req: any = Request;
+  public flag=0;
   public auxToSync: any = [];
   public providers: any = [];
   public products: any = [];
@@ -56,8 +57,30 @@ export class RequestEditComponent implements OnInit {
       return false;
     }
   }
-  
 
+  test(){
+    while(true){
+      if(this.flag==0){
+        return true;
+      }
+
+      for(let counter = 0; counter < this.arrayAuxBuild.length;counter++){
+          for (let aux = 0; aux < this.arrayAuxBuild[counter].length; aux++) {
+              let prodSelect = document.getElementById('includedP'+this.arrayAuxBuild[counter][aux]) as HTMLSelectElement;
+              let unitSelect = document.getElementById('includedU' + this.arrayAuxBuild[counter][aux]) as HTMLSelectElement;
+              let qttyInpt = document.getElementById(`includedC${this.arrayAuxBuild[counter][aux]}`) as HTMLInputElement;
+              let providSelect = document.getElementById(`includedPr${this.arrayAuxBuild[counter][aux]}`) as HTMLSelectElement;
+
+              if(prodSelect.value=='' || unitSelect.value=='' || qttyInpt.value==''
+              || providSelect.value=='' || unitSelect.value=='Unidad...' || providSelect.value=='Proveedor...'){
+
+                return true;
+              }
+          }
+      }
+      return false;
+    }
+  }
 
   getProducts() {
     this.products = [];
@@ -109,6 +132,7 @@ export class RequestEditComponent implements OnInit {
     }
   }
   deleteLine(indexA, indexB) {
+    this.flag--;
     this.arrayAuxBuild[indexA].splice(indexB, 1);
 
 
@@ -116,6 +140,7 @@ export class RequestEditComponent implements OnInit {
   }
 
   addLine(index, included) {
+      this.flag++;
     this.rowsUsed++;
     if (included) {
       this.refChange.detectChanges();
@@ -190,7 +215,7 @@ export class RequestEditComponent implements OnInit {
 
   updateRequest() {
     this.pEditedToAdd = [];
-    
+
     this.dRooms.forEach(dR => {
       if (dR.dRoom === this.tmpdRoom) {
         this.req.dRoom = dR._id;
@@ -227,16 +252,16 @@ export class RequestEditComponent implements OnInit {
     }
 
     this.req.products = this.pEditedToAdd;
-    
 
-    
+    console.log(this.req);
+
     this.rest.updateRequest(this.route.snapshot.params['id'], this.req).subscribe((result) => {
           this.router.navigate(['/requests']);
         }, (err) => {
           console.log(err);
         });
-    
-    
+
+
 
   }
 

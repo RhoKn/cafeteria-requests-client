@@ -27,7 +27,7 @@
                 <ng-container *ngFor="let p of arrayAuxBuild[i], let j = index">
                     <div class="row">
                         <div class="col-sm-3">
-                            <select required id="includedP{{p}}" class="form-control searcher{{p}}" required>
+                            <select required id="includedP{{p}}" (click)="test()"  class="form-control searcher{{p}}" required>
                                 <option selected > Producto...</option>
                                 <ng-container *ngFor="let p of products">
                                     <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
@@ -35,16 +35,16 @@
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select  required id="includedU{{p}}" class="form-control" hidden required>
-                                <option selected> Unidad...</option>
+                            <select  required id="includedU{{p}}" (click)="test()" class="form-control" hidden required>
+                                <option disabled selected> Unidad...</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
-                                <input type="text" id="includedC{{p}}" placeholder="Cantidad" class="form-control" hidden required>
+                                <input type="number" id="includedC{{p}}" (click)="test()" (keyup)="test()" placeholder="Cantidad" class="form-control" hidden required>
                         </div>
                         <div class="col-sm-3">
-                            <select  required id="includedPr{{p}}"  class="form-control" hidden required>
-                                <option selected> Provider...</option>
+                            <select  required id="includedPr{{p}}"  (click)="test()" class="form-control" hidden required>
+                                <option disabled selected> Proveedor...</option>
                             </select>
                         </div>
                         <div class="col-sm-1">
@@ -54,9 +54,9 @@
                                         <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                                <button type="button" id="trigger{{p}}" (click)="setInfo(p)">{{p}}</button>
+                                <button hidden type="button" id="trigger{{p}}" (click)="setInfo(p)">{{p}}</button>
                             </div>
-                        
+
                     </div>
                     <hr>
                 </ng-container>
@@ -79,12 +79,19 @@
                 </textarea>
         </div>
 
-        <a (click)="updateRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
+        <!-- <a (click)="updateRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text" style="color:white">Editar Pedido</span>
-        </a>
+        </a> -->
+        <button (click)="updateRequest()" [disabled]="test()" class="btn btn-primary btn-icon-split float-right mb-3">
+
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Editar Pedido</span>
+        </button>
         <a [routerLink]="['/requests']" class="btn btn-danger btn-icon-split float-right mb-3">
             <span class="icon text-white-50">
                 <i class="fas fa-times"></i>
