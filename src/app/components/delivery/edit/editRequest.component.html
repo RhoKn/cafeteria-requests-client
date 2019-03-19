@@ -1,0 +1,105 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Editar Pedido</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-row mb-2">
+            <div class="col-md-3 mb-3">
+                <label for="validationCustom05">Comedor que relizó el pedido</label>
+                <select id="inputType" class="form-control" name="dR" #dR="ngModel" [(ngModel)]="tmpdRoom" required>
+                    <option *ngFor="let dr of dRoomsName">{{dr}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3"></div>
+            <div class="col-md-6 mb-3 ">
+                <div class="text-right"><label>Creado en:</label></div>
+                <h3 class="text-right" id="dateReq">Obteniendo fecha</h3>
+            </div>
+        </div>
+
+        <ng-container *ngFor="let pt of ptypes, let i = index" id="accordion">
+            <a>
+                {{pt.type}}
+            </a>
+            <hr>
+
+            <div class="container">
+                <ng-container *ngFor="let p of arrayAuxBuild[i], let j = index">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select required id="includedP{{p}}" (click)="test()"  class="form-control searcher{{p}}" required>
+                                <option selected > Producto...</option>
+                                <ng-container *ngFor="let p of products">
+                                    <option *ngIf="p.category.type == pt.type"> {{p.name}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select  required id="includedU{{p}}" (click)="test()" class="form-control" hidden required>
+                                <option disabled selected> Unidad...</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                                <input type="number" id="includedC{{p}}" (click)="test()" (keyup)="test()" placeholder="Cantidad" class="form-control" hidden required>
+                        </div>
+                        <div class="col-sm-3">
+                            <select  required id="includedPr{{p}}"  (click)="test()" class="form-control" hidden required>
+                                <option disabled selected> Proveedor...</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                                <a class="table-link danger " (click)="deleteLine(i,j)">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <button hidden type="button" id="trigger{{p}}" (click)="setInfo(p)">{{p}}</button>
+                            </div>
+
+                    </div>
+                    <hr>
+                </ng-container>
+                <div class="mb-4 text-right">
+                    <button class="btn btn-primary float-right mb-3" type="reset" (click)="addLine(i)">Agregar</button>
+                    <br>
+                    <br>
+                    <br>
+
+                </div>
+            </div>
+
+
+
+
+        </ng-container>
+        <div class="form-row mb-4">
+            <label for="tArequest">Observaciones</label>
+            <textarea id="tArequest" rows="2" cols="50" name="desc" class="form-control" #desc="ngModel" [(ngModel)]="req.observations">
+                </textarea>
+        </div>
+
+        <!-- <a (click)="updateRequest()" class="btn btn-primary btn-icon-split float-right mb-3">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Editar Pedido</span>
+        </a> -->
+        <button (click)="updateRequest()" [disabled]="test()" class="btn btn-primary btn-icon-split float-right mb-3">
+
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text" style="color:white">Editar Pedido</span>
+        </button>
+        <a [routerLink]="['/requests']" class="btn btn-danger btn-icon-split float-right mb-3">
+            <span class="icon text-white-50">
+                <i class="fas fa-times"></i>
+            </span>
+            <span class="text" style="color:white">Cancelar</span>
+        </a>
+
+
+
+
+    </div>

@@ -35,7 +35,8 @@ import { EditProductComponent } from './components/products/edit/editProduct.com
 import { BussesComponent } from './components/busses/busses.component';
 import { BussesListComponent } from './components/busses/bussesList/bussesList.component';
 import { BussesEditComponent } from './components/busses/busses-edit/editBusses.component';
-
+import { DeliveryComponent } from './components/delivery/delivery.component';
+import { DeliveriesListComponent } from './components/delivery/viewList/deliveryList.component';
 
 
 //Token 
@@ -77,7 +78,9 @@ import {RestService} from './rest.service';
     BussesEditComponent,
     BussesListComponent,
     ProvidersListComponent,
-    ProductListComponent
+    ProductListComponent,
+    DeliveryComponent,
+    DeliveriesListComponent
   ],
   imports: [
     BrowserModule,
