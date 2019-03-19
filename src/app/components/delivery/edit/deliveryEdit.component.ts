@@ -36,7 +36,15 @@ export class DeliveryEditComponent implements OnInit {
   ngOnInit() {
     if (this.getRole()) {
       this.getUsers();
+      this.getDRooms();
       this.getTheBusses();
+
+      this.getProducts();
+
+      this.getRequests();
+      this.getProviders();
+
+
       this.rest.getDelivery(this.route.snapshot.params['id']).subscribe((data: {}) => {
         this.theDeliv = data;
         this.theDeliv = this.theDeliv.delivery;
@@ -47,16 +55,32 @@ export class DeliveryEditComponent implements OnInit {
         let driver = document.getElementById('selectedDriver') as HTMLSelectElement;
         (document.getElementById('plateslbl') as HTMLTitleElement).innerText = this.theDeliv.bus.license_plate;
         (document.getElementById('boxSpacelbl') as HTMLTitleElement).innerText = this.theDeliv.bus.space_box;
-
-
         this.users.forEach(usr => {
           if (usr._id === this.theDeliv.bus.user) {
             driver.add(new Option(usr.nick_name));
             driver.selectedIndex = driver.options.length - 1;
           }
         });
+        for (let index = 0; index < this.dRooms.length; index++) {
+          this.theDeliv.delivery.forEach(element => {
+            if(element.dRoom === this.dRooms[index]._id){
+              element.products.forEach(eProd => {
+                this.prodAdded[index].push(eProd);
+              });
+            }
+          });
 
-
+        }
+        console.log(this.prodAdded)
+        for(let large = 0; large < this.prodAdded.length; large++){
+          if(this.prodAdded[large].length > 0){
+            console.log(this.prodAdded[large].length)
+            for(let wide = 0; wide<this.prodAdded[large].length; wide++){
+              (document.getElementById('add' + large + wide) as HTMLButtonElement).hidden = true;
+              (document.getElementById('del' + large + wide) as HTMLButtonElement).hidden = false;
+            }
+          }
+        }
       });
 
 
@@ -89,6 +113,7 @@ export class DeliveryEditComponent implements OnInit {
       this.requests.forEach(element => {
         this.prodAdded.push([]);
       });
+      this.relate();
     });
   }
 
@@ -99,6 +124,11 @@ export class DeliveryEditComponent implements OnInit {
       this.products = this.products.products;
     });
   }
+
+  relate(){
+
+
+}
 
   getDRooms() {
     this.dRooms = [];
@@ -163,12 +193,13 @@ export class DeliveryEditComponent implements OnInit {
         });
       }
     }
-    this.delivery.deliver = finalP;
-    this.delivery.status = 'Creado';
-    this.delivery.user = this.rest.getRole();
+    this.delivery.delivery = finalP;
     this.delivery.requests = rHelper;
 
-    this.rest.createDelivery(this.delivery).subscribe((result) => {
+
+
+    this.rest.updateDelivery(this.theDeliv._id,this.delivery).subscribe((result) => {
+      console.log(result);
       this.router.navigate(['/deliveries']);
     }, (err) => {
       console.log(err);
