@@ -25,6 +25,8 @@ export class DeliveryComponent implements OnInit {
     public searched;
     public added = false;
     public prodAdded: any = [];
+    public flag=0;
+
 
     constructor(public rest: RestService, private route: ActivatedRoute, private router: Router,
         private refChange: ChangeDetectorRef, private formBuilder: FormBuilder) {
@@ -37,9 +39,11 @@ export class DeliveryComponent implements OnInit {
             this.getRequests();
             this.getProviders();
             this.getTheBusses();
+            // this.test();
             this.searcher = $('.driverSearcher').select2();
             this.searcher.on('select2:select', function (e) {
                 document.getElementById('searcherTrigger').click();
+
             });
         } else {
             this.router.navigate(['/requests']);
@@ -109,6 +113,7 @@ export class DeliveryComponent implements OnInit {
         }
     }
     addElement(indexA, indexB) {
+      this.flag++;
         (document.getElementById('add' + indexA + indexB) as HTMLButtonElement).hidden = true;
         (document.getElementById('del' + indexA + indexB) as HTMLButtonElement).hidden = false;
         let pTemp = {
@@ -123,11 +128,24 @@ export class DeliveryComponent implements OnInit {
         console.log(this.prodAdded);
     }
     deleteElement(indexA, indexB) {
+      this.flag--;
         (document.getElementById('add' + indexA + indexB) as HTMLButtonElement).hidden = false;
         (document.getElementById('del' + indexA + indexB) as HTMLButtonElement).hidden = true;
         this.prodAdded[indexA].splice(indexB, 1);
         console.log(this.prodAdded);
     }
+
+    test(){
+      while(true){
+            this.searched = (document.getElementById('selectedDriver') as HTMLSelectElement).value;
+            if(this.searched!='Elegir...' && this.flag!=0){
+              return false
+            }else{
+              return true
+            }
+      }
+    }
+
     createDelivery() {
         let finalP: any = [];
         let pHelper: any = [];
@@ -149,8 +167,10 @@ export class DeliveryComponent implements OnInit {
         this.delivery.user = this.rest.getRole();
         this.delivery.requests = rHelper;
 
+
+
         this.rest.createDelivery(this.delivery).subscribe((result) => {
-            this.router.navigate(['/deliveries']);
+            // this.router.navigate(['/deliveries']);
           }, (err) => {
             console.log(err);
           });

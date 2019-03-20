@@ -134,7 +134,7 @@ export class RequestComponent implements OnInit {
             });
         });
 
-        
+
     }
 
     getDRooms() {
@@ -184,7 +184,7 @@ export class RequestComponent implements OnInit {
                 let providSelect = document.getElementById(`provider${this.linesByCat[counter][aux]}`) as HTMLSelectElement;
 
                 if(prodSelect.value=='' || unitSelect.value=='' || qttyInpt.value==''
-                || providSelect.value=='' || unitSelect.value=='Unidad...' || providSelect.value=='Proveedor...'){
+                || providSelect.value=='' || unitSelect.value=='Unidad...' || parseInt(qttyInpt.value)<1 ||providSelect.value=='Proveedor...'){
 
                   return true;
                 }

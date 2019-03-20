@@ -72,7 +72,7 @@ export class RequestEditComponent implements OnInit {
               let providSelect = document.getElementById(`includedPr${this.arrayAuxBuild[counter][aux]}`) as HTMLSelectElement;
 
               if(prodSelect.value=='' || unitSelect.value=='' || qttyInpt.value==''
-              || providSelect.value=='' || unitSelect.value=='Unidad...' || providSelect.value=='Proveedor...'){
+              || providSelect.value=='' || unitSelect.value=='Unidad...' || parseInt(qttyInpt.value)<1 || providSelect.value=='Proveedor...'){
 
                 return true;
               }

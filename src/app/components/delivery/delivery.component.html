@@ -11,7 +11,7 @@
                     <option selected> Elegir...</option>
                     <option *ngFor="let bs of busses">{{bs.user.nick_name}}</option>
                 </select>
-                <button hidden type="button" id="searcherTrigger" (click)="setInfo()"></button>
+                <button hidden type="button" id="searcherTrigger" (click)="setInfo(); test()"></button>
             </div>
             <div class="col-md-3 mb-3"></div>
             <div class="col-md-3 mb-3 pull-right">
@@ -82,7 +82,7 @@
             </div>
         </ng-container>
 
-        <button [disabled]="" (click)="createDelivery()" class="btn btn-primary btn-icon-split float-right mb-3">
+        <button [disabled]="test()" (click)="createDelivery()" class="btn btn-primary btn-icon-split float-right mb-3">
 
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
@@ -98,7 +98,3 @@
         </a>
     </div>
 </div>
-   
-
-
-   
