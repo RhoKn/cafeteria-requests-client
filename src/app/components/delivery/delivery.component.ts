@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 })
 export class DeliveryComponent implements OnInit {
     public providers: any = [];
+    public flag=0;
     public $: any;
     public requests: any = [];
     public products: any = [];
@@ -109,6 +110,7 @@ export class DeliveryComponent implements OnInit {
         }
     }
     addElement(indexA, indexB) {
+        this.flag++;
         (document.getElementById('add' + indexA + indexB) as HTMLButtonElement).hidden = true;
         (document.getElementById('del' + indexA + indexB) as HTMLButtonElement).hidden = false;
         let pTemp = {
@@ -123,6 +125,7 @@ export class DeliveryComponent implements OnInit {
         console.log(this.prodAdded);
     }
     deleteElement(indexA, indexB) {
+        this.flag--;
         (document.getElementById('add' + indexA + indexB) as HTMLButtonElement).hidden = false;
         (document.getElementById('del' + indexA + indexB) as HTMLButtonElement).hidden = true;
         this.prodAdded[indexA].splice(indexB, 1);
@@ -155,4 +158,15 @@ export class DeliveryComponent implements OnInit {
             console.log(err);
           });
     }
+
+    test(){
+        while(true){
+              this.searched = (document.getElementById('selectedDriver') as HTMLSelectElement).value;
+              if(this.searched!='Elegir...' && this.flag!=0){
+                return false
+              }else{
+                return true
+              }
+        }
+      }
 }
